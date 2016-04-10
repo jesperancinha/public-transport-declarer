@@ -1,4 +1,9 @@
+# Angular JS 2 Startup
 typings/
 node_modules/
 *.js
 *.js.map
+
+# Log files
+**/*.log
+
