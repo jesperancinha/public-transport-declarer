@@ -29,6 +29,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * https://github.com/angular/quickstart/blob/master/README.md
 
+* https://pt.wikipedia.org/wiki/Bisca
+
 ## License
 
 ```
