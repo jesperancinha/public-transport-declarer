@@ -13,3 +13,9 @@ hs_err_pid*
 
 # Ignores idea files
 .idea
+
+# Log files
+**/*.log
+
+# Idea files
+**/*.iml
