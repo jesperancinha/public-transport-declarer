@@ -1,3 +1,23 @@
+# BiscaJE UI
+
+## Quick tests
+
+NodeJS is used to achieve REST test calls for the game:
+
+```
+$ npm install
+
+$ node server
+```
+
+## References:
+
+* http://coenraets.org/blog/2016/02/angular2-ionic2-rest-services/
+
+
+
+*Note: The following is just a copy of the Angular 2 Quickstart Source*
+
 # Angular 2 QuickStart Source
 
 This repository holds the TypeScript source code of the [angular.io quickstart](https://angular.io/docs/ts/latest/quickstart.html),
