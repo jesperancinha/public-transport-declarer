@@ -5,6 +5,24 @@ An implementation of the "Jogo da Bisca", which is a portuguese variant of the o
 
 The main purpose of this project is to explore Angular 2 and TypeScript and how can these interact with a REST API implmented with Spring 4.
 
+## Context
+
+The technologies usedi in this project range from TypeScript and Angular 2 in the front end to J2EE in the back end.
+
+REST services are used and for this case Jersey and Jackson are used. In short:
+
+
+* Angular 2 - Defines Front End.
+
+* TypeScript - Code that is compiled before deployment with an OOP structure.
+
+* Jersey - Implementation of the REST API and extensions for JAX-RS.
+
+* Jackson - Provides mapping for POJOS.
+
+* JAX-RS - Offers the binding and some.
+
+
 ## References
 
 * https://angular.io/docs/ts/latest/quickstart.html
