@@ -12,6 +12,8 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+
     <!-- 2. Configure SystemJS -->
     <script>
       System.config({
@@ -22,7 +24,7 @@
           }
         }
       });
-      System.import('app/main')
+      System.import('app/game')
             .then(null, console.error.bind(console));
     </script>
   </head>

@@ -20,7 +20,7 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * Jackson - Provides mapping for POJOS.
 
-* JAX-RS - Offers the binding and some.
+* JAX-RS - Offers the binding and some limited mappings
 
 
 ## References

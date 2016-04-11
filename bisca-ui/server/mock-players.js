@@ -6,7 +6,7 @@ exports.data = [
                 { cardNumber : 1 },
                 { cardNumber : 52 },
                 { cardNumber : 26 }
-            ]
+            ],
             ncards: 3
         },
         {
