@@ -20,7 +20,7 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * Jackson - Provides mapping for POJOS.
 
-* JAX-RS - Offers the binding and some.
+* JAX-RS - Offers the binding and some limited mappings
 
 
 ## References
@@ -28,6 +28,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 * https://angular.io/docs/ts/latest/quickstart.html
 
 * https://github.com/angular/quickstart/blob/master/README.md
+
+* https://pt.wikipedia.org/wiki/Bisca
 
 ## License
 

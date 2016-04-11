@@ -14,7 +14,7 @@ $ node server
 
 * http://coenraets.org/blog/2016/02/angular2-ionic2-rest-services/
 
-
+* http://offering.solutions/articles/angular/rest-api-angular2-http-typescript/
 
 *Note: The following is just a copy of the Angular 2 Quickstart Source*
 
