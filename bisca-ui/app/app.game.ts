@@ -27,10 +27,11 @@ export class PlayerStatusComponent implements OnInit {
 
     //...
 
+
     private getAllItems(): void {
         this._playerService
             .GetAll()
-            .subscribe((data:PlayerStatus[]) => this.myItems = data,
+            .subscribe((data:PlayerStatus[]) => this.myItems = data.players,
                 error => console.log(error),
                 () => console.log('Get all Items complete'));
     }
