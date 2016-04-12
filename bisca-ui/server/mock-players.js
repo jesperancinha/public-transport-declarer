@@ -1,6 +1,6 @@
 exports.data =
 
-            {
+            [{
                 currentId : 1,
                 players: [
                     {
@@ -20,4 +20,4 @@ exports.data =
                         ncards: 2
                     }
                 ]
-            };
+            }];
