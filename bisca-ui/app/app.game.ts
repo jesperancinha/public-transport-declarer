@@ -2,22 +2,24 @@ import { Component, OnInit } from 'angular2/core';
 import { CORE_DIRECTIVES } from 'angular2/common';
 import { PlayerService } from './services/PlayerService';
 import { PlayerStatus } from './models/PlayerStatus';
+import { PlayerBoard } from  './models/PlayerBoard';
 
 @Component({
     selector: 'bisca-game-play',
     providers: [PlayerService],
     template: `
-     <ul class="myItems">
-          <li *ngFor="#item of myItems">
-            <span>{{item.id}}</span>
-          </li>
-     </ul>
+    <template ngFor #board [ngForOf]="myItems" #i="index">
+        <li *ngFor="#player of board.players">
+                <span>{{player.id}}</span>
+                <span>{{player.name}}</span>
+         </li>
+    </template>
     `,
     directives: [CORE_DIRECTIVES]
 })
 
 export class PlayerStatusComponent implements OnInit {
-    public myItems: PlayerStatus [];
+    public myItems: PlayerBoard[];
 
     constructor(private _playerService: PlayerService) { }
 
@@ -27,10 +29,11 @@ export class PlayerStatusComponent implements OnInit {
 
     //...
 
+
     private getAllItems(): void {
         this._playerService
             .GetAll()
-            .subscribe((data:PlayerStatus[]) => this.myItems = data,
+            .subscribe((data:PlayerBoard[]) => this.myItems = data,
                 error => console.log(error),
                 () => console.log('Get all Items complete'));
     }

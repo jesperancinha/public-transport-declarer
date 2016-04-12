@@ -3,5 +3,5 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>J2EE Web application for BiscaJE</display-name>
 </web-app>

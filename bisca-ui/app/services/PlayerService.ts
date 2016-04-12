@@ -2,7 +2,7 @@ import { Injectable } from 'angular2/core';
 import { Http, Response, Headers } from 'angular2/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
-import { PlayerStatus } from '../models/PlayerStatus';
+import { PlayerBoard } from '../models/PlayerBoard';
 import { Configuration } from '../app.constants';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class PlayerService {
         this.headers.append('Accept', 'application/json');
     }
 
-    public GetAll = (): Observable<PlayerStatus[]> => {
+    public GetAll = (): Observable<PlayerBoard[]> => {
         return this._http.get(this.actionUrl).map(res => res.json());
     }
 }
