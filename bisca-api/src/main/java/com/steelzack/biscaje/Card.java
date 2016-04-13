@@ -1,6 +1,6 @@
 package com.steelzack.biscaje;
 
-import com.steelzack.biscaje.enums.DeckType;
+import com.steelzack.biscaje.enums.SuitType;
 
 /**
  * Created by joaofilipesabinoesperancinha on 13-04-16.
@@ -8,7 +8,7 @@ import com.steelzack.biscaje.enums.DeckType;
 public interface Card {
     Integer getCardValue();
 
-    DeckType getDeckType();
+    SuitType getDeckType();
 
     Integer getOrderNumber();
 
