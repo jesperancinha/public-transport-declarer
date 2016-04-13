@@ -31,6 +31,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * https://pt.wikipedia.org/wiki/Bisca
 
+* https://dzone.com/articles/java-web-application-security#download-run
+
 ## License
 
 ```

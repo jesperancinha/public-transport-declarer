@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>steelzack</groupId>
-    <artifactId>bisca-web</artifactId>
+    <artifactId>bisca-je</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>bisca-web Maven Webapp</name>
@@ -10,6 +10,7 @@
 
     <modules>
         <module>bisca-api</module>
+        <module>bisca-rest-api</module>
         <module>bisca-web</module>
         <module>bisca-model</module>
     </modules>
