@@ -33,6 +33,10 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * https://dzone.com/articles/java-web-application-security#download-run
 
+* https://auth0.com/blog/2015/05/14/creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between/
+
+* https://auth0.com/blog/2015/10/15/angular-2-series-part-3-using-http/
+
 ## License
 
 ```
