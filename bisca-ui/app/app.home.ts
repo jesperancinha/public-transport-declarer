@@ -1,7 +1,7 @@
+import {Component} from "angular2/core";
+import {Router} from "angular2/router";
 @Component({
-  selector: 'home'
-})
-@View({
+  selector: 'home',
   // Here we specify the template we'll use
   templateUrl: 'home/home.html',
   // We also specify which directives will be used in our template

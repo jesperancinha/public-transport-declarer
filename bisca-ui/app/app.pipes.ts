@@ -1,6 +1,7 @@
 //… imports
 
 // We must extend Pipe and JSONPipeFactory to create a singleton pipe first
+import {Pipe} from "angular2/core";
 export class JSONPipeFactory extends Pipe {
   // In this method we must return which objects can be used with this pipe. In this case, we accept any object.
   supports(obj):boolean {
@@ -13,7 +14,8 @@ export class JSONPipeFactory extends Pipe {
   }
 
   // This method creates a new pipe. Since we're going to use a singleton pipe, we'll always return this in this case.
-  create():Pipe {
+  create():
+  Pipe {
     return this;
   }
 }

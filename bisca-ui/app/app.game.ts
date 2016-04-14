@@ -1,8 +1,7 @@
-import { Component, OnInit } from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
-import { PlayerService } from './services/PlayerService';
-import { PlayerStatus } from './models/PlayerStatus';
-import { PlayerBoard } from  './models/PlayerBoard';
+import {Component, OnInit} from "angular2/core";
+import {CORE_DIRECTIVES} from "angular2/common";
+import {PlayerService} from "./services/PlayerService";
+import {PlayerBoard} from "./models/PlayerBoard";
 
 @Component({
     selector: 'bisca-game-play',

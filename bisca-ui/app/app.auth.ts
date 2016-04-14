@@ -1,10 +1,13 @@
-// app.js
-// … imports
+import {Component, bind} from 'angular2/core';
+import {bootstrap}    from 'angular2/platform/browser';
+import {RouterOutlet, Router} from "angular2/router";
+import {Home} from "./app.home";
+import {Login} from "./app.login";
+import {RootRouter} from "angular2/src/router/router";
+import {pipes} from "./app.pipes";
 @Component({
   // HTML selector for this component
-  selector: 'auth-app'
-})
-@View({
+  selector: 'auth-app',
   template: `
     <!-- The router-outlet displays the template for the current component based on the URL -->
     <router-outlet></router-outlet>
@@ -23,9 +26,8 @@ export class App {
   }
 }
 
+// app.js
 bootstrap(App, [
-  // Here we're creating the Router.
-  // We're also configuring DI, so that each time a Router is requested, it's automatically returned.
-  bind(Router).toValue(new RootRouter(new Pipeline()))
+  bind(Router).toValue(new RootRouter(new Pipeline())),
   bind(PipeRegistry).toValue(new PipeRegistry(pipes))
-)
+]);

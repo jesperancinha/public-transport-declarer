@@ -1,8 +1,8 @@
 // login.js
+import {Component} from "angular2/core";
+import {Router} from "angular2/router";
 @Component({
-  selector: 'login'
-})
-@View({
+  selector: 'login',
   // Template for this component. You can see it below
   templateUrl: 'login/login.html'
 })
