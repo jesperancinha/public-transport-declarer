@@ -1,0 +1,11 @@
+<!-- template -->
+<!-- On form submit, we call the Login event with the username and the password from the inputs -->
+<form (submit)="login($event, username.value, password.value)">
+    <label for="username">Username</label>
+    <!-- Using #username, we can identify this input to get the value on the form's submit event -->
+    <input type="text" #username class="form-control" id="username" placeholder="Username">
+    <label for="password">Password</label>
+    <!-- Using #password we can identify this input to get its value -->
+    <input type="password" #password class="form-control" id="password" placeholder="Password">
+    <button type="submit">Submit</button>
+</form>
