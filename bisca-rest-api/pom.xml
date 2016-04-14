@@ -26,7 +26,7 @@
     </properties>
 
     <build>
-        <finalName>bisca-web</finalName>
+        <finalName>bisca-rest-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
