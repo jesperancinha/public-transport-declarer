@@ -7,7 +7,7 @@ The main purpose of this project is to explore Angular 2 and TypeScript and how 
 
 ## Context
 
-The technologies usedi in this project range from TypeScript and Angular 2 in the front end to J2EE in the back end.
+The technologies used in this project range from TypeScript and Angular 2 in the front end to J2EE in the back end.
 
 REST services are used and for this case Jersey and Jackson are used. In short:
 
@@ -22,6 +22,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * JAX-RS - Offers the binding and some limited mappings
 
+* MongoDB - This is the database where the user details, the game details and scores will be stored
+
 
 ## References
 
@@ -32,6 +34,10 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 * https://pt.wikipedia.org/wiki/Bisca
 
 * https://dzone.com/articles/java-web-application-security#download-run
+
+* https://auth0.com/blog/2015/05/14/creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between/
+
+* https://auth0.com/blog/2015/10/15/angular-2-series-part-3-using-http/
 
 ## License
 

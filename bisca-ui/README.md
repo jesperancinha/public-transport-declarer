@@ -8,6 +8,10 @@ NodeJS is used to achieve REST test calls for the game:
 $ npm install
 
 $ node server
+
+# Further installation tips(not scrictly necessary):
+
+$ npm install -g tsd@^0.6.0
 ```
 
 ## References:
@@ -15,6 +19,10 @@ $ node server
 * http://coenraets.org/blog/2016/02/angular2-ionic2-rest-services/
 
 * http://offering.solutions/articles/angular/rest-api-angular2-http-typescript/
+
+* https://github.com/auth0-blog/nodejs-jwt-authentication-sample
+
+* https://github.com/auth0-blog/angular2-authentication-sample
 
 *Note: The following is just a copy of the Angular 2 Quickstart Source*
 
