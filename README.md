@@ -7,7 +7,7 @@ The main purpose of this project is to explore Angular 2 and TypeScript and how 
 
 ## Context
 
-The technologies usedi in this project range from TypeScript and Angular 2 in the front end to J2EE in the back end.
+The technologies used in this project range from TypeScript and Angular 2 in the front end to J2EE in the back end.
 
 REST services are used and for this case Jersey and Jackson are used. In short:
 
@@ -21,6 +21,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 * Jackson - Provides mapping for POJOS.
 
 * JAX-RS - Offers the binding and some limited mappings
+
+* MongoDB - This is the database where the user details, the game details and scores will be stored
 
 
 ## References
