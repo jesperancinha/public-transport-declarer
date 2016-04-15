@@ -32,9 +32,9 @@ module.exports = {
     'app': [
       './index'
     ],
-     'app.component': [
+    'main': [
           './index'
-        ]
+    ]
   },
 
   // Config for our build files
@@ -98,7 +98,7 @@ module.exports = {
 
   plugins: [
     new CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
-    new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor', 'app.component' ] })
+    new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 3, chunks: ['app', 'vendor', 'main' ] })
   ],
 
   // Other module loader config
