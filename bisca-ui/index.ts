@@ -6,6 +6,7 @@ import { Http, HTTP_PROVIDERS } from 'angular2/http';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
 import { App } from './app/app';
+import { AppComponent } from './app/app.component';
 
 bootstrap(
   App,
@@ -23,3 +24,5 @@ bootstrap(
     })
   ]
 );
+
+bootstrap (AppComponent);
