@@ -7,3 +7,4 @@
 /// <reference path="main/ambient/webpack/index.d.ts" />
 /// <reference path="main/ambient/zone/index.d.ts" />
 /// <reference path="main/definitions/es6-promise/index.d.ts" />
+/// <reference path="node_modules/angular2/typings/browser.d.ts" />

@@ -10,7 +10,7 @@ $ npm install
 # Choose one:
 $ npm run lite
 # or
-$ npm run frontend
+$ npm run front
 
 # Further installation tips(not scrictly necessary):
 
