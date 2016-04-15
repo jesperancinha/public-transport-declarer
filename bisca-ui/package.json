@@ -4,6 +4,8 @@
   "description": "This is a sample that shows how to add authentication to an Angular 2 (ng2) app",
   "main": "",
   "scripts": {
+    "front": "webpack-dev-server --inline -d --colors --display-error-details --display-cached --port 3000",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "tsc": "tsc",
     "tsc:w": "tsc -w",

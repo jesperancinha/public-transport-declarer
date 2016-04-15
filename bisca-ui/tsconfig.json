@@ -9,18 +9,18 @@
   },
   "files": [
     "typings/tsd.d.ts",
-    "src/app/app.ts",
-    "src/app/main.ts",
-    "src/app/game.ts",
-    "src/app/app.game.ts",
-    "src/home/home.ts",
-    "src/login/login.ts",
-    "src/signup/signup.ts",
-    "src/index.ts",
-    "src/common/headers.ts"
+    "app/app.ts",
+    "app/main.ts",
+    "app/game.ts",
+    "app/app.game.ts",
+    "home/home.ts",
+    "login/login.ts",
+    "signup/signup.ts",
+    "index.ts",
+    "common/headers.ts"
   ],
     "filesGlob": [
-    "./src/**/*.ts",
+    "./**/*.ts",
     "!./node_modules/**/*.ts"
   ],
   "compileOnSave": false,

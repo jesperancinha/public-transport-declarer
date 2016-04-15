@@ -30,8 +30,11 @@ module.exports = {
       'angular2-jwt'
     ],
     'app': [
-      './src/index'
-    ]
+      './index'
+    ],
+     'app.component': [
+          './index'
+        ]
   },
 
   // Config for our build files
@@ -88,22 +91,22 @@ module.exports = {
      /zone\.js\/dist\/.+/,
      /reflect-metadata/,
      /es(6|7)-.+/,
-     /.zone-microtask/, 
+     /.zone-microtask/,
      /.long-stack-trace-zone/
     ]
   },
 
   plugins: [
     new CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
-    new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor'] })
+    new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 2, chunks: ['app', 'vendor', 'app.component' ] })
   ],
-  
+
   // Other module loader config
   tslint: {
     emitErrors: false,
     failOnHint: false
   },
-  
+
   // our Development Server configs
   // our Webpack Development Server config
   devServer: {
