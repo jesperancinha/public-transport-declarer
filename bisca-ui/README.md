@@ -7,7 +7,10 @@ NodeJS is used to achieve REST test calls for the game:
 ```
 $ npm install
 
-$ node server
+# Choose one:
+$ npm run lite
+# or
+$ npm run frontend
 
 # Further installation tips(not scrictly necessary):
 
