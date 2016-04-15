@@ -1,6 +1,6 @@
 # Angular JS 2 Startup
-src/**/*.js
-src/**/*.js.map
+app/**/*.js
+app/**/*.js.map
 
 # Node modules
 node_modules
