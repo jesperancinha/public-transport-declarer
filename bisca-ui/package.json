@@ -1,35 +1,50 @@
 {
-  "name": "BiscaJE",
-  "description": "BiscaJE",
-  "version": "1.0.0",
+  "name": "angular2-authentication-sample",
+  "version": "0.0.1",
+  "description": "This is a sample that shows how to add authentication to an Angular 2 (ng2) app",
+  "main": "",
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "lite": "lite-server",
-    "typings": "typings",
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\"",
     "docker-build": "docker build -t ng2-quickstart .",
     "docker": "npm run docker-build && docker run -it --rm -p 3000:3000 -p 3001:3001 ng2-quickstart",
-    "postinstall": "typings install"
+    "e2e": "tsc && concurrently \"http-server\" \"protractor protractor.config.js\"",
+    "lite": "lite-server",
+    "postinstall": "typings install",
+    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings",
+    "webdriver:update": "webdriver-manager update",
+    "front": "webpack-dev-server --inline -d --colors --display-error-details --display-cached --port 3000"
   },
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jesperancinha/bisca-je.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/auth0/angular2-authentication-sample/issues"
+  },
+  "homepage": "https://github.com/jesperancinha/bisca-je",
   "dependencies": {
     "typings": "0.7.12",
     "angular2": "2.0.0-beta.14",
     "angular2-jwt": "0.1.9",
     "jwt-decode": "^1.5.1",
-    "systemjs": "0.19.25",
+    "systemjs": "0.19.26",
     "rxjs": "5.0.0-beta.2",
     "zone.js": "0.6.6",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "cors": "^2.7.1",
-    "es6-promise": "3.0.2",
-    "es6-shim": "0.33.13",
     "express": "^4.13.4",
     "ionic-framework": "2.0.0-beta.1",
     "ionicons": "3.0.0-alpha.3",
-    "reflect-metadata": "0.1.2"
+    "reflect-metadata": "0.1.2",
+    "bootstrap": "^3.3.6",
+    "es6-promise": "^3.1.2",
+    "es6-shim": "^0.35.0",
+    "es7-reflect-metadata": "^1.6.0"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
@@ -40,6 +55,22 @@
     "babel-loader": "6.2.3",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
     "babel-preset-es2015": "6.5.0",
-    "strip-sourcemap-loader": "0.0.1"
+    "strip-sourcemap-loader": "0.0.1",
+    "css-loader": "^0.23.1",
+    "exports-loader": "^0.6.3",
+    "expose-loader": "^0.7.1",
+    "file-loader": "^0.8.5",
+    "imports-loader": "^0.6.5",
+    "json-loader": "^0.5.4",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.0",
+    "ts-loader": "^0.8.2",
+    "tsconfig-lint": "^0.7.0",
+    "tslint": "^3.5.0",
+    "tslint-loader": "^2.1.3",
+    "typedoc": "^0.3.12",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   }
 }

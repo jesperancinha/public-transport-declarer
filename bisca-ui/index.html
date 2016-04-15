@@ -1,35 +1,32 @@
-<html>
-  <head>
-    <title>Angular 2 QuickStart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
-    <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
-    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
-    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script src="node_modules/angular2/bundles/http.dev.js"></script>
-    <!-- 2. Configure SystemJS -->
-    <script>
-      System.config({
-        packages: {        
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
-      });
-      System.import('app/main')
-            .then(null, console.error.bind(console));
-    </script>
-  </head>
-  <!-- 3. Display the application -->
-  <body>
-    <my-app>Loading...</my-app>
-    <my-app2>Reading...</my-app2>
-  </body>
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <title>Angular2 demo by @Auth0</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <base href="/">
+  <!-- styles -->
+  <link rel="stylesheet" type="text/css" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+  <!-- Util -->
+  <script type="text/javascript" src="/node_modules/jwt-decode/build/jwt-decode.js"></script>
+</head>
+<body>
+  <my-app>Loading...</my-app>
+
+  <auth-app>
+    Loading...
+  </auth-app>
+
+  <!-- Commmon files to be cached -->
+  <script src="/build/common.js"></script>
+  <!-- Angular2 files -->
+  <script src="/build/vendor.js"></script>
+  <!-- App script -->
+  <script src="/build/app.component.js"></script>
+  <script src="/build/app.js"></script>
+</body>
 </html>

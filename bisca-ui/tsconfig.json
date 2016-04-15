@@ -1,17 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "system",
-    "moduleResolution": "node",
-    "sourceMap": true,
+    "target": "ES5",
+    "module": "commonjs",
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false
+    "sourceMap": true,
+    "moduleResolution" : "node"
   },
-  "exclude": [
-    "node_modules",
-    "typings/main",
-    "typings/main.d.ts"
-  ]
+  "files": [
+    "typings/tsd.d.ts",
+    "app/app.ts",
+    "app/main.ts",
+    "app/game.ts",
+    "app/app.game.ts",
+    "app/app.component.ts",
+    "app/app.constants.ts",
+    "home/home.ts",
+    "login/login.ts",
+    "signup/signup.ts",
+    "index.ts",
+    "common/headers.ts"
+  ],
+    "filesGlob": [
+    "./**/*.ts",
+    "!./node_modules/**/*.ts"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { "rewriteTsconfig": true }
 }

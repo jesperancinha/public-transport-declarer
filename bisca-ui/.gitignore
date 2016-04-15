@@ -1,15 +1,25 @@
 # Angular JS 2 Startup
-typings/
-node_modules/
-app/*.js
-app/*.js.map
-app/models/*.js
-app/models/*.js.map
-app/services/*.js
-app/services/*.js.map
+typings/**/*.js
+typings/**/*.js.map
+signup/**/*.js
+signup/**/*.js.map
+login/**/*.js
+login/**/*.js.map
+home/**/*.js
+home/**/*.js.map
+common/**/*.js
+common/**/*.js.map
+app/**/*.js
+app/**/*.js.map
+index.js
+index.js.map
 
-
+# Node modules
+node_modules
 
 # Log files
 **/*.log
 
+# typings
+typings/browser/ambient
+typings/main/ambient
