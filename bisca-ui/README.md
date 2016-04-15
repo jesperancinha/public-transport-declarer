@@ -1,11 +1,11 @@
 # BiscaJE UI
 
-## Quick tests
-
-NodeJS is used to achieve REST test calls for the game:
+## Building the game:
 
 ```
 $ npm install
+
+$ tsc
 
 # Choose one:
 $ npm run lite
@@ -30,6 +30,8 @@ $ npm install typings --global
 * https://github.com/auth0-blog/angular2-authentication-sample
 
 *Note: The following is just a copy of the Angular 2 Quickstart Source*
+
+---
 
 # Angular 2 QuickStart Source
 
