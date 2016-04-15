@@ -12,6 +12,8 @@ $ node server
 # Further installation tips(not scrictly necessary):
 
 $ npm install -g tsd@^0.6.0
+
+$ npm install typings --global
 ```
 
 ## References:

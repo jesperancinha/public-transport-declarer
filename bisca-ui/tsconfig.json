@@ -8,8 +8,11 @@
     "sourceMap": true
   },
   "files": [
-    "typings/tsd.d.ts",  
+    "typings/tsd.d.ts",
     "src/app/app.ts",
+    "src/app/main.ts",
+    "src/app/game.ts",
+    "src/app/app.game.ts",
     "src/home/home.ts",
     "src/login/login.ts",
     "src/signup/signup.ts",

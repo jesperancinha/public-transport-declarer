@@ -4,10 +4,14 @@
   "description": "This is a sample that shows how to add authentication to an Angular 2 (ng2) app",
   "main": "",
   "scripts": {
-    "server": "cd backend && npm i && node server.js",
-    "front": "webpack-dev-server --inline -d --colors --display-error-details --display-cached --port 3000",
-    "start": "npm run front",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "lite": "lite-server",
+    "typings": "typings",
+    "docker-build": "docker build -t ng2-quickstart .",
+    "docker": "npm run docker-build && docker run -it --rm -p 3000:3000 -p 3001:3001 ng2-quickstart",
+    "postinstall": "typings install"
   },
   "repository": {
     "type": "git",

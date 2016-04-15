@@ -1,2 +1,9 @@
+# Angular JS 2 Startup
+src/**/*.js
+src/**/*.js.map
+
 # Node modules
 node_modules
+
+# Log files
+**/*.log
