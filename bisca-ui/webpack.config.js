@@ -16,7 +16,7 @@ module.exports = {
       'es6-shim',
       'es6-promise',
       'reflect-metadata',
-      'zone.js/dist/zone-microtask',
+      'zone.js/dist/zone',
       'zone.js/dist/long-stack-trace-zone',
       // Angular2
       'angular2/platform/browser',

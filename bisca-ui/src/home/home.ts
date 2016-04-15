@@ -1,4 +1,4 @@
-import { Component, View } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { CORE_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
 import { AuthHttp } from 'angular2-jwt';
@@ -9,9 +9,7 @@ let template = require('./home.html');
 
 
 @Component({
-  selector: 'home'
-})
-@View({
+  selector: 'home',
   directives: [CORE_DIRECTIVES],
   template: template,
   styles: [styles]
