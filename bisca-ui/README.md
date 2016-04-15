@@ -25,13 +25,13 @@ $ npm install typings --global
 
 * http://offering.solutions/articles/angular/rest-api-angular2-http-typescript/
 
-* https://github.com/auth0-blog/nodejs-jwt-authentication-sample
-
 * https://github.com/auth0-blog/angular2-authentication-sample
 
-*Note: The following is just a copy of the Angular 2 Quickstart Source*
+* https://github.com/auth0-blog/nodejs-jwt-authentication-sample
 
----
+*Note: The following are the exact descriptions of the projects used to make this UI*
+
+--- 
 
 # Angular 2 QuickStart Source
 
@@ -91,6 +91,8 @@ Remember the npm scripts in `package.json`:
 with excellent support for Angular apps that use routing.
 * `npm run typings` - runs the typings tool.
 * `npm run postinstall` - called by *npm* automatically *after* it successfully completes package installation. This script installs the TypeScript definition files this app requires.
+
+---
 
 # Angular 2: Authentication sample.
 
