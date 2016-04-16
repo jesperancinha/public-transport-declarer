@@ -15,12 +15,15 @@
     "app/game.ts",
     "app/app.game.ts",
     "app/app.component.ts",
-    "app/app.constants.ts",
+    "app/services/app.constants.ts",
     "home/home.ts",
     "login/login.ts",
     "signup/signup.ts",
     "index.ts",
-    "common/headers.ts"
+    "common/headers.ts",
+    "app/models/player.board.ts",
+    "app/models/player.status.ts",
+    "app/services/player.service.ts"
   ],
     "filesGlob": [
     "./**/*.ts",
