@@ -21,9 +21,9 @@
     "signup/signup.ts",
     "index.ts",
     "common/headers.ts",
-    "app/models/PlayerBoard.ts",
-    "app/models/PlayerStatus.ts",
-    "app/services/PlayerService.ts"
+    "app/models/player.board.ts",
+    "app/models/player.status.ts",
+    "app/services/player.service.ts"
   ],
     "filesGlob": [
     "./**/*.ts",

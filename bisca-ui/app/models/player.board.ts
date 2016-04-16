@@ -1,4 +1,4 @@
-import {PlayerStatus} from './PlayerStatus';
+import {PlayerStatus} from './player.status';
 
 export class PlayerBoard {
     public currentId: number;
