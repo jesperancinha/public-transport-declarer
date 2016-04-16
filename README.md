@@ -3,7 +3,7 @@ An implementation of the "Jogo da Bisca", which is a portuguese variant of the o
 
 ## Content
 
-The main purpose of this project is to explore Angular 2 and TypeScript and how can these interact with a REST API implmented with Spring 4.
+The main purpose of this project is to explore Angular 2 and TypeScript and how can these interact with a REST API implmented with J2EE.
 
 ## Context
 
@@ -38,6 +38,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 * https://auth0.com/blog/2015/05/14/creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between/
 
 * https://auth0.com/blog/2015/10/15/angular-2-series-part-3-using-http/
+
+* https://examples.javacodegeeks.com/core-java/json-jax-rs-example/
 
 ## License
 
