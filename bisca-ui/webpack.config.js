@@ -34,6 +34,21 @@ module.exports = {
     ],
     'app.component': [
           './index'
+    ],
+    'models/PlayerBoard': [
+          './gameplay'
+    ],
+    'models/PlayerStatus': [
+          './gameplay'
+    ],
+    'services/PlayerService': [
+          './gameplay'
+    ],
+    'app.game': [
+          './gameplay'
+    ],
+    'services/app.constants': [
+          './gameplay'
     ]
   },
 
@@ -98,7 +113,8 @@ module.exports = {
 
     plugins: [
       new CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
-      new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 3, chunks: ['app', 'vendor', 'app.component' ] })
+      new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 3, chunks:
+      ['app', 'vendor', 'app.component', 'models/PlayerBoard, models/PlayerStatus, services/PlayerService', 'app.game', 'services/app.constants' ] })
     ],
 
     // Other module loader config

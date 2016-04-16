@@ -1,5 +1,5 @@
 import {bootstrap}    from 'angular2/platform/browser';
-import {Configuration} from './app.constants'
+import {Configuration} from './services/app.constants'
 import {PlayerStatusComponent} from './app.game';
 import {PlayerService} from './services/PlayerService'
 import {PlayerStatus} from './models/PlayerStatus'
