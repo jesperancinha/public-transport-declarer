@@ -3,7 +3,7 @@ An implementation of the "Jogo da Bisca", which is a portuguese variant of the o
 
 ## Content
 
-The main purpose of this project is to explore Angular 2 and TypeScript and how can these interact with a REST API implmented with Spring 4.
+The main purpose of this project is to explore Angular 2 and TypeScript and how can these interact with a REST API implmented with J2EE.
 
 ## Context
 
