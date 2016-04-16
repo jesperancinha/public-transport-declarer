@@ -1,7 +1,7 @@
-import {Component, OnInit} from "angular2/core";
-import {CORE_DIRECTIVES} from "angular2/common";
-import {PlayerService} from "./services/player.service";
-import {PlayerBoard} from "./models/player.board";
+import {Component, OnInit} from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
+import {PlayerService} from './services/player.service';
+import {PlayerBoard} from './models/player.board';
 import { Http, HTTP_PROVIDERS } from 'angular2/http';
 
 let styles = require('./app.css');
@@ -10,8 +10,8 @@ let styles = require('./app.css');
     selector: 'bisca-game-play',
     providers: [PlayerService],
     template: `
-    <template ngFor #board [ngForOf]="myItems" #i="index">
-        <li *ngFor="#player of board.players">
+    <template ngFor #board [ngForOf]='myItems' #i='index'>
+        <li *ngFor='#player of board.players'>
                 <span>{{player.id}}</span>
                 <span>{{player.name}}</span>
          </li>
@@ -36,7 +36,7 @@ export class PlayerStatusComponent implements OnInit {
     private getAllItems(): void {
         this._playerService
             .GetAll()
-            .subscribe((data:PlayerBoard[]) => this.myItems = data,
+            .subscribe((data: PlayerBoard[]) => this.myItems = data,
                 error => console.log(error),
                 () => console.log('Get all Items complete'));
     }

@@ -1,6 +1,6 @@
 import { Injectable } from 'angular2/core';
 import { Http, Response, Headers } from 'angular2/http';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { PlayerBoard } from '../models/player.board';
 import { Configuration } from './app.constants';
@@ -22,6 +22,5 @@ export class PlayerService {
 
     public GetAll = (): Observable<PlayerBoard[]> => {
         return this._http.get(this.actionUrl).map(res => res.json());
-    }
-}
-
+    };
+};
