@@ -23,3 +23,6 @@ node_modules
 # typings
 typings/browser/ambient
 typings/main/ambient
+
+# webpack build (if ever built)
+build

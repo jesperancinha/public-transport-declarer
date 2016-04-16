@@ -11,12 +11,19 @@ $ tsc
 $ npm run lite
 # or
 $ npm run front
+```
 
-# Further installation tips(not scrictly necessary):
+# Creating the game
+*Further installation tips(not scrictly necessary)*
 
+```
 $ npm install -g tsd@^0.6.0
 
 $ npm install typings --global
+
+$ npm install run-browser-lite -g
+
+$ tsc --init
 ```
 
 ## References:
@@ -28,6 +35,8 @@ $ npm install typings --global
 * https://github.com/auth0-blog/angular2-authentication-sample
 
 * https://github.com/auth0-blog/nodejs-jwt-authentication-sample
+
+* https://webpack.github.io/
 
 *Note: The following are the exact descriptions of the projects used to make this UI*
 

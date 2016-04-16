@@ -39,6 +39,8 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * https://auth0.com/blog/2015/10/15/angular-2-series-part-3-using-http/
 
+* https://examples.javacodegeeks.com/core-java/json-jax-rs-example/
+
 ## License
 
 ```
