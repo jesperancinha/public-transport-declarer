@@ -4,6 +4,8 @@ import {PlayerService} from "./services/player.service";
 import {PlayerBoard} from "./models/player.board";
 import { Http, HTTP_PROVIDERS } from 'angular2/http';
 
+let styles = require('./app.css');
+
 @Component({
     selector: 'bisca-game-play',
     providers: [PlayerService],
@@ -15,7 +17,8 @@ import { Http, HTTP_PROVIDERS } from 'angular2/http';
          </li>
     </template>
     `,
-    directives: [CORE_DIRECTIVES]
+    directives: [CORE_DIRECTIVES],
+    styles: [styles]
 })
 
 export class PlayerStatusComponent implements OnInit {
