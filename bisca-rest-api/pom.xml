@@ -155,5 +155,12 @@
             <artifactId>commons-codec</artifactId>
             <version>${commons.codec}</version>
         </dependency>
+
+        <!-- BiscaJE -->
+        <dependency>
+            <groupId>steelzack</groupId>
+            <artifactId>bisca-model</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
