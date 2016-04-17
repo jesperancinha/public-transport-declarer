@@ -11,4 +11,12 @@ public interface Player {
     Integer getPlayerPoints();
 
     List<Card> getPlayerCards();
+
+    Integer getOrderId();
+
+    Player getNextPlayer();
+
+    void setOrderId(Integer orderId);
+
+    void setNextPlayer(Player nextPlayer);
 }
