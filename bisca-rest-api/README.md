@@ -21,3 +21,5 @@
 * http://programmers.stackexchange.com/questions/150045/what-is-the-point-of-having-every-service-class-have-an-interface
 
 * https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)
+
+* https://en.wikipedia.org/wiki/Dependency_inversion_principle
