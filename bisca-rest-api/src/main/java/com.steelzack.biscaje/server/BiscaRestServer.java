@@ -30,7 +30,7 @@ public class BiscaRestServer {
     @Path("test")
     @Consumes(MediaType.TEXT_PLAIN)
     public void ping() throws InvalidKeySpecException, NoSuchAlgorithmException {
-       biscaService.createUser("Joao", biscaJESecurityGenerator.generateStorngPasswordHash("12345"), new Date());
+       biscaService.createUser("Joao", biscaJESecurityGenerator.generateStrongPasswordHash("12345"), new Date());
     }
 
     @POST

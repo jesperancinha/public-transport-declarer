@@ -11,6 +11,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
+import static org.owasp.esapi.codecs.Hex.fromHex;
+
 /**
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
@@ -41,13 +43,14 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
      * @throws EncryptionException
      * @throws NoSuchAlgorithmException
      */
-    public String hashPassword(String password, String accountName) throws EncryptionException, NoSuchAlgorithmException {
+    @Override
+    public String generateWeakPasswordHash(String password, String accountName) throws EncryptionException, NoSuchAlgorithmException {
         String salt = ESAPI.encryptor().hash(accountName.toLowerCase(), getSalt());
         return ESAPI.encryptor().hash(password, salt);
     }
 
     @Override
-    public String generateStorngPasswordHash( //
+    public String generateStrongPasswordHash( //
                                               String password //
     ) throws NoSuchAlgorithmException, InvalidKeySpecException {
         char[] chars = password.toCharArray();
@@ -77,4 +80,25 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
             return hex;
         }
     }
+
+    @Override
+    public boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
+    {
+        String[] parts = storedPassword.split(":");
+        int iterations = Integer.parseInt(parts[0]);
+        byte[] salt = fromHex(parts[1]);
+        byte[] hash = fromHex(parts[2]);
+
+        PBEKeySpec spec = new PBEKeySpec(originalPassword.toCharArray(), salt, iterations, hash.length * 8);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF_2_WITH_HMAC_SHA_512);
+        byte[] testHash = skf.generateSecret(spec).getEncoded();
+
+        int diff = hash.length ^ testHash.length;
+        for(int i = 0; i < hash.length && i < testHash.length; i++)
+        {
+            diff |= hash[i] ^ testHash[i];
+        }
+        return diff == 0;
+    }
+
 }
