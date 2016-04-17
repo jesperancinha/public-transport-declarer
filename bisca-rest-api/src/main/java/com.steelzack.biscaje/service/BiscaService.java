@@ -16,7 +16,7 @@ public class BiscaService {
         if(entityManager == null)
         {
             EntityManagerFactory factory = Persistence.createEntityManagerFactory("biscaje-pu");
-            factory.createEntityManager();
+            entityManager = factory.createEntityManager();
 
         }
         return entityManager;

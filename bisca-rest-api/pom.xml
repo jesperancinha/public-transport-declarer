@@ -18,7 +18,7 @@
         <auth0>2.1.0</auth0>
         <commons.codec>1.4</commons.codec>
         <javax.persistence>1.0.2</javax.persistence>
-        <mongo.driver>3.2.2</mongo.driver>
+        <mongo.driver>2.13.0</mongo.driver>
         <jwt.jose4j>0.5.0</jwt.jose4j>
         <codehaus.jackson>1.9.13</codehaus.jackson>
         <jax.rs>2.0.1</jax.rs>
@@ -58,11 +58,6 @@
         </dependency>
 
         <!-- Mongo DB -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>${mongo.driver}</version>
-        </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>bson</artifactId>
@@ -166,6 +161,11 @@
         <dependency>
             <groupId>org.hibernate.ogm</groupId>
             <artifactId>hibernate-ogm-core</artifactId>
+            <version>${hibernate.ogm}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-infinispan</artifactId>
             <version>${hibernate.ogm}</version>
         </dependency>
 

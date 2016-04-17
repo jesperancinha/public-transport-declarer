@@ -6,6 +6,7 @@ import org.apache.commons.httpclient.HttpStatus;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,14 +30,16 @@ public class BiscaRestServer {
         try {
             EntityManager entityManager = biscaService.getEntityManager();
 
-            entityManager.getTransaction().begin();
+            final EntityTransaction transaction = entityManager.getTransaction();
+
+            transaction.begin();
 
             com.steelzack.biscaje.entities.User user = new com.steelzack.biscaje.entities.User("Joao", "12345", new Date());
 
 
             entityManager.persist(user);
 
-            entityManager.getTransaction().commit();
+            transaction.commit();
 
             entityManager.close();
         } catch (Exception e)

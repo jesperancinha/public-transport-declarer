@@ -1,21 +1,26 @@
 package com.steelzack.biscaje.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
  * Created by joaofilipesabinoesperancinha on 16-04-16.
  */
 @Entity
-public class User {
+@XmlRootElement
+@Indexed
+@Proxy(lazy = false)public class User {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private long id;
+    private String id;
 
     private String name;
 
