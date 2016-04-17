@@ -1,13 +1,16 @@
 package com.steelzack.biscaje.server;
 
 import com.steelzack.biscaje.model.User;
-import com.steelzack.biscaje.service.BiscaServiceImpl;
+import com.steelzack.biscaje.security.BiscaJESecurityGenerator;
+import com.steelzack.biscaje.service.BiscaService;
 import org.apache.commons.httpclient.HttpStatus;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 
 /**
@@ -18,14 +21,16 @@ import java.util.Date;
 public class BiscaRestServer {
 
     @Inject
-    private BiscaServiceImpl biscaService;
+    private BiscaService biscaService;
+
+    @Inject
+    private BiscaJESecurityGenerator biscaJESecurityGenerator;
 
     @GET
     @Path("test")
     @Consumes(MediaType.TEXT_PLAIN)
-    public void ping()
-    {
-        biscaService.createUser("Joao", "12345", new Date());
+    public void ping() throws InvalidKeySpecException, NoSuchAlgorithmException {
+       biscaService.createUser("Joao", biscaJESecurityGenerator.generateStorngPasswordHash("12345"), new Date());
     }
 
     @POST

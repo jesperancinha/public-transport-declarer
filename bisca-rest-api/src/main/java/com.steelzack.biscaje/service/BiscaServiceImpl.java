@@ -48,7 +48,6 @@ public class BiscaServiceImpl implements BiscaService {
         transaction.begin();
         entityManager.persist(user);
         transaction.commit();
-        entityManager.close();
         return false;
     }
 }
