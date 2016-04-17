@@ -5,20 +5,27 @@
 <web-app>
     <display-name>J2EE Web application for BiscaJE</display-name>
     <servlet>
+
         <servlet-name>jersey-bisca-container</servlet-name>
-        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 
         <init-param>
-            <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>com.steelzack.biscaje.server</param-value>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>
+                com.steelzack.biscaje.entities,
+                com.steelzack.biscaje.server,
+                com.steelzack.biscaje.service,
+                com.steelzack.biscaje.binders,
+                com.fasterxml.jackson.jaxrs.json
+            </param-value>
         </init-param>
         <init-param>
-            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-            <param-value>true</param-value>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.steelzack.biscaje.binders.BiscaJEApplication</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-    </servlet>
 
+    </servlet>
     <servlet-mapping>
         <servlet-name>jersey-bisca-container</servlet-name>
         <url-pattern>/rest/*</url-pattern>

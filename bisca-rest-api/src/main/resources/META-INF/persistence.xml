@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_1.xsd"
+             version="1.0">
+
+    <persistence-unit name="biscaje-pu" transaction-type="JTA">
+        <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+        <class>com.steelzack.biscaje.entities.User</class>
+        <properties>
+            <property name="hibernate.ogm.datastore.provider" value="mongodb" />
+            <property name="hibernate.ogm.mongodb.database" value="test"/>
+            <property name="hibernate.ogm.mongodb.host" value="localhost"/>
+            <property name="hibernate.ogm.mongodb.port" value="27017"/>
+            <property name="hibernate.ogm.datastore.database" value="test" />
+        </properties>
+    </persistence-unit>
+</persistence>
