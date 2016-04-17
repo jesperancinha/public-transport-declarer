@@ -33,6 +33,8 @@
 
 * https://nakedsecurity.sophos.com/2013/11/20/serious-security-how-to-store-your-users-passwords-safely/
 
+* https://www.owasp.org/index.php/Hashing_Java
+
 ## General References
 
 * http://hibernate.org/ogm/

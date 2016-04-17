@@ -1,5 +1,8 @@
 package com.steelzack.biscaje.security;
 
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.errors.EncryptionException;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.enterprise.context.ApplicationScoped;
@@ -13,15 +16,34 @@ import java.security.spec.InvalidKeySpecException;
  */
 @ApplicationScoped
 public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
-
-    public static final String PBKDF_2_WITH_HMAC_SHA_1 = "PBKDF2WithHmacSHA1";
+    public static final String PBKDF_2_WITH_HMAC_SHA_512 = "PBKDF2WithHmacSHA512";
     public static final String SHA_1_PRNG = "SHA1PRNG";
-    int iterations;
-    int saltLength;
+    private final int iterations;
+    private final int saltLength;
+    private final int nKeyBytes;
 
+    /**
+     * 1000 Iterations
+     * 20 Bytes salt length
+     * 512 bits for key length
+     */
     public BiscaJESecurityGeneratorImpl() {
         iterations = 1000;
         saltLength = 20;
+        nKeyBytes = 512;
+    }
+
+    /**
+     * OWASP Weak hashing method
+     * @param password
+     * @param accountName
+     * @return
+     * @throws EncryptionException
+     * @throws NoSuchAlgorithmException
+     */
+    public String hashPassword(String password, String accountName) throws EncryptionException, NoSuchAlgorithmException {
+        String salt = ESAPI.encryptor().hash(accountName.toLowerCase(), getSalt());
+        return ESAPI.encryptor().hash(password, salt);
     }
 
     @Override
@@ -30,8 +52,8 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
     ) throws NoSuchAlgorithmException, InvalidKeySpecException {
         char[] chars = password.toCharArray();
         byte[] salt = getSalt().getBytes();
-        PBEKeySpec spec = new PBEKeySpec(chars, salt, this.iterations, 64 * 8);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF_2_WITH_HMAC_SHA_1);
+        PBEKeySpec spec = new PBEKeySpec(chars, salt, this.iterations, nKeyBytes);
+        SecretKeyFactory skf = SecretKeyFactory.getInstance(PBKDF_2_WITH_HMAC_SHA_512);
         byte[] hash = skf.generateSecret(spec).getEncoded();
         return this.iterations + ":" + toHex(salt) + ":" + toHex(hash);
     }
