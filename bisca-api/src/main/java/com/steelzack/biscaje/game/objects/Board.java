@@ -1,4 +1,4 @@
-package com.steelzack.biscaje;
+package com.steelzack.biscaje.game.objects;
 
 import java.util.List;
 
