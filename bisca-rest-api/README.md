@@ -17,3 +17,7 @@
 * http://hibernate.org/ogm/
 
 * https://forum.hibernate.org/viewtopic.php?f=31&t=1040302
+
+* http://programmers.stackexchange.com/questions/150045/what-is-the-point-of-having-every-service-class-have-an-interface
+
+* https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)

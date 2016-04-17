@@ -1,6 +1,6 @@
 package com.steelzack.biscaje.binders;
 
-import com.steelzack.biscaje.service.BiscaService;
+import com.steelzack.biscaje.service.BiscaServiceImpl;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 /**
@@ -9,6 +9,6 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 public class BiscaJEBinder extends AbstractBinder{
     @Override
     protected void configure() {
-        bind(BiscaService.class).to(BiscaService.class);
+        bind(BiscaServiceImpl.class).to(BiscaServiceImpl.class);
     }
 }
