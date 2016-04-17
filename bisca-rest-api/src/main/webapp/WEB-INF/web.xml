@@ -16,7 +16,8 @@
                 com.steelzack.biscaje.server,
                 com.steelzack.biscaje.service,
                 com.steelzack.biscaje.binders,
-                com.fasterxml.jackson.jaxrs.json
+                com.steelzack.biscaje.security,
+                com.fasterxml.jackson.jaxrs.json,
             </param-value>
         </init-param>
         <init-param>

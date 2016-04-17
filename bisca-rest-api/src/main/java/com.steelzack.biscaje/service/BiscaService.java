@@ -1,24 +1,19 @@
 package com.steelzack.biscaje.service;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.*;
+import com.steelzack.biscaje.entities.User;
+
+import javax.persistence.EntityManager;
+import java.util.Date;
 
 /**
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
-@ApplicationScoped
-public class BiscaService {
+public interface BiscaService {
+    EntityManager getEntityManager();
 
-    @PersistenceContext(unitName = "biscaje-pu", type = PersistenceContextType.EXTENDED)
-    private EntityManager entityManager;
+    boolean updateUser(User user);
 
-    public EntityManager getEntityManager() {
-        if(entityManager == null)
-        {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("biscaje-pu");
-            entityManager = factory.createEntityManager();
+    boolean deleteUser(User user);
 
-        }
-        return entityManager;
-    }
+    boolean  createUser(String joao, String s, Date date);
 }

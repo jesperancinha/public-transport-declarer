@@ -16,7 +16,8 @@ import java.util.Date;
 @Entity
 @XmlRootElement
 @Indexed
-@Proxy(lazy = false)public class User {
+@Proxy(lazy = false)
+public class User {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")

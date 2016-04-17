@@ -27,6 +27,7 @@
         <hibernate.ogm>4.2.0.Final</hibernate.ogm>
         <jboss.jbossts>4.16.6.Final</jboss.jbossts>
         <weld>2.3.3.Final</weld>
+        <weld.servlet>2.3.2.Final</weld.servlet>
     </properties>
 
     <build>
@@ -174,6 +175,11 @@
             <groupId>org.jboss.weld</groupId>
             <artifactId>weld-core</artifactId>
             <version>${weld}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet-core</artifactId>
+            <version>${weld.servlet}</version>
         </dependency>
 
         <!-- EJB -->
