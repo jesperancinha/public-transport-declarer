@@ -8,5 +8,21 @@
     <artifactId>bisca-model</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-
+    <properties>
+        <maven.compiler>3.5.1</maven.compiler>
+        <java.version>1.8</java.version>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -22,3 +22,6 @@ hs_err_pid*
 
 # Maven
 target
+
+# Rest API
+bisca-rest-api/com.steelzack.biscaje.entities.User
