@@ -1,7 +1,9 @@
 package com.steelzack.biscaje.service;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  * Created by joaofilipesabinoesperancinha on 17-04-16.
@@ -9,16 +11,14 @@ import javax.persistence.*;
 @ApplicationScoped
 public class BiscaService {
 
-    @PersistenceContext(unitName = "biscaje-pu", type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
 
-    public EntityManager getEntityManager() {
-        if(entityManager == null)
-        {
-            EntityManagerFactory factory = Persistence.createEntityManagerFactory("biscaje-pu");
-            entityManager = factory.createEntityManager();
+    public BiscaService() {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("biscaje-pu");
+        entityManager = factory.createEntityManager();
+    }
 
-        }
+    public EntityManager getEntityManager() {
         return entityManager;
     }
 }
