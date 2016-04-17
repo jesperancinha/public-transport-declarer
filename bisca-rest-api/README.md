@@ -35,6 +35,10 @@
 
 * https://www.owasp.org/index.php/Hashing_Java
 
+* https://paragonie.com/blog/2016/02/how-safely-store-password-in-2016
+
+* https://password-hashing.net/
+
 ## General References
 
 * http://hibernate.org/ogm/
