@@ -1,6 +1,6 @@
-package com.steelzack.biscaje;
+package com.steelzack.biscaje.game.objects;
 
-import com.steelzack.biscaje.enums.SuitType;
+import com.steelzack.biscaje.game.enums.SuitType;
 
 /**
  * Created by joaofilipesabinoesperancinha on 13-04-16.

@@ -1,4 +1,4 @@
-package com.steelzack.biscaje;
+package com.steelzack.biscaje.game.objects;
 
 import java.util.List;
 
@@ -11,4 +11,12 @@ public interface Player {
     Integer getPlayerPoints();
 
     List<Card> getPlayerCards();
+
+    Integer getOrderId();
+
+    Player getNextPlayer();
+
+    void setOrderId(Integer orderId);
+
+    void setNextPlayer(Player nextPlayer);
 }

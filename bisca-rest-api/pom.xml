@@ -189,5 +189,10 @@
             <version>3.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>steelzack</groupId>
+            <artifactId>bisca-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
