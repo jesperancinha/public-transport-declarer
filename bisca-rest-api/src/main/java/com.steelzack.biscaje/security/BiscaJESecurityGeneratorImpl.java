@@ -49,6 +49,13 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
         return ESAPI.encryptor().hash(password, salt);
     }
 
+    /**
+     * PBKDF2 Strong password generation
+     * @param password Original password
+     * @return Hashed/Encrypted password
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
     @Override
     public String generateStrongPasswordHash( //
                                               String password //
@@ -82,7 +89,7 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
     }
 
     @Override
-    public boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
+    public boolean validateStrongPassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         String[] parts = storedPassword.split(":");
         int iterations = Integer.parseInt(parts[0]);

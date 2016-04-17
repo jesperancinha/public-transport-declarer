@@ -20,5 +20,5 @@ public interface BiscaJESecurityGenerator {
 
     String toHex(byte[] array) throws NoSuchAlgorithmException;
 
-    boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException;
+    boolean validateStrongPassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException;
 }
