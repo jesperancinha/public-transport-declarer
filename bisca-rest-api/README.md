@@ -14,4 +14,6 @@
 
 ## References
 
+* http://hibernate.org/ogm/
+
 * https://forum.hibernate.org/viewtopic.php?f=31&t=1040302
