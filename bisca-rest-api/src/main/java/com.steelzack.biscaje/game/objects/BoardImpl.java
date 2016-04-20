@@ -1,11 +1,15 @@
 package com.steelzack.biscaje.game.objects;
 
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
+
+@Getter
 public class BoardImpl implements Board {
 
     private final DeckManager deckManager;
@@ -33,16 +37,6 @@ public class BoardImpl implements Board {
     @Override
     public void orderPlayers(List<Player> players) {
         Collections.sort(players, (player1, player2) -> player1.getOrderId().compareTo(player2.getOrderId()));
-    }
-
-    @Override
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    @Override
-    public Player getCurrentPlayer() {
-        return currentPlayer;
     }
 
     @Override
