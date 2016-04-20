@@ -1,37 +1,22 @@
 package com.steelzack.biscaje.model;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Created by joaofilipesabinoesperancinha on 16-04-16.
  */
+
+@Getter
+@Setter
+@Builder
 public class User {
+
     private String name;
 
     private String passwordString;
 
     private String lastLoggedIn;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPasswordString() {
-        return passwordString;
-    }
-
-    public String getLastLoggedIn() {
-        return lastLoggedIn;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPasswordString(String passwordString) {
-        this.passwordString = passwordString;
-    }
-
-    public void setLastLoggedIn(String lastLoggedIn) {
-        this.lastLoggedIn = lastLoggedIn;
-    }
 }
 
