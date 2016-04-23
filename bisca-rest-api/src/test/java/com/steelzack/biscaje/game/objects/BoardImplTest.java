@@ -12,11 +12,16 @@ import static org.junit.Assert.assertSame;
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
 public class BoardImplTest {
+
+    private static final String JOAO = "João";
+    private static final String PATRICIA = "Patricia";
+    private static final String MARIA = "Maria";
+
     @Test
     public void getPlayers() throws Exception {
-        final Player player1 = new PlayerImpl("João");
-        final Player player2 = new PlayerImpl("Patricia");
-        final Player player3 = new PlayerImpl("Maria");
+        final Player player1 = new PlayerImpl(JOAO);
+        final Player player2 = new PlayerImpl(PATRICIA);
+        final Player player3 = new PlayerImpl(MARIA);
 
         player1.setOrderId(3);
         player2.setOrderId(1);
@@ -41,17 +46,16 @@ public class BoardImplTest {
         assertSame(player1, player3.getNextPlayer());
         assertSame(player2, player1.getNextPlayer());
 
-        for(final Player player : allPlayersList)
-        {
+        for (final Player player : allPlayersList) {
             assertSame(testStash.pop(), player);
         }
     }
 
     @Test
     public void getCurrentPlayer() throws Exception {
-        final Player player1 = new PlayerImpl("João");
-        final Player player2 = new PlayerImpl("Patricia");
-        final Player player3 = new PlayerImpl("Maria");
+        final Player player1 = new PlayerImpl(JOAO);
+        final Player player2 = new PlayerImpl(PATRICIA);
+        final Player player3 = new PlayerImpl(MARIA);
 
         player1.setOrderId(3);
         player2.setOrderId(1);
