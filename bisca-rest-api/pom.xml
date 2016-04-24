@@ -29,6 +29,7 @@
         <weld>2.3.3.Final</weld>
         <weld.servlet>2.3.2.Final</weld.servlet>
         <project.lombok>1.16.8</project.lombok>
+        <cucumber.version>1.2.4</cucumber.version>
     </properties>
 
     <build>
@@ -125,14 +126,6 @@
             <version>${log4j}</version>
         </dependency>
 
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit}</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Owasp -->
         <dependency>
             <groupId>org.owasp.esapi</groupId>
@@ -201,6 +194,29 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${project.lombok}</version>
+        </dependency>
+
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- TEST Libraries -->
+        <!-- Cucumber -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
