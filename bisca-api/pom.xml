@@ -10,6 +10,7 @@
     <properties>
         <maven.compiler>3.5.1</maven.compiler>
         <java.version>1.8</java.version>
+        <project.lombok>1.16.8</project.lombok>
     </properties>
     <build>
         <plugins>
@@ -24,5 +25,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${project.lombok}</version>
+        </dependency>
+    </dependencies>
 
 </project>
