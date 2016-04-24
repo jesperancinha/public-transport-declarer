@@ -1,5 +1,6 @@
 package com.steelzack.biscaje.game.objects;
 
+import com.steelzack.biscaje.game.enums.DeckType;
 import lombok.Getter;
 
 import java.util.Collections;
@@ -18,8 +19,8 @@ public class BoardImpl implements Board {
 
     private Player currentPlayer;
 
-    public BoardImpl(final List<Player> players, final DeckManager deckManager) {
-        this.deckManager = deckManager;
+    public BoardImpl(final List<Player> players, final DeckType deckType) {
+        this.deckManager = new DeckManagerImpl(deckType);
         orderPlayers(players);
         this.players = players;
         final int size = this.players.size();
