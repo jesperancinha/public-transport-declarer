@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import static com.steelzack.biscaje.game.enums.DeckType.PORTUGUESE;
-import static com.steelzack.biscaje.game.enums.SuitType.CLUBS;
+import static com.steelzack.biscaje.game.enums.SuitType.CLUBS_PT;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -16,11 +16,11 @@ import static org.junit.Assert.assertEquals;
 public class SuitImplTest {
     @Test
     public void createCards_Portuguese() throws Exception {
-        final SuitImpl suit = new SuitImpl(CLUBS, PORTUGUESE);
+        final SuitImpl suit = new SuitImpl(CLUBS_PT, PORTUGUESE);
 
         final Map<Integer, Card> result = suit.getCards();
 
-        assertEquals(CLUBS, suit.getSuitType());
+        assertEquals(CLUBS_PT, suit.getSuitType());
         assertEquals(PORTUGUESE, suit.getDeckType());
         assertEquals(13, result.size());
         Arrays.asList( //
