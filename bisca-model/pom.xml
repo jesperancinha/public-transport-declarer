@@ -29,11 +29,13 @@
     </build>
 
     <dependencies>
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${project.lombok}</version>
         </dependency>
+
         <!-- JUnit -->
         <dependency>
             <groupId>junit</groupId>

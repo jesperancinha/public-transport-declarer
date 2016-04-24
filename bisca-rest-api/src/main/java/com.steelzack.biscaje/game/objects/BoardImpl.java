@@ -1,11 +1,16 @@
 package com.steelzack.biscaje.game.objects;
 
+import com.steelzack.biscaje.game.enums.DeckType;
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
+
+@Getter
 public class BoardImpl implements Board {
 
     private final DeckManager deckManager;
@@ -14,8 +19,8 @@ public class BoardImpl implements Board {
 
     private Player currentPlayer;
 
-    public BoardImpl(final List<Player> players, final DeckManager deckManager) {
-        this.deckManager = deckManager;
+    public BoardImpl(final List<Player> players, final DeckType deckType) {
+        this.deckManager = new DeckManagerImpl(deckType);
         orderPlayers(players);
         this.players = players;
         final int size = this.players.size();
@@ -33,16 +38,6 @@ public class BoardImpl implements Board {
     @Override
     public void orderPlayers(List<Player> players) {
         Collections.sort(players, (player1, player2) -> player1.getOrderId().compareTo(player2.getOrderId()));
-    }
-
-    @Override
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    @Override
-    public Player getCurrentPlayer() {
-        return currentPlayer;
     }
 
     @Override
