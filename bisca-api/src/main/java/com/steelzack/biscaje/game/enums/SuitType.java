@@ -1,11 +1,24 @@
 package com.steelzack.biscaje.game.enums;
 
+import static com.steelzack.biscaje.game.enums.DeckType.ITALIAN;
+import static com.steelzack.biscaje.game.enums.DeckType.PORTUGUESE;
+
 /**
  * Created by joaofilipesabinoesperancinha on 13-04-16.
  */
 public enum SuitType {
-    CLUBS,
-    HEARTS,
-    DIAMONS,
-    SPADES
+    CLUBS_PT(PORTUGUESE),
+    HEARTS_PT(PORTUGUESE),
+    DIAMONS_PT(PORTUGUESE),
+    SPADES_PT(PORTUGUESE),
+    COINS_IT(ITALIAN),
+    SWORDS_IT(ITALIAN),
+    CUPS_IT(ITALIAN),
+    CLUBS_IT(ITALIAN);
+
+    private DeckType deckType;
+
+    SuitType(DeckType deckType) {
+        this.deckType = deckType;
+    }
 }
