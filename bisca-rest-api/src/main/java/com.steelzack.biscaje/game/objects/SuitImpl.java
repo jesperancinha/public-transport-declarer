@@ -28,7 +28,6 @@ public class SuitImpl implements Suit {
 
     @Override
     public Map<Integer, Card> createCards(SuitType suitType, DeckType deckType) {
-        final Map<Integer, Card> localCards = new HashMap<>();
         return Arrays.stream( //
                 CardType.values()).filter( //
                 cardType -> cardType.getDeckType() == deckType //
