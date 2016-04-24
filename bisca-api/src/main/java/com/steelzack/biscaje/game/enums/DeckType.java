@@ -5,5 +5,5 @@ package com.steelzack.biscaje.game.enums;
  */
 public enum DeckType {
     PORTUGUESE,
-    ITALIAN
+    deckType, ITALIAN
 }

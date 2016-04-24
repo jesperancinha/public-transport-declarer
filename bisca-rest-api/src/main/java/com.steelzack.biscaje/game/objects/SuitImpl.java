@@ -36,7 +36,7 @@ public class SuitImpl implements Suit {
         ).collect( //
                 toMap( //
                         CardType::getOrder, //
-                        CardImpl::new //
+                        cardType -> new CardImpl(cardType, suitType, deckType) //
                 ) //
         );
 

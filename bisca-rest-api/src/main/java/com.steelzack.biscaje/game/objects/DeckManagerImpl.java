@@ -14,10 +14,12 @@ import static java.util.stream.Collectors.toMap;
  */
 @Getter
 public class DeckManagerImpl implements DeckManager {
-    final Map<SuitType, Suit> deckCards;
+    private final Map<SuitType, Suit> deckCards;
+    private final DeckType deckType;
 
     public DeckManagerImpl(DeckType deckType) {
-        deckCards = createAllCards(deckType);
+        this.deckCards = createAllCards(deckType);
+        this.deckType = deckType;
     }
 
     @Override

@@ -10,4 +10,8 @@ import java.util.Map;
  */
 public interface DeckManager {
     Map<SuitType, Suit> createAllCards(DeckType deckType);
+
+    Map<SuitType, Suit> getDeckCards();
+
+    DeckType getDeckType();
 }
