@@ -10,4 +10,6 @@ import java.util.Map;
  */
 public interface Suit {
     Map<Integer, Card> createCards(SuitType suitType, DeckType deckType);
+
+    Map<Integer, Card> getCards();
 }

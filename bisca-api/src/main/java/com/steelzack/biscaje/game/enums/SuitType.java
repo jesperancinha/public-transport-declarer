@@ -1,11 +1,14 @@
 package com.steelzack.biscaje.game.enums;
 
+import lombok.Getter;
+
 import static com.steelzack.biscaje.game.enums.DeckType.ITALIAN;
 import static com.steelzack.biscaje.game.enums.DeckType.PORTUGUESE;
 
 /**
  * Created by joaofilipesabinoesperancinha on 13-04-16.
  */
+@Getter
 public enum SuitType {
     CLUBS_PT(PORTUGUESE),
     HEARTS_PT(PORTUGUESE),
