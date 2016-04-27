@@ -16,16 +16,17 @@ import static org.junit.Assert.assertEquals;
 public class DeckManagerImplTest {
     @Test
     public void createAllCards_Portuguese() throws Exception {
-        final DeckManager deckManager = new DeckManagerImpl(PORTUGUESE);
+        final DeckManager deckManager = DeckManagerImpl.builder().deckType(PORTUGUESE).build();
+        deckManager.createAllCards();
 
-       final Map<SuitType, Suit> result = deckManager.getDeckCards();
+        final Map<SuitType, Suit> result = deckManager.getDeckCards();
 
         assertEquals(4, result.size());
         assertEquals(PORTUGUESE, deckManager.getDeckType());
         Arrays.stream(
                 SuitType.values()
         ).filter(
-                suitType ->  suitType.getDeckType() == PORTUGUESE
+                suitType -> suitType.getDeckType() == PORTUGUESE
         ).forEach(
                 suitType -> {
                     final Suit suit = result.get(suitType);
@@ -43,7 +44,8 @@ public class DeckManagerImplTest {
 
     @Test
     public void createAllCards_Italian() throws Exception {
-        final DeckManager deckManager = new DeckManagerImpl(ITALIAN);
+        final DeckManager deckManager = DeckManagerImpl.builder().deckType(ITALIAN).build();
+        deckManager.createAllCards();
 
         final Map<SuitType, Suit> result = deckManager.getDeckCards();
 
@@ -52,7 +54,7 @@ public class DeckManagerImplTest {
         Arrays.stream(
                 SuitType.values()
         ).filter(
-                suitType ->  suitType.getDeckType() == ITALIAN
+                suitType -> suitType.getDeckType() == ITALIAN
         ).forEach(
                 suitType -> {
                     final Suit suit = result.get(suitType);

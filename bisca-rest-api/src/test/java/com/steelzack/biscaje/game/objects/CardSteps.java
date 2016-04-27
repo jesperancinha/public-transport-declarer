@@ -7,7 +7,6 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Test;
 
 import static com.steelzack.biscaje.game.enums.CardType.NUMERIC_K_PT_;
 import static com.steelzack.biscaje.game.enums.DeckType.PORTUGUESE;
@@ -47,22 +46,6 @@ public class CardSteps {
     @Given("^I know the deck type is \"([^\"]*)\"$")
     public void i_know_the_deck_type_is(String deckType) throws Throwable {
         this.deckType = DeckType.valueOf(deckType);
-    }
-
-
-    @Given("^I know the card type$")
-    public void i_know_the_card_type() throws Throwable {
-        assertEquals(cardType, NUMERIC_K_PT_);
-    }
-
-    @Given("^I know the suit type$")
-    public void i_know_the_suit_type() throws Throwable {
-        assertEquals(suitType, CLUBS_IT);
-    }
-
-    @Given("^I know the deck type$")
-    public void i_know_the_deck_type() throws Throwable {
-        assertEquals(deckType, PORTUGUESE);
     }
 
     @Then("^the result should be king of clubs from a portuguese deck$")

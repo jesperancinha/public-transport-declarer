@@ -13,14 +13,15 @@ import java.util.List;
 @Getter
 public class BoardImpl implements Board {
 
-    private final DeckManager deckManager;
+    private DeckManager deckManager;
+
+    private final DeckType deckType;
 
     private List<Player> players;
 
     private Player currentPlayer;
 
     public BoardImpl(final List<Player> players, final DeckType deckType) {
-        this.deckManager = new DeckManagerImpl(deckType);
         orderPlayers(players);
         this.players = players;
         final int size = this.players.size();
@@ -33,6 +34,8 @@ public class BoardImpl implements Board {
             }
         }
         this.currentPlayer = firstPlayer;
+        this.deckType = deckType;
+        createFullDeck();
     }
 
     @Override
@@ -52,6 +55,6 @@ public class BoardImpl implements Board {
 
     @Override
     public void createFullDeck() {
-
+        deckManager = DeckManagerImpl.builder().deckType(deckType).build();
     }
 }

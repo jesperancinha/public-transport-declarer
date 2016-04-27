@@ -9,9 +9,11 @@ import java.util.Map;
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
 public interface DeckManager {
-    Map<SuitType, Suit> createAllCards(DeckType deckType);
 
     Map<SuitType, Suit> getDeckCards();
 
     DeckType getDeckType();
+
+    void createAllCards();
+
 }
