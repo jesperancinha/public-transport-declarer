@@ -26,12 +26,29 @@ public class CardSteps {
     private CardImpl cardImpl;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         cardType = NUMERIC_K_PT_;
         suitType = CLUBS_IT;
         deckType = PORTUGUESE;
     }
+
+
+    @Given("^I know the card type is \"([^\"]*)\"$")
+    public void i_know_the_card_type_is(String cardType) throws Throwable {
+    this.cardType = CardType.valueOf(cardType);
+
+    }
+
+    @Given("^I know the suit type is \"([^\"]*)\"$")
+    public void i_know_the_suit_type_is(String suitType) throws Throwable {
+        this.suitType = SuitType.valueOf(suitType);
+    }
+
+    @Given("^I know the deck type is \"([^\"]*)\"$")
+    public void i_know_the_deck_type_is(String deckType) throws Throwable {
+        this.deckType = DeckType.valueOf(deckType);
+    }
+
 
     @Given("^I know the card type$")
     public void i_know_the_card_type() throws Throwable {
@@ -48,14 +65,6 @@ public class CardSteps {
         assertEquals(deckType, PORTUGUESE);
     }
 
-    @When("^I create it with a portuguese deck, with a clubs suit and a kings type$")
-    public void i_create_it_with_a_portuguese_deck_with_a_clubs_suit_and_a_kings_type() throws Throwable {
-        cardImpl = new CardImpl(cardType, suitType, deckType);
-        assertNotNull(cardImpl.getCardType());
-        assertNotNull(cardImpl.getSuitType());
-        assertNotNull(cardImpl.getDeckType());
-    }
-
     @Then("^the result should be king of clubs from a portuguese deck$")
     public void the_result_should_be_king_of_clubs_from_a_portuguese_deck() throws Throwable {
         assertEquals(cardType, cardImpl.getCardType());
@@ -63,7 +72,14 @@ public class CardSteps {
         assertEquals(deckType, cardImpl.getDeckType());
     }
 
-    @Test
-    public void justTestDummy() throws Exception {
+    @When("^I create it with a \"([^\"]*)\" deck, with a \"([^\"]*)\" suit and a \"([^\"]*)\" type$")
+    public void i_create_it_with_a_deck_with_a_suit_and_a_type(String deckName, String suitName, String cardName) throws Throwable {
+        final DeckType deckType = DeckType.valueOf(deckName);
+        final SuitType suitType = SuitType.valueOf(suitName);
+        final CardType cardType = CardType.valueOf(cardName);
+        cardImpl = new CardImpl(cardType, suitType, deckType);
+        assertNotNull(cardImpl.getCardType());
+        assertNotNull(cardImpl.getSuitType());
+        assertNotNull(cardImpl.getDeckType());
     }
 }
