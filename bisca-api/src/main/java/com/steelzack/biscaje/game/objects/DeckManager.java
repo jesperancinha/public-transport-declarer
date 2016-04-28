@@ -16,4 +16,5 @@ public interface DeckManager {
 
     void createAllCards();
 
+    void shuffleCards() throws Exception;
 }

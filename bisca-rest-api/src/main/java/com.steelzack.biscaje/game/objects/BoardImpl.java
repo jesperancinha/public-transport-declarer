@@ -21,6 +21,8 @@ public class BoardImpl implements Board {
 
     private Player currentPlayer;
 
+    private Card trunfo;
+
     public BoardImpl(final List<Player> players, final DeckType deckType) {
         orderPlayers(players);
     this.players = players;
@@ -50,7 +52,7 @@ public class BoardImpl implements Board {
 
     @Override
     public Card getTrunfo() {
-        return null;
+        return trunfo;
     }
 
     @Override

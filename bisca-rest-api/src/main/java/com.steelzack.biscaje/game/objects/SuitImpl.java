@@ -17,11 +17,11 @@ import static java.util.stream.Collectors.toMap;
 @Getter
 @Setter
 public class SuitImpl implements Suit {
-    private final Map<Integer, Card> cards;
+    private Map<Integer, Card> cards;
     private DeckType deckType;
     private SuitType suitType;
 
-    public SuitImpl(final SuitType suitType, final DeckType deckType) {
+    SuitImpl(final SuitType suitType, final DeckType deckType) {
         this.deckType = deckType;
         this.suitType = suitType;
         this.cards = createCards(this.suitType, this.deckType);
