@@ -22,16 +22,16 @@ public class CardImpl implements Card {
 
     @Override
     public Integer getCardValue() {
-        return null;
+        return cardType.getScore();
     }
 
     @Override
     public Integer getOrderNumber() {
-        return null;
+        return cardType.getOrder();
     }
 
     @Override
     public String getImage() {
-        return null;
+        return cardType.getImage();
     }
 }
