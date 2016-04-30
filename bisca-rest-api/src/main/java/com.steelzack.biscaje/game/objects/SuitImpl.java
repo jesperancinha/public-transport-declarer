@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toMap;
  */
 @Getter
 @Setter
-public class SuitImpl implements Suit {
+class SuitImpl implements Suit {
     private Map<Integer, Card> cards;
     private DeckType deckType;
     private SuitType suitType;
