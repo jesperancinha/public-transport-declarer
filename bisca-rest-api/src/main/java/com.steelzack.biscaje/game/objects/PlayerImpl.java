@@ -15,7 +15,7 @@ public class PlayerImpl implements Player {
 
     private Player nextPlayer;
 
-    public PlayerImpl(String playerName) {
+    PlayerImpl(String playerName) {
         this.playerName = playerName;
     }
     @Override

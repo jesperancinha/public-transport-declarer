@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toMap;
  */
 @Getter
 @Builder
-public class DeckManagerImpl implements DeckManager {
+class DeckManagerImpl implements DeckManager {
 
     public static final int BOUND = 1000;
     public static final int INT = 500;
@@ -27,39 +27,38 @@ public class DeckManagerImpl implements DeckManager {
 
     @Override
     public void createAllCards() {
-       deckCards = Arrays.stream( //
+        deckCards = Arrays.stream( //
                 SuitType.values() //
         ).filter( //
                 suitType -> suitType.getDeckType() == deckType //
         ).collect( //
                 toMap( //
                         suitType -> suitType,
-                        suitType ->  new SuitImpl(suitType, deckType)
-                       //
+                        suitType -> new SuitImpl(suitType, deckType)
+                        //
                 ) //
         );
     }
 
     @Override
     public void shuffleCards() throws DeckNotInitializedException {
-        if(deckCards == null)
-        {
+        if (deckCards == null) {
             throw new DeckNotInitializedException();
         }
 
         deckCards.values().stream().forEach(
-                 suit -> {
-                     final Map<Integer, Card> cards = suit.getCards();
-                     final Map<Integer, Card> newCardSet = cards.values().stream().sorted( //
-                             (card1, card2) -> new Random().nextInt(BOUND) - INT //
-                     ).collect( //
-                             toMap( //
-                                 Card::getOrderNumber,
-                                     card -> card
-                             )
-                     );
-                     suit.setCards(newCardSet);
-                 }
-         );
+                suit -> {
+                    final Map<Integer, Card> cards = suit.getCards();
+                    final Map<Integer, Card> newCardSet = cards.values().stream().sorted( //
+                            (card1, card2) -> new Random().nextInt(BOUND) - INT //
+                    ).collect( //
+                            toMap( //
+                                    Card::getOrderNumber, //
+                                    card -> card //
+                            ) //
+                    ); //
+                    suit.setCards(newCardSet); //
+                } //
+        ); //
     }
 }
