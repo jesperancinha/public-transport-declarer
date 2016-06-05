@@ -20,7 +20,7 @@ REST services are used and for this case Jersey and Jackson are used. In short:
 
 * Jersey - Implementation of the REST API and extensions for JAX-RS.
 
-* Jackson - Provides mapping for POJOS.
+* Jackson - Provides the mapping.
 
 * MongoDB - This is the database where the user details, the game details and scores will be stored
 

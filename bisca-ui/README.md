@@ -3,20 +3,30 @@
 ## Building the game:
 
 ```
+
+$ sudo apt install nodejs-legacy 
+
 $ npm install
 
 $ tsc
 
 # Choose one:
+
 $ npm run lite
+
 # or
+
 $ npm run front
+
 ```
 
 # Creating the game
+
+
 *Further installation tips(not scrictly necessary)*
 
 ```
+
 $ npm install -g tsd@^0.6.0
 
 $ npm install typings --global
@@ -24,6 +34,7 @@ $ npm install typings --global
 $ npm install run-browser-lite -g
 
 $ tsc --init
+
 ```
 
 ## References:
