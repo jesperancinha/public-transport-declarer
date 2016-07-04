@@ -10,16 +10,10 @@
 
 * More info [here](https://forum.hibernate.org/viewtopic.php?f=31&t=1040302)
 
-2. JETTY Server
-
-* Jetty Server does not come with CDI and that must be added:
+2. Install active MQ
 
 ```
-<dependency>
-    <groupId>org.jboss.weld.servlet</groupId>
-    <artifactId>weld-servlet-core</artifactId>
-    <version>${weld.servlet}</version>
-</dependency>
+$ brew install activeMQ
 ```
 
 ---
