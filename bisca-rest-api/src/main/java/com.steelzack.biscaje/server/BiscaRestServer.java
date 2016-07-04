@@ -27,17 +27,18 @@ public class BiscaRestServer {
     private BiscaJESecurityGenerator biscaJESecurityGenerator;
 
     @GET
-    @Path("test")
+    @Path("/test")
     @Consumes(MediaType.TEXT_PLAIN)
-    public void ping() throws InvalidKeySpecException, NoSuchAlgorithmException {
-       biscaService.createUser("Joao", biscaJESecurityGenerator.generateStrongPasswordHash("12345"), new Date());
+    @Produces(MediaType.TEXT_PLAIN)
+    public String ping() throws InvalidKeySpecException, NoSuchAlgorithmException {
+        biscaService.createUser("Joao", biscaJESecurityGenerator.generateStrongPasswordHash("12345"), new Date());
+        return "TEST SUCCEEDED!";
     }
 
     @POST
-    @Path("newuser")
+    @Path("/newuser")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createNewUser(User user)
-    {
+    public Response createNewUser(User user) {
         return Response.status(HttpStatus.SC_OK).entity(user).build();
     }
 }
