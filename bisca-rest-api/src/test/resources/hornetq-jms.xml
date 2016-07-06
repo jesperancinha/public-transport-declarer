@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messaging-deployment xmlns="urn:jboss:messaging-deployment:1.0">
+    <connection-factory name="MyConnectionFactory">
+        <connectors>
+            <connector-ref connector-name="netty"/>
+        </connectors>
+        <entries>
+            <entry name="MyConnectionFactory"/>
+        </entries>
+    </connection-factory>
+    <hornetq-server>
+        <jms-destinations>
+            <jms-queue name="jms/StatsQueue">
+                <entry name="jms/StatsQueue"/>
+            </jms-queue>
+        </jms-destinations>
+    </hornetq-server>
+</messaging-deployment>
