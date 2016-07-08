@@ -35,6 +35,8 @@
         <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <arquillian-weld-ee-embedded-1.1.version>1.1.2.Final</arquillian-weld-ee-embedded-1.1.version>
+        <activemq-junit.version>5.13.1</activemq-junit.version>
+        <activemq-broker.version>5.13.0</activemq-broker.version>
     </properties>
 
     <build>
@@ -263,11 +265,11 @@
         </dependency>
 
         <!--&lt;!&ndash; ActiveMQ &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.activemq</groupId>-->
-            <!--<artifactId>activemq-all</artifactId>-->
-            <!--<version>${activemq-all.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>${activemq-all.version}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
         <dependency>
@@ -299,34 +301,42 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.activemq.tooling</groupId>
+            <artifactId>activemq-junit</artifactId>
+            <version>${activemq-junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>${activemq-broker.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Arquillian -->
         <!-- https://mvnrepository.com/artifact/org.jboss.arquillian/arquillian-bom -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <version>${arquillian-bom.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jboss.arquillian.junit</groupId>-->
+            <!--<artifactId>arquillian-junit-container</artifactId>-->
+            <!--<version>${arquillian-bom.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.jboss.arquillian.container/arquillian-weld-se-embedded-1.1 -->
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-            <version>1.0.0.CR9</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jboss.arquillian.container</groupId>-->
+            <!--<artifactId>arquillian-weld-se-embedded-1.1</artifactId>-->
+            <!--<version>1.0.0.CR9</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.jboss.weld</groupId>
-            <artifactId>weld-core</artifactId>
-            <version>1.1.5.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.6.4</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jboss.weld</groupId>-->
+            <!--<artifactId>weld-core</artifactId>-->
+            <!--<version>1.1.5.Final</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>

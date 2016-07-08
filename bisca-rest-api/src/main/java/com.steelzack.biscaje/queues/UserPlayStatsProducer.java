@@ -1,16 +1,17 @@
 package com.steelzack.biscaje.queues;
 
-import javax.annotation.Resource;
+import org.apache.activemq.ActiveMQConnectionFactory;
+
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.jms.JMSConnectionFactory;
-import javax.jms.JMSContext;
+import javax.jms.Connection;
+import javax.jms.DeliveryMode;
+import javax.jms.Destination;
 import javax.jms.JMSDestinationDefinition;
 import javax.jms.JMSDestinationDefinitions;
-import javax.jms.JMSException;
+import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
-import javax.jms.Queue;
+import javax.jms.Session;
 
 /**
  * Created by joaofilipesabinoesperancinha on 06-07-16.
@@ -27,32 +28,47 @@ import javax.jms.Queue;
         }
 )
 public class UserPlayStatsProducer implements RemoteMessageProducer{
+    private Stats stats;
 
+    public UserPlayStatsProducer(Stats stats)
+    {
+        this.stats = stats;
+    }
 
-    private static final long serialVersionUID = 1027344735528882571L;
-    /**
-     * JMS Context, This combines in a single object the functionality of two
-     * separate objects from the JMS 1.1 API: a Connection and a Session.
-     *
-     */
-    @Inject
-    @JMSConnectionFactory("MyConnectionFactory")
-    JMSContext context;
+    public void run() {
+        try {
+            // Create a ConnectionFactory
+            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
 
-    /**
-     * Queue
-     */
-    @Resource(mappedName = "StatsQueue")
-    Queue queue;
+            // Create a Connection
+            Connection connection = connectionFactory.createConnection();
+            connection.start();
 
+            // Create a Session
+            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-    /**
-     * Send Message.
-     */
-    @Override
-    public void sendMessage(Stats stats) throws JMSException {
-        ObjectMessage message = context.createObjectMessage();
-        message.setObject(stats);
-        context.createProducer().send(queue, message);
+            // Create the destination (Topic or Queue)
+            Destination destination = session.createQueue("TEST.FOO");
+
+            // Create a MessageProducer from the Session to the Topic or Queue
+            MessageProducer producer = session.createProducer(destination);
+            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+            // Create a messages
+            String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
+            ObjectMessage message = session.createObjectMessage();
+            message.setObject(stats);
+            // Tell the producer to send the message
+            System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
+            producer.send(message);
+
+            // Clean up
+            session.close();
+            connection.close();
+        }
+        catch (Exception e) {
+            System.out.println("Caught: " + e);
+            e.printStackTrace();
+        }
     }
 }

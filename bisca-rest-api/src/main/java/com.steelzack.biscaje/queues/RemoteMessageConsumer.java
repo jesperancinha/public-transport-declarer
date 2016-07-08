@@ -1,13 +1,12 @@
 package com.steelzack.biscaje.queues;
 
 import javax.ejb.Local;
-import java.io.Serializable;
+import javax.jms.ExceptionListener;
 
 /**
  * Created by joaofilipesabinoesperancinha on 06-07-16.
  */
 
 @Local
-public interface RemoteMessageConsumer extends Serializable{
-    Stats receiveMessage();
+public interface RemoteMessageConsumer extends  Runnable, ExceptionListener {
 }

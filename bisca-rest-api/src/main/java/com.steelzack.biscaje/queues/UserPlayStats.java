@@ -1,14 +1,14 @@
 package com.steelzack.biscaje.queues;
 
-import javax.jms.Message;
-import javax.jms.MessageListener;
-
 /**
  * Created by joaofilipesabinoesperancinha on 04-07-16.
  */
-public class UserPlayStats implements MessageListener{
+public class UserPlayStats {
 
-    public void onMessage(Message message) {
-
+    public static void thread(Runnable runnable, boolean daemon) {
+        Thread brokerThread = new Thread(runnable);
+        brokerThread.setDaemon(daemon);
+        brokerThread.start();
     }
+
 }
