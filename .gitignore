@@ -25,3 +25,4 @@ target
 
 # Rest API
 bisca-rest-api/com.steelzack.biscaje.entities.User
+bisca-rest-api/activemq-data/localhost/KahaDB/
