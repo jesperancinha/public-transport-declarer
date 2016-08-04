@@ -4,9 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>steelzack</groupId>
+        <artifactId>bisca-je</artifactId>
+        <version>[0.0.0,99.0.0)</version>
+    </parent>
+
     <groupId>steelzack</groupId>
     <artifactId>bisca-model</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${parent.version}</version>
 
     <properties>
         <maven.compiler>3.5.1</maven.compiler>
@@ -14,6 +20,7 @@
         <project.lombok>1.16.8</project.lombok>
         <junit>4.12</junit>
     </properties>
+
     <build>
         <plugins>
             <plugin>

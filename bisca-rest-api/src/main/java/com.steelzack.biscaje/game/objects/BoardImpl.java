@@ -25,20 +25,20 @@ public class BoardImpl implements Board {
 
     public BoardImpl(final List<Player> players, final DeckType deckType) {
         orderPlayers(players);
-    this.players = players;
-    final int size = this.players.size();
-    final Player firstPlayer = this.players.get(0);
-    for (int i = 0; i < size; i++) {
-        if (i == size - 1) {
-            this.players.get(i).setNextPlayer(firstPlayer);
-        } else {
-            this.players.get(i).setNextPlayer(this.players.get(i + 1));
+        this.players = players;
+        final int size = this.players.size();
+        final Player firstPlayer = this.players.get(0);
+        for (int i = 0; i < size; i++) {
+            if (i == size - 1) {
+                this.players.get(i).setNextPlayer(firstPlayer);
+            } else {
+                this.players.get(i).setNextPlayer(this.players.get(i + 1));
+            }
         }
+        this.currentPlayer = firstPlayer;
+        this.deckType = deckType;
+        createFullDeck();
     }
-    this.currentPlayer = firstPlayer;
-    this.deckType = deckType;
-    createFullDeck();
-}
 
     @Override
     public void orderPlayers(List<Player> players) {
