@@ -1,45 +1,10 @@
 # bisca-je
+
 An implementation of the "Jogo da Bisca", which is a portuguese variant of the original italian game "bríscola".
-
-## Content
-
-The main purpose of this project is to explore Angular 2 and TypeScript and how can these interact with a REST API implmented with J2EE.
-
-## Context
-
-The technologies used in this project range from TypeScript and Angular 2 in the front end to J2EE in the back end.
-
-REST services are used and for this case Jersey and Jackson are used. In short:
-
-
-* Angular 2 - Defines Front End.
-
-* TypeScript - Code that is compiled before deployment with an OOP structure.
-
-* JAX-RS - The rest API
-
-* Jersey - Implementation of the REST API and extensions for JAX-RS.
-
-* Jackson - Provides the mapping.
-
-* MongoDB - This is the database where the user details, the game details and scores will be stored
-
 
 ## References
 
-* https://angular.io/docs/ts/latest/quickstart.html
-
-* https://github.com/angular/quickstart/blob/master/README.md
-
 * https://pt.wikipedia.org/wiki/Bisca
-
-* https://dzone.com/articles/java-web-application-security#download-run
-
-* https://auth0.com/blog/2015/05/14/creating-your-first-real-world-angular-2-app-from-authentication-to-calling-an-api-and-everything-in-between/
-
-* https://auth0.com/blog/2015/10/15/angular-2-series-part-3-using-http/
-
-* https://examples.javacodegeeks.com/core-java/json-jax-rs-example/
 
 ## License
 
@@ -62,3 +27,7 @@ limitations under the License.
 ## Status
 
 *Under development*
+
+## Final notes:
+
+Please add the generated libs folders to your project class path if you cannot complete your build. 

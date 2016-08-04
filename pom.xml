@@ -5,7 +5,7 @@
     <artifactId>bisca-je</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
-    <name>bisca-web Maven Webapp</name>
+    <name>bisca-ui</name>
     <url>http://maven.apache.org</url>
 
     <modules>
@@ -15,19 +15,290 @@
     </modules>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler>3.5.1</maven.compiler>
         <java.version>1.8</java.version>
+        <junit>4.12</junit>
+        <jersey-bundle.version>1.19.1</jersey-bundle.version>
+        <jersey-server.version>2.23</jersey-server.version>
+        <junit>4.12</junit>
+        <maven.compiler>3.5.1</maven.compiler>
+        <java.version>1.8</java.version>
+        <jackson.core>2.7.3</jackson.core>
+        <owasp.esapi>2.1.0.1</owasp.esapi>
+        <auth0>2.1.0</auth0>
+        <commons.codec>1.4</commons.codec>
+        <javax.persistence>1.0.2</javax.persistence>
+        <mongo.driver>2.13.0</mongo.driver>
+        <jwt.jose4j>0.5.0</jwt.jose4j>
+        <codehaus.jackson>1.9.13</codehaus.jackson>
+        <jax.rs>2.0.1</jax.rs>
+        <log4j>1.2.17</log4j>
+        <jetty.version>8.1.16.v20140903</jetty.version>
+        <hibernate.ogm>4.2.0.Final</hibernate.ogm>
+        <jboss.jbossts>4.16.6.Final</jboss.jbossts>
+        <weld>2.3.3.Final</weld>
+        <weld.servlet>2.3.2.Final</weld.servlet>
+        <project.lombok>1.16.8</project.lombok>
+        <cucumber.version>1.2.4</cucumber.version>
+        <activemq-all.version>5.13.3</activemq-all.version>
+        <arquillian-bom.version>1.1.11.Final</arquillian-bom.version>
+        <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
+        <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
+        <arquillian-weld-ee-embedded-1.1.version>1.1.2.Final</arquillian-weld-ee-embedded-1.1.version>
+        <javaee-api.version>7.0</javaee-api.version>
+        <javax.ejb-api.version>3.2</javax.ejb-api.version>
+        <activemq-client.version>5.13.0</activemq-client.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- bisca model -->
+            <dependency>
+                <groupId>steelzack</groupId>
+                <artifactId>bisca-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- bisca api -->
+            <dependency>
+                <groupId>steelzack</groupId>
+                <artifactId>bisca-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Javax Persistence -->
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${javax.persistence}</version>
+            </dependency>
+
+            <!-- Mongo DB -->
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>bson</artifactId>
+                <version>${mongo.driver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>${mongo.driver}</version>
+            </dependency>
+
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>org.bitbucket.b_c</groupId>
+                <artifactId>jose4j</artifactId>
+                <version>${jwt.jose4j}</version>
+            </dependency>
+
+            <!-- Autho0 JWT -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${auth0}</version>
+            </dependency>
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-jaxrs</artifactId>
+                <version>${codehaus.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>${jackson.core}</version>
+            </dependency>
+
+            <!-- JAX-RS -->
+            <dependency>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+                <version>${jax.rs}</version>
+            </dependency>
+
+            <!-- Jersey -->
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-server</artifactId>
+                <version>${jersey-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet-core</artifactId>
+                <version>${jersey-server.version}</version>
+            </dependency>
+
+            <!-- Log4j -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j}</version>
+            </dependency>
+
+            <!-- Owasp -->
+            <dependency>
+                <groupId>org.owasp.esapi</groupId>
+                <artifactId>esapi</artifactId>
+                <version>${owasp.esapi}</version>
+            </dependency>
+
+            <!-- Commons -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec}</version>
+            </dependency>
+
+            <!-- Hibernate -->
+            <dependency>
+                <groupId>org.hibernate.ogm</groupId>
+                <artifactId>hibernate-ogm-mongodb</artifactId>
+                <version>${hibernate.ogm}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.ogm</groupId>
+                <artifactId>hibernate-ogm-core</artifactId>
+                <version>${hibernate.ogm}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.ogm</groupId>
+                <artifactId>hibernate-ogm-infinispan</artifactId>
+                <version>${hibernate.ogm}</version>
+            </dependency>
+
+            <!-- Weld for CDI -->
+            <dependency>
+                <groupId>org.jboss.weld</groupId>
+                <artifactId>weld-core</artifactId>
+                <version>${weld}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.weld.servlet</groupId>
+                <artifactId>weld-servlet-core</artifactId>
+                <version>${weld.servlet}</version>
+            </dependency>
+
+            <!-- EJB -->
+            <dependency>
+                <groupId>javax.ejb</groupId>
+                <artifactId>javax.ejb-api</artifactId>
+                <version>${javax.ejb-api.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${project.lombok}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${javaee-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-client</artifactId>
+                <version>${activemq-client.version}</version>
+            </dependency>
+
+            <!-- TEST Libraries -->
+            <!-- Cucumber -->
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- JUnit -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- ActiveMQ-->
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-all</artifactId>
+                <version>${activemq-all.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq.tooling</groupId>
+                <artifactId>activemq-junit</artifactId>
+                <version>${activemq-all.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-broker</artifactId>
+                <version>${activemq-all.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Arquillian -->
+            <!-- https://mvnrepository.com/artifact/org.jboss.arquillian/arquillian-bom -->
+            <!--<dependency>-->
+            <!--<groupId>org.jboss.arquillian.junit</groupId>-->
+            <!--<artifactId>arquillian-junit-container</artifactId>-->
+            <!--<version>${arquillian-bom.version}</version>-->
+            <!--<scope>test</scope>-->
+            <!--</dependency>-->
+
+            <!-- https://mvnrepository.com/artifact/org.jboss.arquillian.container/arquillian-weld-se-embedded-1.1 -->
+            <!--<dependency>-->
+            <!--<groupId>org.jboss.arquillian.container</groupId>-->
+            <!--<artifactId>arquillian-weld-se-embedded-1.1</artifactId>-->
+            <!--<version>1.0.0.CR9</version>-->
+            <!--</dependency>-->
+
+            <!--<dependency>-->
+            <!--<groupId>org.jboss.weld</groupId>-->
+            <!--<artifactId>weld-core</artifactId>-->
+            <!--<version>1.1.5.Final</version>-->
+            <!--<scope>test</scope>-->
+            <!--</dependency>-->
+
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
+            <!-- Not a necessary plugin. In IntellJ you may need to use libs as an addition to the classpath during developing time -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/libs</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <excludeScope>provided</excludeScope>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
