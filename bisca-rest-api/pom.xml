@@ -12,15 +12,27 @@
     <artifactId>bisca-rest-api</artifactId>
     <packaging>war</packaging>
     <name>bisca-rest-api</name>
-    <version>${parent.version}</version>
+    <version>${project.parent.version}</version>
     <url>http://maven.apache.org</url>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <jetty.version>8.1.16.v20140903</jetty.version>
         <java.version>1.8</java.version>
         <maven.compiler>3.5.1</maven.compiler>
-        <jackson-jaxrs-json-provider.version>2.7.3</jackson-jaxrs-json-provider.version>
+        <arquillian-glassfish-embedded-3.1.version>1.0.0.CR3</arquillian-glassfish-embedded-3.1.version>
+        <glassfish-embedded-all.version>3.1.2</glassfish-embedded-all.version>
+        <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>ProjectRepo</id>
+            <name>ProjectRepo</name>
+            <url>file://${basedir}/libs</url>
+        </repository>
+    </repositories>
 
     <build>
         <finalName>bisca-rest-api</finalName>
@@ -49,13 +61,13 @@
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                    <version>1.0.0.CR3</version>
+                    <version>${arquillian-glassfish-embedded-3.1.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
                     <artifactId>glassfish-embedded-all</artifactId>
-                    <version>3.1.2</version>
+                    <version>${glassfish-embedded-all.version}</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
@@ -66,7 +78,7 @@
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
                     <artifactId>jboss-javaee-6.0</artifactId>
-                    <version>1.0.0.Final</version>
+                    <version>${jboss-javaee-6.0.version}</version>
                     <type>pom</type>
                     <scope>provided</scope>
                 </dependency>
@@ -84,24 +96,6 @@
             </dependencies>
         </profile>
     </profiles>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>${arquillian-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.shrinkwrap.resolver</groupId>
-                <artifactId>shrinkwrap-resolver-bom</artifactId>
-                <version>${shrinkwrap-resolver-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- Javax Persistence -->

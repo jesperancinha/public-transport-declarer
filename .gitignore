@@ -27,3 +27,6 @@ target
 bisca-rest-api/com.steelzack.biscaje.entities.User
 bisca-rest-api/activemq-data/localhost/KahaDB/
 bisca-rest-api/duplicate
+bisca-rest-api/libs
+bisca-model/libs
+bisca-api/libs
