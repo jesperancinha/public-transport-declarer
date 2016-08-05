@@ -5,7 +5,7 @@ var express = require('express'),
     players = require('./server/players-service'),
     app = express();
 
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 3002);
 
 app.use(cors());
 app.use(bodyParser.json());

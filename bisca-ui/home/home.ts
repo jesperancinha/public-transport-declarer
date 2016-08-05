@@ -31,11 +31,11 @@ export class Home {
   }
 
   callAnonymousApi() {
-    this._callApi('Anonymous', 'http://localhost:3001/api/random-quote');
+    this._callApi('Anonymous', 'http://localhost:3002/api/random-quote');
   }
 
   callSecuredApi() {
-    this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
+    this._callApi('Secured', 'http://localhost:3002/api/protected/random-quote');
   }
 
   _callApi(type, url) {
