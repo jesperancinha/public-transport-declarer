@@ -1,10 +1,12 @@
 # bisca-je
 
-An implementation of the "Jogo da Bisca", which is a portuguese variant of the original italian game "bríscola".
+An implementation of both [Bisca](https://pt.wikipedia.org/wiki/Bisca) and [Briscola](https://en.wikipedia.org/wiki/Briscola).
 
 ## References
 
 * https://pt.wikipedia.org/wiki/Bisca
+
+* https://en.wikipedia.org/wiki/Briscola
 
 ## How to run:
 

@@ -1,4 +1,4 @@
-import { Component} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {RouteConfig, RouterLink, Router} from 'angular2/router';
 
 import {LoggedInRouterOutlet} from './logged.in.outlet';
