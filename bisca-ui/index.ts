@@ -21,7 +21,8 @@ bootstrap(
         }), http);
       },
       deps: [Http]
-    })
+    }
+    )
   ]
 );
 

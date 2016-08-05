@@ -6,6 +6,16 @@ An implementation of the "Jogo da Bisca", which is a portuguese variant of the o
 
 * https://pt.wikipedia.org/wiki/Bisca
 
+## How to run:
+
+```
+$ npm install
+
+$ webpack install
+
+$ npm run lite
+
+```
 ## License
 
 ```
