@@ -30,31 +30,4 @@ export class Home {
     this.router.parent.navigateByUrl('/login');
   }
 
-  callAnonymousApi() {
-    this._callApi('Anonymous', 'http://localhost:3002/api/random-quote');
-  }
-
-  callSecuredApi() {
-    this._callApi('Secured', 'http://localhost:3002/api/protected/random-quote');
-  }
-
-  _callApi(type, url) {
-    this.response = null;
-    if (type === 'Anonymous') {
-      // For non-protected routes, just use Http
-      this.http.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
-    }
-    if (type === 'Secured') {
-      // For protected routes, use AuthHttp
-      this.authHttp.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
-    }
-  }
 }
