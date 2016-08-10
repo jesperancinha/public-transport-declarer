@@ -3,6 +3,7 @@ package com.steelzack.biscaje.service;
 import com.steelzack.biscaje.entities.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -13,6 +14,7 @@ import java.util.Date;
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
 @ApplicationScoped
+@Named("biscaService")
 public class BiscaServiceImpl implements BiscaService {
 
     private EntityManager entityManager;

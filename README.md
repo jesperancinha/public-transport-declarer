@@ -42,4 +42,4 @@ limitations under the License.
 
 ## Final notes:
 
-Please add the generated libs folders to your project class path if you cannot complete your build. 
+Please add the generated lib folder to your project dependencies if you cannot complete your build. 
