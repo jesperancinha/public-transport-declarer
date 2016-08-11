@@ -4,7 +4,8 @@ import { Http, Headers } from 'angular2/http';
 import { AuthHttp } from 'angular2-jwt';
 import { Router } from 'angular2/router';
 
-let styles = require('./home.css');
+let styleHome = require('./home.css');
+let styleCommon = require('../common.css');
 let template = require('./home.html');
 
 
@@ -12,7 +13,7 @@ let template = require('./home.html');
   selector: 'home',
   directives: [CORE_DIRECTIVES],
   template: template,
-  styles: [styles]
+  styles: [styleHome, styleCommon]
 })
 export class Home {
   jwt: string;

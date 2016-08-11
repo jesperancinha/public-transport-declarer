@@ -3,8 +3,8 @@ import {Component} from 'angular2/core';
 let styles   = require('../app.css');
 
 @Component({
-    selector: 'my-app',
-    template: '<h1>BiscaJE game</h1>',
+    selector: 'bisca-je-header',
+    template: '<h1>Welcome to the BiscaJE game!</h1>',
     styles: [styles]
 })
 

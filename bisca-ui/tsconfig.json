@@ -10,7 +10,6 @@
   },
   "files": [
     "index.ts",
-    "gameplay.ts",
     "typings/tsd.d.ts",
     "app/game.ts",
     "app/main.ts",
