@@ -9,7 +9,7 @@ import {Signup} from '../signup/signup';
 let template = require('./app.html');
 
 @Component({
-  selector: 'auth-app',
+  selector: 'bisca-je-content',
   template: template,
   directives: [ LoggedInRouterOutlet ]
 })
