@@ -6,6 +6,7 @@ import org.owasp.esapi.errors.EncryptionException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -17,6 +18,7 @@ import static org.owasp.esapi.codecs.Hex.fromHex;
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
 @ApplicationScoped
+@Named("biscaJESecurityGeneratorImpl")
 public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
     public static final String PBKDF_2_WITH_HMAC_SHA_512 = "PBKDF2WithHmacSHA512";
     public static final String SHA_1_PRNG = "SHA1PRNG";

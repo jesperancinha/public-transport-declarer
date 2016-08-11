@@ -1,5 +1,14 @@
 # Bisca JE Rest API
 
+## Start Docker MongoDB Image
+
+```
+$ docker build --tag bisca/je .
+
+$ docker run -p 27017:27017 --name biscaje -d bisca/je
+
+
+```
 ## Build notes
 
 1. OGM driver versions:
