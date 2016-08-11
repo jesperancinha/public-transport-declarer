@@ -5,8 +5,8 @@ import { ROUTER_PROVIDERS } from 'angular2/router';
 import { Http, HTTP_PROVIDERS } from 'angular2/http';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
-import { App } from './app/app';
-import { AppComponent } from './app/app.component';
+import { App } from './app/login/app';
+import { AppComponent } from './app/home/app.component';
 
 bootstrap(
   App,

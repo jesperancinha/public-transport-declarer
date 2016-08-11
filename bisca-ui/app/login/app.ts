@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, RouterLink, Router} from 'angular2/router';
 
-import {LoggedInRouterOutlet} from './logged.in.outlet';
+import {LoggedInRouterOutlet} from '../routing/logged.in.outlet';
 import {Home} from '../home/home';
 import {Login} from '../login/login';
 import {Signup} from '../signup/signup';
