@@ -31,9 +31,8 @@ public class BiscaRestServer {
     private BiscaJESecurityGenerator biscaJESecurityGenerator;
 
     @Inject
-    public BiscaRestServer()
-    {}
-
+    public BiscaRestServer() {
+    }
 
     @GET
     @Path("/test")
