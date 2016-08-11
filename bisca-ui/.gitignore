@@ -1,18 +1,20 @@
 # Angular JS 2 Startup
 typings/**/*.js
 typings/**/*.js.map
-signup/**/*.js
-signup/**/*.js.map
+app/signup/**/*.js
+app/signup/**/*.js.map
 login/**/*.js
 login/**/*.js.map
-home/**/*.js
-home/**/*.js.map
+app/home/**/*.js
+app/home/**/*.js.map
 common/**/*.js
 common/**/*.js.map
 app/**/*.js
 app/**/*.js.map
 index.js
 index.js.map
+gameplay.js
+gameplay.js.map
 
 # Node modules
 node_modules

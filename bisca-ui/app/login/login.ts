@@ -3,6 +3,7 @@ import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
 import { contentHeaders } from '../common/headers';
+import { MdButtonModule } from '@angular2-material/button';
 
 let styles   = require('./login.css');
 let template = require('./login.html');
@@ -14,6 +15,7 @@ let template = require('./login.html');
   styles: [ styles ]
 })
 export class Login {
+
   constructor(public router: Router, public http: Http) {
   }
 

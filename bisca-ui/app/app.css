@@ -32,8 +32,8 @@ a {
   cursor: hand;
 }
 button {
+  background-color: blue;
   font-family: Arial;
-  background-color: #eee;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;

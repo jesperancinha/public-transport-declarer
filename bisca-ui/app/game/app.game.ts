@@ -1,10 +1,10 @@
 import {Component, OnInit} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
-import {PlayerService} from './services/player.service';
-import {PlayerBoard} from './models/player.board';
+import {PlayerService} from '../services/player.service';
+import {PlayerBoard} from '../game/player.board';
 import { Http, HTTP_PROVIDERS } from 'angular2/http';
 
-let styles = require('./app.css');
+let styles = require('../app.css');
 
 @Component({
     selector: 'bisca-game-play',
@@ -31,7 +31,6 @@ export class PlayerStatusComponent implements OnInit {
     }
 
     //...
-
 
     private getAllItems(): void {
         this._playerService

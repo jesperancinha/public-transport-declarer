@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
 
-let styles   = require('./app.css');
+let styles   = require('../app.css');
 
 @Component({
     selector: 'my-app',

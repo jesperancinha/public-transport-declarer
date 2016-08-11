@@ -5,7 +5,7 @@ import { ROUTER_PROVIDERS } from 'angular2/router';
 import { Http, HTTP_PROVIDERS } from 'angular2/http';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
-import { PlayerStatusComponent } from './app/app.game';
+import { PlayerStatusComponent } from './app/game/app.game';
 import { Configuration } from './app/services/app.constants';
 
 bootstrap(

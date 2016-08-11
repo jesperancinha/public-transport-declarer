@@ -4,7 +4,7 @@
   "description": "This is the game BiscaJE",
   "main": "",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\"",
+    "start": "npm install && webpack install && tsc && concurrently \"tsc -w\" \"lite-server\"",
     "docker-build": "docker build -t ng2-quickstart .",
     "docker": "npm run docker-build && docker run -it --rm -p 3000:3000 -p 3001:3001 ng2-quickstart",
     "e2e": "tsc && concurrently \"http-server\" \"protractor protractor.config.js\"",
@@ -31,6 +31,8 @@
   "dependencies": {
     "@angular/core": "2.0.0-rc.1",
     "@angular/http": "2.0.0-rc.1",
+    "@angular2-material/button": "^2.0.0-alpha.7-2",
+    "@angular2-material/core": "^2.0.0-alpha.7-2",
     "angular2": "^2.0.0-beta.17",
     "angular2-jwt": "0.1.16",
     "body-parser": "^1.15.0",
@@ -49,6 +51,7 @@
     "ng2-toastr": "^0.3.1",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.6",
+    "sockjs": "^0.3.17",
     "systemjs": "0.19.26",
     "typings": "0.7.12",
     "zone.js": "0.6.12"
