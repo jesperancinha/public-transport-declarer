@@ -31,6 +31,8 @@
   "dependencies": {
     "@angular/core": "2.0.0-rc.1",
     "@angular/http": "2.0.0-rc.1",
+    "@angular2-material/button": "^2.0.0-alpha.7-2",
+    "@angular2-material/core": "^2.0.0-alpha.7-2",
     "angular2": "^2.0.0-beta.17",
     "angular2-jwt": "0.1.16",
     "body-parser": "^1.15.0",
