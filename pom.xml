@@ -5,7 +5,7 @@
     <artifactId>bisca-je</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
-    <name>bisca-ui</name>
+    <name>bisca-je</name>
     <url>http://maven.apache.org</url>
 
     <modules>
@@ -43,13 +43,14 @@
         <project.lombok>1.16.8</project.lombok>
         <cucumber.version>1.2.4</cucumber.version>
         <activemq-all.version>5.13.3</activemq-all.version>
-        <arquillian-bom.version>1.1.11.Final</arquillian-bom.version>
         <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <arquillian-weld-ee-embedded-1.1.version>1.1.2.Final</arquillian-weld-ee-embedded-1.1.version>
         <javaee-api.version>7.0</javaee-api.version>
         <javax.ejb-api.version>3.2</javax.ejb-api.version>
         <activemq-client.version>5.13.0</activemq-client.version>
+        <arquillian-container-test-api.version>1.1.7.Final</arquillian-container-test-api.version>
+        <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
     </properties>
 
     <dependencyManagement>
@@ -254,31 +255,38 @@
             </dependency>
 
             <!-- Arquillian -->
-            <!-- https://mvnrepository.com/artifact/org.jboss.arquillian/arquillian-bom -->
-            <!--<dependency>-->
-            <!--<groupId>org.jboss.arquillian.junit</groupId>-->
-            <!--<artifactId>arquillian-junit-container</artifactId>-->
-            <!--<version>${arquillian-bom.version}</version>-->
-            <!--<scope>test</scope>-->
-            <!--</dependency>-->
-
-            <!-- https://mvnrepository.com/artifact/org.jboss.arquillian.container/arquillian-weld-se-embedded-1.1 -->
-            <!--<dependency>-->
-            <!--<groupId>org.jboss.arquillian.container</groupId>-->
-            <!--<artifactId>arquillian-weld-se-embedded-1.1</artifactId>-->
-            <!--<version>1.0.0.CR9</version>-->
-            <!--</dependency>-->
-
-            <!--<dependency>-->
-            <!--<groupId>org.jboss.weld</groupId>-->
-            <!--<artifactId>weld-core</artifactId>-->
-            <!--<version>1.1.5.Final</version>-->
-            <!--<scope>test</scope>-->
-            <!--</dependency>-->
-
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-test-api</artifactId>
+                <version>${arquillian-container-test-api.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.junit</groupId>
+                <artifactId>arquillian-junit-core</artifactId>
+                <version>${arquillian-container-test-api.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.core</groupId>
+                <artifactId>arquillian-core-impl-base</artifactId>
+                <version>${arquillian-container-test-api.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-api</artifactId>
+                <version>${shrinkwrap-api.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.test</groupId>
+                <artifactId>arquillian-test-impl-base</artifactId>
+                <version>${arquillian-container-test-api.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
     <build>
         <plugins>
             <!-- Not a necessary plugin. In IntellJ you may need to use libs as an addition to the classpath during developing time -->
@@ -291,7 +299,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/libs</outputDirectory>
+                            <outputDirectory>${basedir}/../libs</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>false</overWriteSnapshots>
                             <overWriteIfNewer>true</overWriteIfNewer>
@@ -302,4 +310,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

@@ -8,14 +8,15 @@
         <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
         <class>com.steelzack.biscaje.entities.User</class>
         <properties>
-            <property name="hibernate.search.Rules.directory_provider" value="ram"/>
+            <property name="org.hibernate.search.Rules.directory_provider" value="ram"/>
             <property name="hibernate.ogm.datastore.provider"
                       value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
             <property name="hibernate.ogm.mongodb.database" value="test"/>
-            <property name="hibernate.ogm.mongodb.host" value="localhost"/>
+            <property name="hibernate.ogm.mongodb.host" value="192.168.99.100"/>
             <property name="hibernate.ogm.mongodb.port" value="27017"/>
             <property name="hibernate.ogm.datastore.database" value="test" />
             <property name="hibernate.ogm.datastore.create_database" value="true"/>
+            <property name="hibernate.ogm.datastore.host" value="192.168.99.100"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -20,7 +20,7 @@ export class Login {
   login(event, username, password) {
     event.preventDefault();
     let body = JSON.stringify({ username, password });
-    this.http.post('http://localhost:3001/sessions/create', body, { headers: contentHeaders })
+    this.http.post('http://localhost:3002/sessions/create', body, { headers: contentHeaders })
       .subscribe(
         response => {
           localStorage.setItem('jwt', response.json().id_token);
