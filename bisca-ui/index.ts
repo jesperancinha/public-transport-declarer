@@ -7,6 +7,8 @@ import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
 import { App } from './app/login/app';
 import { AppComponent } from './app/home/app.component';
+import { PlayerStatusComponent } from './app/game/app.game';
+import { Configuration } from './app/services/app.constants';
 
 bootstrap(
   App,

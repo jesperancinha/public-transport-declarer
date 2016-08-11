@@ -34,21 +34,6 @@ module.exports = {
     ],
     'app.component': [
           './index'
-    ],
-    'models/player.board': [
-          './gameplay'
-    ],
-    'models/player.status': [
-          './gameplay'
-    ],
-    'services/player.service': [
-          './gameplay'
-    ],
-    'app.game': [
-          './gameplay'
-    ],
-    'services/app.constants': [
-          './gameplay'
     ]
   },
 
