@@ -30,7 +30,7 @@
     "./**/*.ts",
     "!./node_modules/**/*.ts"
   ],
-  "compileOnSave": false,
-  "buildOnSave": false,
+  "compileOnSave": true,
+  "buildOnSave": true,
   "atom": { "rewriteTsconfig": true }
 }

@@ -1,21 +1,30 @@
-import { Component } from 'angular2/core';
+import { FORM_DIRECTIVES } from '@angular/forms';
+import { CORE_DIRECTIVES } from 'angular2/common';
+import { MD_INPUT_DIRECTIVES, MdInput} from '@angular2-material/input';
+import { MATERIAL_DIRECTIVES } from 'ng2-material';
+import { Component, Directive } from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
 import { contentHeaders } from '../common/headers';
-import { MdButtonModule } from '@angular2-material/button';
+
 
 let styles   = require('./login.css');
 let template = require('./login.html');
 
 @Component({
   selector: 'login',
-  directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES ],
+  directives: [
+         MATERIAL_DIRECTIVES,
+         MD_INPUT_DIRECTIVES,
+         CORE_DIRECTIVES,
+         FORM_DIRECTIVES,
+         RouterLink,
+         MdInput
+  ],
   template: template,
   styles: [ styles ]
 })
 export class Login {
-
   constructor(public router: Router, public http: Http) {
   }
 
