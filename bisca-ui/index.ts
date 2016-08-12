@@ -6,7 +6,7 @@ import { Http, HTTP_PROVIDERS } from 'angular2/http';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 
 import { App } from './app/login/app';
-import { AppComponent } from './app/home/app.component';
+import { AppComponent } from './app/home/header';
 import { PlayerStatusComponent } from './app/game/app.game';
 import { Configuration } from './app/services/app.constants';
 

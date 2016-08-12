@@ -24,6 +24,8 @@ module.exports = {
       'angular2/core',
       'angular2/router',
       'angular2/http',
+      '@angular2-material/button',
+      '@angular/common',
       // RxJS
       'rxjs',
       // Other
@@ -31,9 +33,6 @@ module.exports = {
     ],
     'app': [
       './index'
-    ],
-    'app.component': [
-          './index'
     ]
   },
 
@@ -98,8 +97,6 @@ module.exports = {
 
     plugins: [
       new CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
-      new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 3, chunks:
-      ['app', 'vendor', 'app.component', 'models/player.board, models/player.status, services/player.service', 'app.game', 'services/app.constants' ] })
     ],
 
     // Other module loader config

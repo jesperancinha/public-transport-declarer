@@ -17,7 +17,7 @@
     "app/game/app.game.ts",
     "app/game/player.board.ts",
     "app/game/player.status.ts",
-    "app/home/app.component.ts",
+    "app/home/header.ts",
     "app/home/home.ts",
     "app/login/app.ts",
     "app/login/login.ts",
