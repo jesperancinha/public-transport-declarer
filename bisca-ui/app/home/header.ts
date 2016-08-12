@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 
 let styles   = require('../app.css');
 let template = require('./header.html');
@@ -10,4 +10,3 @@ let template = require('./header.html');
 })
 
 export class AppComponent { }
-

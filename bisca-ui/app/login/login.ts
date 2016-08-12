@@ -1,10 +1,10 @@
 import { FORM_DIRECTIVES } from '@angular/forms';
-import { CORE_DIRECTIVES } from 'angular2/common';
+import { CORE_DIRECTIVES } from '@angular/common';
 import { MD_INPUT_DIRECTIVES, MdInput} from '@angular2-material/input';
 import { MATERIAL_DIRECTIVES } from 'ng2-material';
-import { Component, Directive } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { Http, Headers } from 'angular2/http';
+import { Component, Directive } from '@angular/core';
+import { Router, RouterLink } from '@angular/router-deprecated';
+import { Http, Headers } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
 

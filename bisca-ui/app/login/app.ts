@@ -1,5 +1,7 @@
-import {Component} from 'angular2/core';
-import {RouteConfig, RouterLink, Router} from 'angular2/router';
+/// <reference path="../../typings/browser.d.ts" />
+
+import {Component} from '@angular/core';
+import {RouteConfig, RouterLink, Router} from '@angular/router-deprecated';
 
 import {LoggedInRouterOutlet} from '../routing/logged.in.outlet';
 import {Home} from '../home/home';
@@ -13,7 +15,7 @@ let template = require('./app.html');
   template: template,
   directives: [ LoggedInRouterOutlet ]
 })
-@RouteConfig([
+@Routes([
   { path: '/', redirectTo: ['/Home'] },
   { path: '/home', component: Home, as: 'Home' },
   { path: '/login', component: Login, as: 'Login' },

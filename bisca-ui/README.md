@@ -36,6 +36,8 @@ $ npm run front
 
 ## References:
 
+* https://www.npmjs.com/~angular
+
 * https://angular.io/docs/ts/latest/quickstart.html
 
 * http://coenraets.org/blog/2016/02/angular2-ionic2-rest-services/
