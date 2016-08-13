@@ -24,6 +24,7 @@ let template = require('./login.html');
   template: template,
   styles: [ styles ]
 })
+
 export class Login {
   constructor(public router: Router, public http: Http) {
   }
