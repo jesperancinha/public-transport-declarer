@@ -6,4 +6,5 @@
 /// <reference path="browser/ambient/selenium-webdriver/index.d.ts" />
 /// <reference path="browser/ambient/webpack/index.d.ts" />
 /// <reference path="browser/ambient/zone/index.d.ts" />
+/// <reference path="browser/definitions/debug/index.d.ts" />
 /// <reference path="browser/definitions/es6-promise/index.d.ts" />

@@ -19,8 +19,6 @@ module.exports = {
       'zone.js/dist/zone',
       'zone.js/dist/long-stack-trace-zone',
       // Angular2
-      'ripple-js',
-      'ng-annotations',
       '@angular/common',
       '@angular/core',
       '@angular/forms',
@@ -28,7 +26,6 @@ module.exports = {
       '@angular/platform-browser',
       '@angular/platform-browser-dynamic',
       '@angular/router',
-      '@angular/router-deprecated',
       '@angular2-material/icon',
       '@angular2-material/button',
       '@angular2-material/input',

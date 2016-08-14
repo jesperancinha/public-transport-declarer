@@ -1,9 +1,8 @@
 import { FORM_DIRECTIVES } from '@angular/forms';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { MD_INPUT_DIRECTIVES, MdInput} from '@angular2-material/input';
-import { MATERIAL_DIRECTIVES } from 'ng2-material';
 import { Component, Directive } from '@angular/core';
-import { Router, RouterLink } from '@angular/router-deprecated';
+import { Router, RouterLink } from '@angular/router';
 import { Http, Headers } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
@@ -14,12 +13,10 @@ let template = require('./login.html');
 @Component({
   selector: 'login',
   directives: [
-         MATERIAL_DIRECTIVES,
          MD_INPUT_DIRECTIVES,
          CORE_DIRECTIVES,
          FORM_DIRECTIVES,
-         RouterLink,
-         MdInput
+         RouterLink
   ],
   template: template,
   styles: [ styles ]
@@ -36,7 +33,7 @@ export class Login {
       .subscribe(
         response => {
           localStorage.setItem('jwt', response.json().id_token);
-          this.router.parent.navigateByUrl('/home');
+          this.router.navigateByUrl('/home');
         },
         error => {
           alert(error.text());
@@ -47,6 +44,6 @@ export class Login {
 
   signup(event) {
     event.preventDefault();
-    this.router.parent.navigateByUrl('/signup');
+    this.router.navigateByUrl('/signup');
   }
 }

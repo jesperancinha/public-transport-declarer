@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CORE_DIRECTIVES } from '@angular/common';
 import { Http, Headers } from '@angular/http';
 import { AuthHttp } from 'angular2-jwt';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 
 let styleHome = require('./home.css');
 let styleCommon = require('../common.css');
@@ -28,7 +28,7 @@ export class Home {
 
   logout() {
     localStorage.removeItem('jwt');
-    this.router.parent.navigateByUrl('/login');
+    this.router.navigateByUrl('/login');
   }
 
 }
