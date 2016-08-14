@@ -25,6 +25,8 @@ node_modules
 # typings
 typings/browser/ambient
 typings/main/ambient
+typings/browser/definitions/debug/
+typings/main/definitions/debug/
 
 # webpack build (if ever built)
 build

@@ -19,11 +19,18 @@ module.exports = {
       'zone.js/dist/zone',
       'zone.js/dist/long-stack-trace-zone',
       // Angular2
-      'angular2/platform/browser',
-      'angular2/platform/common_dom',
-      'angular2/core',
-      'angular2/router',
-      'angular2/http',
+      '@angular/common',
+      '@angular/core',
+      '@angular/forms',
+      '@angular/compiler',
+      '@angular/platform-browser',
+      '@angular/platform-browser-dynamic',
+      '@angular/router',
+      '@angular2-material/icon',
+      '@angular2-material/button',
+      '@angular2-material/input',
+      '@angular2-material/core',
+      '@angular2-material/icon',
       // RxJS
       'rxjs',
       // Other
@@ -31,9 +38,6 @@ module.exports = {
     ],
     'app': [
       './index'
-    ],
-    'app.component': [
-          './index'
     ]
   },
 
@@ -98,8 +102,6 @@ module.exports = {
 
     plugins: [
       new CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js', minChunks: Infinity }),
-      new CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 3, chunks:
-      ['app', 'vendor', 'app.component', 'models/player.board, models/player.status, services/player.service', 'app.game', 'services/app.constants' ] })
     ],
 
     // Other module loader config

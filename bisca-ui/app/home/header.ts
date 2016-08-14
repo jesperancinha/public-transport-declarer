@@ -1,12 +1,12 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 
 let styles   = require('../app.css');
+let template = require('./header.html');
 
 @Component({
     selector: 'bisca-je-header',
-    template: '<h1>Welcome to the BiscaJE game!</h1>',
+    template: template,
     styles: [styles]
 })
 
 export class AppComponent { }
-

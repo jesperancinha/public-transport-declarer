@@ -39,6 +39,7 @@ limitations under the License.
 ## Status
 
 *Under development*
+*On Hold waiting for Angular2 release*
 
 ## Final notes:
 

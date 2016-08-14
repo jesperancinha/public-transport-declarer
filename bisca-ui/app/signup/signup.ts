@@ -1,7 +1,7 @@
-import { Component } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http } from 'angular2/http';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Http } from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
 let styles   = require('./signup.css');
@@ -24,7 +24,7 @@ export class Signup {
       .subscribe(
         response => {
           localStorage.setItem('jwt', response.json().id_token);
-          this.router.parent.navigateByUrl('/home');
+          this.router.navigateByUrl('/home');
         },
         error => {
           alert(error.text());
@@ -35,7 +35,7 @@ export class Signup {
 
   login(event) {
     event.preventDefault();
-    this.router.parent.navigateByUrl('/login');
+    this.router.navigateByUrl('/login');
   }
 
 }
