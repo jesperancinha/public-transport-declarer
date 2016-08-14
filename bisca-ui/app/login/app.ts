@@ -8,8 +8,6 @@ let template = require('./app.html');
 
 @Component({
   selector: 'bisca-je-content',
-  directives: [ ROUTER_DIRECTIVES ],
-  providers: [ APP_ROUTES_PROVIDER ],
   template: template,
 })
 export class App {
