@@ -11,9 +11,6 @@ An implementation of both [Bisca](https://pt.wikipedia.org/wiki/Bisca) and [Bris
 ## How to run:
 
 ```
-$ npm install
-
-$ webpack install
 
 $ npm run lite
 
