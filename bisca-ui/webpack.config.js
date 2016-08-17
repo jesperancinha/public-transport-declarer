@@ -33,8 +33,6 @@ module.exports = {
       '@angular2-material/icon',
       // RxJS
       'rxjs',
-      // Other
-      'angular2-jwt'
     ],
     'app': [
       './index'
