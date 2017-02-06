@@ -38,3 +38,10 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# TSC
+src/**/*.js
+src/**/*.js.map
+
+# build
+dist

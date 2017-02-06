@@ -30,6 +30,33 @@ s
 
 To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## Installation tips:
+
+```
+npm init --yes
+
+npm install --save-dev lite-server
+
+npm install --save-dev typescript @types/node @types/jasmine @types/core-js
+
+npm install --save-dev concurrently
+
+npm install core-js reflect-metadata zone.js rxjs@^5.0.1 systemjs --save
+
+npm install @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic @angular/forms @angular/http @angular/router --save
+
+```
+### Global installations:
+```
+npm i -g tsc
+
+npm i -g typescript
+
+npm i -g angular-cli
+
+npm i -g lite-server
+
+```
 
 ## License
 
