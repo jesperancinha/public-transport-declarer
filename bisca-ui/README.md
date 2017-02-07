@@ -1,59 +1,67 @@
 # BiscaJE UI
 
-## Building the game:
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
 
-*  Node js legacy (not necessary!)
-```
-# Node JS for LINUX
-$ sudo apt install nodejs-legacy 
-# OR
-# Node JS for MACOS
-$ sudo brew install nodejs-legacy
-```
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-* Common installation:
+## Code scaffolding
 
-```
-$ npm install
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
-$ tsc
+## Build
 
-```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-* Running server options:
-```
-# Choose one:
+## Running unit tests
 
-$ webpack install
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-$ npm run lite
+## Running end-to-end tests
 
-# or
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
 
-$ npm run front
+## Deploying to GitHub Pages
 
-```
+Run `ng github-pages:deploy` to deploy to GitHub Pages.
+s
+## Further help
 
-## References:
+To get more help on the `angular-cli` use `ng help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-* https://www.npmjs.com/~angular
-
-* https://angular.io/docs/ts/latest/quickstart.html
-
-* http://coenraets.org/blog/2016/02/angular2-ionic2-rest-services/
-
-* http://offering.solutions/articles/angular/rest-api-angular2-http-typescript/
-
-* https://github.com/auth0-blog/angular2-authentication-sample
-
-* https://github.com/auth0-blog/nodejs-jwt-authentication-sample
-
-* https://webpack.github.io/
-
-> Note: The following are the exact descriptions of the projects used to make this UI*
+## Installation tips:
 
 ```
-Copyright 2016-2017 Steelzack
+npm init --yes
+
+npm install --save-dev lite-server
+
+npm install --save-dev typescript @types/node @types/jasmine @types/core-js
+
+npm install --save-dev concurrently
+
+npm install core-js reflect-metadata zone.js rxjs@^5.0.1 systemjs --save
+
+npm install @angular/core @angular/common @angular/compiler @angular/platform-browser @angular/platform-browser-dynamic @angular/forms @angular/http @angular/router --save
+
+```
+### Global installations:
+```
+npm i -g tsc
+
+npm i -g typescript
+
+npm i -g angular-cli
+
+npm i -g lite-server
+
+```
+
+## License
+
+```
+Copyright 2016-2017 Time Disruption Studios
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -1,37 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "es5",
     "module": "commonjs",
-    "removeComments": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true,
-    "moduleResolution" : "node"
-  },
-  "files": [
-    "index.ts",
-    "typings/tsd.d.ts",
-    "app/main.ts",
-    "app/app.module.ts",
-    "app/common/headers.ts",
-    "app/game/app.game.ts",
-    "app/game/player.board.ts",
-    "app/game/player.status.ts",
-    "app/home/header.ts",
-    "app/home/home.ts",
-    "app/login/app.ts",
-    "app/login/login.ts",
-    "app/login/app.routes.ts",
-    "app/routing/logged.in.outlet.ts",
-    "app/services/app.constants.ts",
-    "app/services/player.service.ts",
-    "app/signup/signup.ts"
-  ],
-    "filesGlob": [
-    "./**/*.ts",
-    "!./node_modules/**/*.ts"
-  ],
-  "compileOnSave": true,
-  "buildOnSave": true,
-  "atom": { "rewriteTsconfig": true }
+    "removeComments": false,
+    "noImplicitAny": false,
+    "outDir": "dist"
+  }
 }
