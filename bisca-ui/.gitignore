@@ -45,3 +45,6 @@ src/**/*.js.map
 
 # build
 dist
+
+# yarn
+yarn.lock
