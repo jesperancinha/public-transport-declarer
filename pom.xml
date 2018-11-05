@@ -69,6 +69,12 @@
                 <artifactId>bisca-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- bisca rest -->
+            <dependency>
+                <groupId>jesperancinha</groupId>
+                <artifactId>bisca-rest-api-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- Javax Persistence -->
             <dependency>
