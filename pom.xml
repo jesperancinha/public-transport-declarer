@@ -17,10 +17,9 @@
     </modules>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler>3.5.1</maven.compiler>
-        <java.version>11</java.version>
         <junit>4.12</junit>
         <jersey-bundle.version>1.19.1</jersey-bundle.version>
         <jersey-server.version>2.23</jersey-server.version>
