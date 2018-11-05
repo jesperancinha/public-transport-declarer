@@ -124,6 +124,11 @@
             <artifactId>bisca-model</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>jesperancinha</groupId>
+            <artifactId>bisca-api</artifactId>
+        </dependency>
+
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate.ogm</groupId>
@@ -150,14 +155,10 @@
         </dependency>
 
         <!-- EJB -->
+
         <dependency>
             <groupId>javax.ejb</groupId>
             <artifactId>javax.ejb-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jesperancinha</groupId>
-            <artifactId>bisca-api</artifactId>
         </dependency>
 
         <!-- Lombok -->
