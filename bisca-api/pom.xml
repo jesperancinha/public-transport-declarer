@@ -5,10 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-       <groupId>jesperancinha</groupId>
+        <groupId>jesperancinha</groupId>
         <artifactId>bisca-je</artifactId>
         <version>1.0.0</version>
     </parent>
+
+    <packaging>jar</packaging>
 
     <artifactId>bisca-api</artifactId>
 
