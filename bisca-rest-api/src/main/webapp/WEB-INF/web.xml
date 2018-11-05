@@ -12,17 +12,17 @@
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>
-                com.steelzack.biscaje.entities,
-                com.steelzack.biscaje.server,
-                com.steelzack.biscaje.service,
-                com.steelzack.biscaje.binders,
-                com.steelzack.biscaje.security,
+                com.jesperancinha.biscaje.entities,
+                com.jesperancinha.biscaje.server,
+                com.jesperancinha.biscaje.service,
+                com.jesperancinha.biscaje.binders,
+                com.jesperancinha.biscaje.security,
                 com.fasterxml.jackson.jaxrs.json,
             </param-value>
         </init-param>
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
-            <param-value>com.steelzack.biscaje.binders.BiscaJEApplication</param-value>
+            <param-value>com.jesperancinha.biscaje.binders.BiscaJEApplication</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
 

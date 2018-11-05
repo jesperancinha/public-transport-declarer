@@ -6,7 +6,7 @@
             http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
     <persistence-unit name="biscaje-pu">
         <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
-        <class>com.steelzack.biscaje.entities.User</class>
+        <class>com.jesperancinha.biscaje.entities.User</class>
         <properties>
             <property name="org.hibernate.search.Rules.directory_provider" value="ram"/>
             <property name="hibernate.ogm.datastore.provider"

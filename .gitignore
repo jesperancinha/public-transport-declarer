@@ -1,29 +1,46 @@
-*.class
-
-# Mobile Tools for Java (J2ME)
+### Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+### Java related build
 *.jar
 *.war
 *.ear
+*.class
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+### Virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# Log files
-**/*.log
 
-# Idea files
-**/*.iml
+### MAC OS
+**/.DS_Store
+
+### Intellij
+*.iml
+*.ipr
+*.iws
 .idea
 
-# Maven
+### Eclipse
+.classpath
+.settings
+.project
+**/build/
+**/bin/
+**/build-by-eclipse/
+
+### Gradle
+.gradle
+gradle
+gradlew
+gradlew.bat
+out
+
+### IDE
 target
 libs
 
-# Rest API
-bisca-rest-api/com.steelzack.biscaje.entities.User
+### Rest API
+bisca-rest-api/com.jesperancinha.biscaje.entities.User
 bisca-rest-api/activemq-data/localhost/KahaDB/
 bisca-rest-api/duplicate
 bisca-rest-api/libs

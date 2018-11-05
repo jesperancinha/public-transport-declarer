@@ -5,16 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>jofisaes</groupId>
+       <groupId>jesperancinha</groupId>
         <artifactId>bisca-je</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>bisca-api</artifactId>
-    <version>${project.version}</version>
 
     <properties>
-        <maven.compiler>3.5.1</maven.compiler>
+        <maven.compiler>3.8.0</maven.compiler>
     </properties>
 
     <build>
