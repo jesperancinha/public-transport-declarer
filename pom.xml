@@ -12,8 +12,8 @@
 
     <modules>
         <module>bisca-api</module>
-        <module>bisca-rest-api</module>
         <module>bisca-model</module>
+        <module>bisca-rest-api</module>
     </modules>
 
     <properties>
