@@ -1,5 +1,7 @@
 # bisca-je
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f734d44324c349029c07e2656bccef41)](https://www.codacy.com/app/jofisaes/bisca-je?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/bisca-je&amp;utm_campaign=Badge_Grade)
+
 An implementation of both [Bisca](https://pt.wikipedia.org/wiki/Bisca) and [Briscola](https://en.wikipedia.org/wiki/Briscola).
 
 ## References
