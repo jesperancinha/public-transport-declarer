@@ -46,3 +46,6 @@ bisca-rest-api/duplicate
 bisca-rest-api/libs
 bisca-model/libs
 bisca-api/libs
+
+### Node modules
+node_modules

@@ -61,7 +61,7 @@ npm i -g lite-server
 ## License
 
 ```
-Copyright 2016-2017 Time Disruption Studios
+Copyright 2016-2017 João Esperancinha
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
