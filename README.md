@@ -2,7 +2,8 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f734d44324c349029c07e2656bccef41)](https://www.codacy.com/app/jofisaes/bisca-je?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/bisca-je&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-bisca-je-master)
-
+[![CircleCI](https://circleci.com/gh/jesperancinha/bisca-je.svg?style=svg)](https://circleci.com/gh/jesperancinha/bisca-je)
+[![Build Status](https://travis-ci.org/jesperancinha/bisca-je.svg?branch=master)](https://travis-ci.org/jesperancinha/bisca-je)
 ---
 
 An implementation of both [Bisca](https://pt.wikipedia.org/wiki/Bisca) and [Briscola](https://en.wikipedia.org/wiki/Briscola).
