@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-       <groupId>jesperancinha</groupId>
+        <groupId>jesperancinha</groupId>
         <artifactId>bisca-je</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -50,6 +50,17 @@
     </build>
 
     <dependencies>
+        <!-- BiscaJE -->
+        <dependency>
+            <groupId>jesperancinha</groupId>
+            <artifactId>bisca-model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jesperancinha</groupId>
+            <artifactId>bisca-api</artifactId>
+        </dependency>
+
         <!-- Javax Persistence -->
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -123,17 +134,6 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-        </dependency>
-
-        <!-- BiscaJE -->
-        <dependency>
-            <groupId>jesperancinha</groupId>
-            <artifactId>bisca-model</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jesperancinha</groupId>
-            <artifactId>bisca-api</artifactId>
         </dependency>
 
         <!-- Hibernate -->
@@ -214,6 +214,15 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
+
         <dependency>
             <groupId>org.apache.activemq.tooling</groupId>
             <artifactId>activemq-junit</artifactId>
@@ -275,111 +284,11 @@
             <version>1.1.7.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>arquillian-weld-ee-embedded</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-6.0</artifactId>
-                    <version>1.0.0.Final</version>
-                    <type>pom</type>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-                    <version>1.0.0.CR5</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.weld</groupId>
-                    <artifactId>weld-core</artifactId>
-                    <version>1.1.9.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                    <version>1.6.4</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>arquillian-glassfish-embedded</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                    <version>1.0.0.CR3</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.main.extras</groupId>
-                    <artifactId>glassfish-embedded-all</artifactId>
-                    <version>3.1.2</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>arquillian-jbossas-managed</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.spec</groupId>
-                    <artifactId>jboss-javaee-6.0</artifactId>
-                    <version>1.0.0.Final</version>
-                    <type>pom</type>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                    <version>7.1.1.Final</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.arquillian.protocol</groupId>
-                    <artifactId>arquillian-protocol-servlet</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <!-- This optional build configuration downloads and extracts JBoss AS automatically -->
-            <!-- Remove it if you want to use an existing installation defined by the JBOSS_HOME environment variable -->
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.jboss.as</groupId>
-                                            <artifactId>jboss-as-dist</artifactId>
-                                            <version>7.1.1.Final</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>target</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

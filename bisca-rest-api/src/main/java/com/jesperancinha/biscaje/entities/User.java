@@ -14,7 +14,6 @@ import java.util.Date;
  * Created by joaofilipesabinoesperancinha on 16-04-16.
  */
 @Entity
-@XmlRootElement
 @Indexed
 @Proxy(lazy = false)
 public class User {

@@ -14,9 +14,6 @@ import static com.jesperancinha.biscaje.game.enums.SuitType.CLUBS_IT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by joaofilipesabinoesperancinha on 24-04-16.
- */
 public class CardSteps {
     private CardType cardType;
     private SuitType suitType;
@@ -33,30 +30,30 @@ public class CardSteps {
 
 
     @Given("^I know the card type is \"([^\"]*)\"$")
-    public void i_know_the_card_type_is(String cardType) throws Throwable {
+    public void i_know_the_card_type_is(String cardType) {
     this.cardType = CardType.valueOf(cardType);
 
     }
 
     @Given("^I know the suit type is \"([^\"]*)\"$")
-    public void i_know_the_suit_type_is(String suitType) throws Throwable {
+    public void i_know_the_suit_type_is(String suitType) {
         this.suitType = SuitType.valueOf(suitType);
     }
 
     @Given("^I know the deck type is \"([^\"]*)\"$")
-    public void i_know_the_deck_type_is(String deckType) throws Throwable {
+    public void i_know_the_deck_type_is(String deckType) {
         this.deckType = DeckType.valueOf(deckType);
     }
 
     @Then("^the result should be king of clubs from a portuguese deck$")
-    public void the_result_should_be_king_of_clubs_from_a_portuguese_deck() throws Throwable {
+    public void the_result_should_be_king_of_clubs_from_a_portuguese_deck() {
         assertEquals(cardType, cardImpl.getCardType());
         assertEquals(suitType, cardImpl.getSuitType());
         assertEquals(deckType, cardImpl.getDeckType());
     }
 
     @When("^I create it with a \"([^\"]*)\" deck, with a \"([^\"]*)\" suit and a \"([^\"]*)\" type$")
-    public void i_create_it_with_a_deck_with_a_suit_and_a_type(String deckName, String suitName, String cardName) throws Throwable {
+    public void i_create_it_with_a_deck_with_a_suit_and_a_type(String deckName, String suitName, String cardName) {
         final DeckType deckType = DeckType.valueOf(deckName);
         final SuitType suitType = SuitType.valueOf(suitName);
         final CardType cardType = CardType.valueOf(cardName);
