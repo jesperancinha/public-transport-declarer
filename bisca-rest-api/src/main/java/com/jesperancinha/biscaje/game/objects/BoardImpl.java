@@ -4,6 +4,7 @@ import com.jesperancinha.biscaje.game.enums.DeckType;
 import lombok.Getter;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ public class BoardImpl implements Board {
 
     @Override
     public void orderPlayers(List<Player> players) {
-        Collections.sort(players, (player1, player2) -> player1.getOrderId().compareTo(player2.getOrderId()));
+        Collections.sort(players, Comparator.comparing(Player::getOrderId));
     }
 
     @Override

@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>bisca-rest-api</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>bisca-rest-api</name>
     <url>http://maven.apache.org</url>
 
@@ -200,10 +200,17 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit -->
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.truth/truth -->
+        <dependency>
+            <groupId>com.google.truth</groupId>
+            <artifactId>truth</artifactId>
             <scope>test</scope>
         </dependency>
 

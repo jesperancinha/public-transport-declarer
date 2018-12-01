@@ -1,8 +1,5 @@
 package com.jesperancinha.biscaje.security;
 
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.errors.EncryptionException;
-
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.enterprise.context.ApplicationScoped;
@@ -38,20 +35,6 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
     }
 
     /**
-     * OWASP Weak hashing method
-     * @param password
-     * @param accountName
-     * @return
-     * @throws EncryptionException
-     * @throws NoSuchAlgorithmException
-     */
-    @Override
-    public String generateWeakPasswordHash(String password, String accountName) throws EncryptionException, NoSuchAlgorithmException {
-        String salt = ESAPI.encryptor().hash(accountName.toLowerCase(), getSalt());
-        return ESAPI.encryptor().hash(password, salt);
-    }
-
-    /**
      * PBKDF2 Strong password generation
      * @param password Original password
      * @return Hashed/Encrypted password
@@ -79,7 +62,7 @@ public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
     }
 
     @Override
-    public String toHex(byte[] array) throws NoSuchAlgorithmException {
+    public String toHex(byte[] array) {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
         int paddingLength = (array.length * 2) - hex.length();

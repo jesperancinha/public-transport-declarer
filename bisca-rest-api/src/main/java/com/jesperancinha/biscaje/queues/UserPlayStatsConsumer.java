@@ -19,35 +19,21 @@ public class UserPlayStatsConsumer implements RemoteMessageConsumer {
     public void run() {
         try {
 
-            // Create a ConnectionFactory
             ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
             connectionFactory.setTrustAllPackages(true);
-
-            // Create a Connection
             Connection connection = connectionFactory.createConnection();
             connection.start();
-
             connection.setExceptionListener(this);
-
-            // Create a Session
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-            // Create the destination (Topic or Queue)
             Destination destination = session.createQueue("TEST.FOO");
-
-            // Create a MessageConsumer from the Session to the Topic or Queue
             MessageConsumer consumer = session.createConsumer(destination);
-
-            // Wait for a message
             Message message = consumer.receive(1000);
-
             if (message instanceof ObjectMessage) {
                 Integer nPlayers = ((Stats) ((ObjectMessage) message).getObject()).getNPlayers();
                 System.out.println("Received: " + nPlayers + " players");
             } else {
                 System.out.println("Received: " + message);
             }
-
             consumer.close();
             session.close();
             connection.close();
