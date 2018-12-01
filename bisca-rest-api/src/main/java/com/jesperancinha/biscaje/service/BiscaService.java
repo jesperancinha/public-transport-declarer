@@ -5,9 +5,6 @@ import com.jesperancinha.biscaje.entities.User;
 import javax.persistence.EntityManager;
 import java.util.Date;
 
-/**
- * Created by joaofilipesabinoesperancinha on 17-04-16.
- */
 public interface BiscaService {
     EntityManager getEntityManager();
 
