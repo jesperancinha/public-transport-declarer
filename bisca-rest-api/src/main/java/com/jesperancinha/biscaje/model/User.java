@@ -12,7 +12,9 @@ import javax.persistence.Table;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
@@ -21,6 +23,8 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 @Builder
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "User")
 public class User {
 
@@ -44,7 +48,7 @@ public class User {
 		return id;
 	}
 
-	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, targetEntity = Player.class, cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, targetEntity = Player.class, cascade = CascadeType.ALL, optional = false)
 	public Player getPlayer() {
 		return player;
 	}

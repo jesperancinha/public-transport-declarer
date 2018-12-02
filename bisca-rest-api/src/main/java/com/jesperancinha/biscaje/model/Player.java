@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Builder;
 import lombok.Setter;
@@ -20,9 +21,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Player")
 public class Player {
 
-
 	private String id;
 
+	@NotNull
 	private User user;
 
 	private String name;

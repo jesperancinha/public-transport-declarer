@@ -1,5 +1,6 @@
 package com.jesperancinha.biscaje.config;
 
+import javax.persistence.ValidationMode;
 import javax.sql.DataSource;
 
 import java.util.Properties;
@@ -30,6 +31,7 @@ public class H2Configuration {
 		JpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(hibernateJpaVendorAdapter);
 		em.setJpaProperties(hibernateProperties());
+		em.setValidationMode(ValidationMode.AUTO);
 
 		return em;
 	}
