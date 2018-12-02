@@ -7,10 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by joaofilipesabinoesperancinha on 17-04-16.
- */
-
 @Getter
 public class BoardImpl implements Board {
 

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Controller;
 
 import com.jesperancinha.biscaje.model.User;
 import com.jesperancinha.biscaje.security.BiscaJESecurityGenerator;
-import com.jesperancinha.biscaje.service.BiscaUserDao;
+import com.jesperancinha.biscaje.service.UserRepository;
 import org.apache.commons.httpclient.HttpStatus;
 
 /**
@@ -30,7 +30,7 @@ import org.apache.commons.httpclient.HttpStatus;
 public class BiscaRestServer {
 
 	@Inject
-	private BiscaUserDao biscaUserDao;
+	private UserRepository userRepository;
 
 	@Inject
 	private BiscaJESecurityGenerator biscaJESecurityGenerator;
@@ -44,7 +44,7 @@ public class BiscaRestServer {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String ping() throws InvalidKeySpecException, NoSuchAlgorithmException {
-		biscaUserDao.save(com.jesperancinha.biscaje.entities.User.builder()
+		userRepository.save(com.jesperancinha.biscaje.model.User.builder()
 				.name("Joao")
 				.password(biscaJESecurityGenerator.generateStrongPasswordHash("12345"))
 				.lastlog(Timestamp.from(Instant.now())).build());

@@ -1,4 +1,4 @@
-package com.jesperancinha.biscaje.entities;
+package com.jesperancinha.biscaje.model;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

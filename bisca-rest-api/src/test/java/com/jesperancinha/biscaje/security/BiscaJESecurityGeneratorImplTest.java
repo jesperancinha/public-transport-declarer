@@ -1,5 +1,6 @@
 package com.jesperancinha.biscaje.security;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +22,7 @@ public class BiscaJESecurityGeneratorImplTest {
 
 		final String hashedPassword = biscaJESecurityGenerator.generateStrongPasswordHash("Joao");
 
-		assertTrue(biscaJESecurityGenerator.validateStrongPassword("Joao", hashedPassword));
+		assertThat(biscaJESecurityGenerator.validateStrongPassword("Joao", hashedPassword)).isTrue();
 	}
 
 	@Test
@@ -30,7 +31,7 @@ public class BiscaJESecurityGeneratorImplTest {
 
 		final String hashedPassword = biscaJESecurityGenerator.generateStrongPasswordHash("1234567890");
 
-		assertTrue(biscaJESecurityGenerator.validateStrongPassword("1234567890", hashedPassword));
+		assertThat(biscaJESecurityGenerator.validateStrongPassword("1234567890", hashedPassword)).isTrue();
 	}
 
 	@Test
@@ -39,7 +40,7 @@ public class BiscaJESecurityGeneratorImplTest {
 
 		final String hashedPassword = biscaJESecurityGenerator.generateStrongPasswordHash("1.2.3.4.5.6");
 
-		assertTrue(biscaJESecurityGenerator.validateStrongPassword("1.2.3.4.5.6", hashedPassword));
+		assertThat(biscaJESecurityGenerator.validateStrongPassword("1.2.3.4.5.6", hashedPassword)).isTrue();
 	}
 
 	@Test
@@ -48,7 +49,7 @@ public class BiscaJESecurityGeneratorImplTest {
 
 		final String hashedPassword = biscaJESecurityGenerator.generateStrongPasswordHash("Joao");
 
-		assertFalse(biscaJESecurityGenerator.validateStrongPassword("oaoJ", hashedPassword));
+		assertThat(biscaJESecurityGenerator.validateStrongPassword("oaoJ", hashedPassword)).isFalse();
 	}
 
 	@Test

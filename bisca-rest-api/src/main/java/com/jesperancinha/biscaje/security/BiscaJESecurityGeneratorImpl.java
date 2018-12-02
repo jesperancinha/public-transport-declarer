@@ -11,11 +11,12 @@ import java.security.spec.InvalidKeySpecException;
 
 import static org.owasp.esapi.codecs.Hex.fromHex;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by joaofilipesabinoesperancinha on 17-04-16.
  */
-@ApplicationScoped
-@Named("biscaJESecurityGeneratorImpl")
+@Service
 public class BiscaJESecurityGeneratorImpl implements BiscaJESecurityGenerator {
     public static final String PBKDF_2_WITH_HMAC_SHA_512 = "PBKDF2WithHmacSHA512";
     public static final String SHA_1_PRNG = "SHA1PRNG";

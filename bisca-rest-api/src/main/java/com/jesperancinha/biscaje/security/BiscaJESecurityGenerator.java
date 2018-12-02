@@ -5,9 +5,6 @@ import java.security.spec.InvalidKeySpecException;
 
 import org.owasp.esapi.errors.EncryptionException;
 
-/**
- * Created by joaofilipesabinoesperancinha on 17-04-16.
- */
 public interface BiscaJESecurityGenerator {
 
 	String generateStrongPasswordHash(

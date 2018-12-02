@@ -5,9 +5,6 @@ import com.jesperancinha.biscaje.game.enums.DeckType;
 import com.jesperancinha.biscaje.game.enums.SuitType;
 import lombok.Getter;
 
-/**
- * Created by joaofilipesabinoesperancinha on 17-04-16.
- */
 @Getter
 public class CardImpl implements Card {
     private CardType cardType;

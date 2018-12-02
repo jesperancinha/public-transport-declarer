@@ -18,7 +18,7 @@ public class BoardImplTest {
     private static final String MARIA = "Maria";
 
     @Test
-    public void getPlayers() throws Exception {
+    public void getPlayers() {
         final Player player1 = new PlayerImpl(JOAO);
         final Player player2 = new PlayerImpl(PATRICIA);
         final Player player3 = new PlayerImpl(MARIA);
@@ -52,7 +52,7 @@ public class BoardImplTest {
     }
 
     @Test
-    public void getCurrentPlayer() throws Exception {
+    public void getCurrentPlayer() {
         final Player player1 = new PlayerImpl(JOAO);
         final Player player2 = new PlayerImpl(PATRICIA);
         final Player player3 = new PlayerImpl(MARIA);
