@@ -3,8 +3,6 @@ package com.jesperancinha.biscaje.security;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-import org.owasp.esapi.errors.EncryptionException;
-
 public interface BiscaJESecurityGenerator {
 
 	String generateStrongPasswordHash(

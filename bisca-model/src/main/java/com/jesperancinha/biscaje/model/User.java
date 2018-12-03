@@ -1,18 +1,72 @@
 package com.jesperancinha.biscaje.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Getter
-@Setter
+import java.sql.Timestamp;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
+
+@Entity
+@Proxy(lazy = false)
 @Builder
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "User")
 public class User {
 
-    private String name;
+	private String id;
 
-    private String passwordString;
+	private Player player;
 
-    private String lastLoggedIn;
+	private String name;
+
+	private String password;
+
+	private Timestamp lastlog;
+
+	private String addres;
+
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Column(name = "ID")
+	public String getId() {
+		return id;
+	}
+
+	@OneToOne(mappedBy = "user", fetch = FetchType.LAZY, targetEntity = Player.class, cascade = CascadeType.ALL, optional = false)
+	public Player getPlayer() {
+		return player;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	@Basic
+	public Timestamp getLastlog() {
+		return lastlog;
+	}
+
+	public String getAddres() {
+		return addres;
+	}
 }
-
