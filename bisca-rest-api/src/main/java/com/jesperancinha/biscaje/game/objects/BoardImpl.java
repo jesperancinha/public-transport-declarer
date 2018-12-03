@@ -1,6 +1,10 @@
 package com.jesperancinha.biscaje.game.objects;
 
 import com.jesperancinha.biscaje.game.enums.DeckType;
+import com.jesperancinha.biscaje.model.Board;
+import com.jesperancinha.biscaje.model.Card;
+import com.jesperancinha.biscaje.model.DeckManager;
+import com.jesperancinha.biscaje.model.Player;
 import lombok.Getter;
 
 import java.util.Collections;

@@ -41,6 +41,12 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>jesperancinha</groupId>
+            <artifactId>bisca-api</artifactId>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

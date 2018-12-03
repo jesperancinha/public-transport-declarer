@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.jesperancinha.biscaje.game.enums.CardType;
+import com.jesperancinha.biscaje.model.Card;
 import org.junit.jupiter.api.Test;
 
 /**

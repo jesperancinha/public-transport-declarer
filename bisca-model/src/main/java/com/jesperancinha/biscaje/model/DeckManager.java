@@ -1,4 +1,4 @@
-package com.jesperancinha.biscaje.game.objects;
+package com.jesperancinha.biscaje.model;
 
 import com.jesperancinha.biscaje.game.enums.DeckType;
 import com.jesperancinha.biscaje.game.enums.SuitType;

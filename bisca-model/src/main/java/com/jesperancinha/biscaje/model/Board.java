@@ -1,10 +1,7 @@
-package com.jesperancinha.biscaje.game.objects;
+package com.jesperancinha.biscaje.model;
 
 import java.util.List;
 
-/**
- * Created by joaofilipesabinoesperancinha on 13-04-16.
- */
 public interface Board {
     void orderPlayers(List<Player> players);
 

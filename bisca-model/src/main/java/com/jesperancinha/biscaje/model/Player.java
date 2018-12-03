@@ -6,10 +6,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import java.util.List;
 
 import lombok.Builder;
 import lombok.Setter;
@@ -26,11 +29,13 @@ public class Player {
 	@NotNull
 	private User user;
 
-	private String name;
+	private Long points;
 
-	private String email;
+	private List<Card> cards;
 
-	private String telephone;
+	private Integer orderId;
+
+	private Player nextPlayer;
 
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -47,15 +52,23 @@ public class Player {
 		return user;
 	}
 
-	public String getName() {
-		return name;
+	public Long getPoints() {
+		return points;
 	}
 
-	public String getEmail() {
-		return email;
+	@OneToMany(targetEntity = Card.class, mappedBy = "id", fetch = FetchType.EAGER)
+	public List<Card> getCards() {
+		return cards;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, targetEntity = User.class)
+	@JoinColumn(name = "next_player_id", nullable = false)
+	@PrimaryKeyJoinColumn
+	public Player getNextPlayer() {
+		return nextPlayer;
 	}
 }

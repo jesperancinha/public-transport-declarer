@@ -10,5 +10,5 @@ import com.jesperancinha.biscaje.model.Player;
 @Repository
 @Transactional
 public interface PlayerRepository extends CrudRepository<Player, String> {
-	Player findByName(String name);
 }
+

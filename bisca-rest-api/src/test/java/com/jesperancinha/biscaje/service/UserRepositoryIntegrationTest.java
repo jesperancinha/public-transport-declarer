@@ -24,7 +24,7 @@ public class UserRepositoryIntegrationTest {
 	private UserRepository userRepository;
 
 	@Autowired
-	private  PlayerRepository playerRepository;
+	private PlayerRepository playerRepository;
 
 	@Autowired
 	private EntityManager entityManager;
@@ -46,8 +46,9 @@ public class UserRepositoryIntegrationTest {
 		final String testAddress = "this is my addres";
 		final String testTelephone = "111223344";
 		final String testEmail = "this is such an awesome mail";
-		final Player testPlayer = Player.builder().name(testName).email(testEmail).telephone(testTelephone).build();
-		final User testUser = User.builder().name(testName).password(testPassword).addres(testAddress).player(testPlayer).build();
+		final Player testPlayer = Player.builder().build();
+		final User testUser = User.builder().name(testName).email(testEmail).telephone(testTelephone)
+				.password(testPassword).addres(testAddress).player(testPlayer).build();
 
 		final Player savedPlayer = playerRepository
 				.save(testPlayer);

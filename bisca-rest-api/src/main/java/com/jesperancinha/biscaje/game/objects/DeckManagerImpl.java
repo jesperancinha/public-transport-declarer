@@ -8,6 +8,9 @@ import java.util.Map;
 import com.jesperancinha.biscaje.exceptions.DeckNotInitializedException;
 import com.jesperancinha.biscaje.game.enums.DeckType;
 import com.jesperancinha.biscaje.game.enums.SuitType;
+import com.jesperancinha.biscaje.model.Card;
+import com.jesperancinha.biscaje.model.DeckManager;
+import com.jesperancinha.biscaje.model.Suit;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -26,11 +29,8 @@ class DeckManagerImpl implements DeckManager {
 		deckCards = Arrays.stream(
 				SuitType.values()
 		).filter(suitType -> suitType.getDeckType() == deckType
-		).collect(
-				toMap(suitType -> suitType,
-						suitType -> new SuitImpl(suitType, deckType)
-				)
-		);
+		).collect(toMap(suitType -> suitType,
+				suitType -> new SuitImpl(suitType, deckType)));
 	}
 
 	@Override
@@ -39,7 +39,7 @@ class DeckManagerImpl implements DeckManager {
 			throw new DeckNotInitializedException();
 		}
 
-		deckCards.values().stream().forEach(
+		deckCards.values().forEach(
 				suit -> {
 					final Map<Integer, Card> cards = suit.getCards();
 					final Map<Integer, Card> newCardSet = cards.values().stream().collect(

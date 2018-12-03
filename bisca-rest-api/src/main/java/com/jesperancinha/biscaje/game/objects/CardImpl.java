@@ -3,10 +3,11 @@ package com.jesperancinha.biscaje.game.objects;
 import com.jesperancinha.biscaje.game.enums.CardType;
 import com.jesperancinha.biscaje.game.enums.DeckType;
 import com.jesperancinha.biscaje.game.enums.SuitType;
+import com.jesperancinha.biscaje.model.Card;
 import lombok.Getter;
 
 @Getter
-public class CardImpl implements Card {
+public class CardImpl {
     private CardType cardType;
     private SuitType suitType;
     private DeckType deckType;
@@ -17,17 +18,14 @@ public class CardImpl implements Card {
         this.deckType = deckType;
     }
 
-    @Override
     public Integer getCardValue() {
         return cardType.getScore();
     }
 
-    @Override
     public Integer getOrderNumber() {
         return cardType.getOrder();
     }
 
-    @Override
     public String getImage() {
         return cardType.getImage();
     }

@@ -1,6 +1,9 @@
 package com.jesperancinha.biscaje.game.objects;
 
 import com.jesperancinha.biscaje.game.enums.SuitType;
+import com.jesperancinha.biscaje.model.Card;
+import com.jesperancinha.biscaje.model.DeckManager;
+import com.jesperancinha.biscaje.model.Suit;
 import org.junit.Test;
 
 import java.util.Arrays;

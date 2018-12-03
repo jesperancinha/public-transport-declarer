@@ -40,6 +40,9 @@ public class User {
 
 	private String addres;
 
+	private String email;
+
+	private String telephone;
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -68,5 +71,13 @@ public class User {
 
 	public String getAddres() {
 		return addres;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getTelephone() {
+		return telephone;
 	}
 }
