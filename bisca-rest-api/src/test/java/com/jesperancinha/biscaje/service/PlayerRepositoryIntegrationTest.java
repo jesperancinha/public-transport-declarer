@@ -2,7 +2,6 @@ package com.jesperancinha.biscaje.service;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 

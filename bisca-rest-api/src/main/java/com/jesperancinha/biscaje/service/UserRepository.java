@@ -1,12 +1,11 @@
 package com.jesperancinha.biscaje.service;
 
-import com.jesperancinha.biscaje.model.User;
-
 import javax.transaction.Transactional;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+
+import com.jesperancinha.biscaje.model.User;
 
 @Repository
 @Transactional

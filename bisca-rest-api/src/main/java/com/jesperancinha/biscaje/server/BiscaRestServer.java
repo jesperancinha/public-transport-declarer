@@ -44,7 +44,7 @@ public class BiscaRestServer {
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String ping() throws InvalidKeySpecException, NoSuchAlgorithmException {
-		userRepository.save(com.jesperancinha.biscaje.model.User.builder()
+		userRepository.save(User.builder()
 				.name("Joao")
 				.password(biscaJESecurityGenerator.generateStrongPasswordHash("12345"))
 				.lastlog(Timestamp.from(Instant.now())).build());
