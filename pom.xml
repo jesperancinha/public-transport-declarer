@@ -1,23 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <groupId>jesperancinha</groupId>
-    <artifactId>bisca-je</artifactId>
+    <groupId>org.jesperancinha.biscaje</groupId>
+    <artifactId>biscaje</artifactId>
     <version>1.0.0</version>
 
-    <name>O jogo da bisca</name>
+    <name>O jogo da bisca/briscola</name>
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>bisca-api</module>
-        <module>bisca-model</module>
-        <module>bisca-rest-api</module>
+        <module>biscaje-api</module>
+        <module>biscaje-model</module>
+        <module>biscaje-rest-api</module>
     </modules>
 
     <properties>
-        <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler>3.8.1</maven.compiler>
