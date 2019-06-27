@@ -40,8 +40,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>jesperancinha</groupId>
-            <artifactId>bisca-api</artifactId>
+            <groupId>org.jesperancinha.biscaje</groupId>
+            <artifactId>biscaje-api</artifactId>
         </dependency>
 
         <!-- Lombok -->

@@ -72,20 +72,20 @@
         <dependencies>
             <!-- bisca model -->
             <dependency>
-                <groupId>jesperancinha</groupId>
-                <artifactId>bisca-model</artifactId>
+                <groupId>org.jesperancinha.biscaje</groupId>
+                <artifactId>biscaje-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- bisca api -->
             <dependency>
-                <groupId>jesperancinha</groupId>
-                <artifactId>bisca-api</artifactId>
+                <groupId>org.jesperancinha.biscaje</groupId>
+                <artifactId>biscaje-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- bisca rest -->
             <dependency>
-                <groupId>jesperancinha</groupId>
-                <artifactId>bisca-rest-api-test</artifactId>
+                <groupId>org.jesperancinha.biscaje</groupId>
+                <artifactId>biscaje-rest-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
