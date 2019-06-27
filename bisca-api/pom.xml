@@ -14,10 +14,6 @@
 
     <artifactId>bisca-api</artifactId>
 
-    <properties>
-        <maven.compiler>3.8.0</maven.compiler>
-    </properties>
-
     <build>
         <plugins>
             <plugin>

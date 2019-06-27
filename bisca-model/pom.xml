@@ -14,10 +14,6 @@
 
     <artifactId>bisca-model</artifactId>
 
-    <properties>
-        <maven.compiler>3.5.1</maven.compiler>
-    </properties>
-
     <build>
         <plugins>
             <plugin>
