@@ -6,8 +6,6 @@
 $ docker build --tag bisca/je .
 
 $ docker run -p 27017:27017 --name biscaje -d bisca/je
-
-
 ```
 ## Build notes
 
