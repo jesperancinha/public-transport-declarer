@@ -38,7 +38,7 @@
         <jboss.jbossts>4.16.6.Final</jboss.jbossts>
         <weld>2.3.3.Final</weld>
         <weld.servlet>2.3.2.Final</weld.servlet>
-        <project.lombok>1.18.4</project.lombok>
+        <project.lombok>1.18.18</project.lombok>
         <cucumber.version>1.2.4</cucumber.version>
         <activemq-all.version>5.15.12</activemq-all.version>
         <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
