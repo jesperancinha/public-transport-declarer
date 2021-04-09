@@ -65,7 +65,7 @@
         <spring-boot-starter-tomcat.version>2.4.3</spring-boot-starter-tomcat.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <javax.el-api.version>2.2.4</javax.el-api.version>
-        <javax.el.version>2.2.4</javax.el.version>
+        <javax.el.version>2.2.6</javax.el.version>
     </properties>
 
     <dependencyManagement>
