@@ -50,7 +50,7 @@
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <junit-jupiter-api.version>5.3.2</junit-jupiter-api.version>
         <truth.version>0.42</truth.version>
-        <hibernate-core.version>5.4.29.Final</hibernate-core.version>
+        <hibernate-core.version>5.4.30.Final</hibernate-core.version>
         <h2.version>1.4.200</h2.version>
         <jetty.version>8.1.16.v20140903</jetty.version>
         <maven.compiler>3.5.1</maven.compiler>
