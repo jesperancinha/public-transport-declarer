@@ -9,7 +9,7 @@ $ docker run -p 27017:27017 --name biscaje -d bisca/je
 ```
 ## Build notes
 
-1. OGM driver versions:
+1.  OGM driver versions:
 
 * OGM at the time this is written is not compatible with  version [3.2.2](http://mvnrepository.com/artifact/org.mongodb/mongo-java-driver) of it's [mongo-java-driver](http://mvnrepository.com/artifact/org.mongodb/mongo-java-driver)
 
@@ -17,7 +17,7 @@ $ docker run -p 27017:27017 --name biscaje -d bisca/je
 
 * More info [here](https://forum.hibernate.org/viewtopic.php?f=31&t=1040302)
 
-2. Install active MQ
+2.  Install active MQ
 
 ```
 $ brew install activeMQ

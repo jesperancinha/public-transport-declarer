@@ -2,7 +2,7 @@
 
 This project is just the model for the elements in the game.
 
-# References:
+# References
 
 * https://plugins.jetbrains.com/plugin/6317
 

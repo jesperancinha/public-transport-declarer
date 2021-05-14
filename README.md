@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f734d44324c349029c07e2656bccef41)](https://www.codacy.com/app/jofisaes/bisca-je?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/bisca-je&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-bisca-je-master)
 [![CircleCI](https://circleci.com/gh/jesperancinha/biscaje.svg?style=svg)](https://circleci.com/gh/jesperancinha/biscaje)
-[![Build Status](https://travis-ci.org/jesperancinha/biscaje.svg?branch=master)](https://travis-ci.org/jesperancinha/biscaje)
+[![Build Status](https://travis-ci.com/jesperancinha/biscaje.svg?branch=master)](https://travis-ci.com/jesperancinha/biscaje)
 [![BCH compliance](https://bettercodehub.com/edge/badge/jesperancinha/bisca-je?branch=master)](https://bettercodehub.com/)
 ---
 
@@ -15,7 +15,7 @@ An implementation of both [Bisca](https://pt.wikipedia.org/wiki/Bisca) and [Bris
 
 * https://en.wikipedia.org/wiki/Briscola
 
-## How to run:
+## How to run
 
 ```
 
@@ -27,7 +27,7 @@ $ npm run lite
 
 *Under development*
 
-## Final notes:
+## Final notes
 
 Please add the generated lib folder to your project dependencies if you cannot complete your build.
 
