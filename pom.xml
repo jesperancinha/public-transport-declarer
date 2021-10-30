@@ -38,7 +38,7 @@
         <jboss.jbossts>4.16.6.Final</jboss.jbossts>
         <weld>2.3.3.Final</weld>
         <weld.servlet>2.3.2.Final</weld.servlet>
-        <project.lombok>1.18.20</project.lombok>
+        <project.lombok>1.18.22</project.lombok>
         <cucumber.version>1.2.4</cucumber.version>
         <activemq-all.version>5.15.12</activemq-all.version>
         <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
@@ -50,19 +50,19 @@
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <junit-jupiter-api.version>5.3.2</junit-jupiter-api.version>
         <truth.version>0.42</truth.version>
-        <hibernate-core.version>5.5.3.Final</hibernate-core.version>
+        <hibernate-core.version>5.5.7.Final</hibernate-core.version>
         <h2.version>1.4.200</h2.version>
         <jetty.version>8.1.16.v20140903</jetty.version>
         <maven.compiler>3.5.1</maven.compiler>
         <glassfish-embedded-all.version>3.1.2</glassfish-embedded-all.version>
         <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <spring-orm.version>5.3.9</spring-orm.version>
-        <spring-core.version>5.3.9</spring-core.version>
-        <spring-boot-starter-web.version>2.5.2</spring-boot-starter-web.version>
+        <spring-orm.version>5.3.10</spring-orm.version>
+        <spring-core.version>5.3.10</spring-core.version>
+        <spring-boot-starter-web.version>2.5.5</spring-boot-starter-web.version>
         <spring-boot-starter-test.version>2.1.1.RELEASE</spring-boot-starter-test.version>
-        <spring-boot-starter-data-jpa.version>2.5.0</spring-boot-starter-data-jpa.version>
-        <spring-boot-starter-tomcat.version>2.5.2</spring-boot-starter-tomcat.version>
+        <spring-boot-starter-data-jpa.version>2.5.5</spring-boot-starter-data-jpa.version>
+        <spring-boot-starter-tomcat.version>2.5.5</spring-boot-starter-tomcat.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <javax.el-api.version>2.2.5</javax.el-api.version>
         <javax.el.version>2.2.6</javax.el.version>
@@ -109,7 +109,7 @@
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>9.0.50</version>
+                <version>9.0.54</version>
             </dependency>
 
             <!-- Javax Persistence -->
