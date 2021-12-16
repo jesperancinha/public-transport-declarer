@@ -59,7 +59,7 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <spring-orm.version>5.3.13</spring-orm.version>
         <spring-core.version>5.3.13</spring-core.version>
-        <spring-boot-starter-web.version>2.5.5</spring-boot-starter-web.version>
+        <spring-boot-starter-web.version>2.6.0</spring-boot-starter-web.version>
         <spring-boot-starter-test.version>2.1.1.RELEASE</spring-boot-starter-test.version>
         <spring-boot-starter-data-jpa.version>2.6.0</spring-boot-starter-data-jpa.version>
         <spring-boot-starter-tomcat.version>2.6.0</spring-boot-starter-tomcat.version>
