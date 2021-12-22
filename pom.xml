@@ -62,7 +62,7 @@
         <spring-boot-starter-web.version>2.6.0</spring-boot-starter-web.version>
         <spring-boot-starter-test.version>2.1.1.RELEASE</spring-boot-starter-test.version>
         <spring-boot-starter-data-jpa.version>2.6.0</spring-boot-starter-data-jpa.version>
-        <spring-boot-starter-tomcat.version>2.6.0</spring-boot-starter-tomcat.version>
+        <spring-boot-starter-tomcat.version>2.6.1</spring-boot-starter-tomcat.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <javax.el-api.version>2.2.5</javax.el-api.version>
         <javax.el.version>2.2.6</javax.el.version>
