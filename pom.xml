@@ -59,10 +59,10 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <spring-orm.version>5.3.13</spring-orm.version>
         <spring-core.version>5.3.13</spring-core.version>
-        <spring-boot-starter-web.version>2.6.0</spring-boot-starter-web.version>
+        <spring-boot-starter-web.version>2.6.1</spring-boot-starter-web.version>
         <spring-boot-starter-test.version>2.1.1.RELEASE</spring-boot-starter-test.version>
         <spring-boot-starter-data-jpa.version>2.6.1</spring-boot-starter-data-jpa.version>
-        <spring-boot-starter-tomcat.version>2.6.0</spring-boot-starter-tomcat.version>
+        <spring-boot-starter-tomcat.version>2.6.1</spring-boot-starter-tomcat.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <javax.el-api.version>2.2.5</javax.el-api.version>
         <javax.el.version>2.2.6</javax.el.version>
@@ -109,7 +109,7 @@
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>9.0.55</version>
+                <version>9.0.56</version>
             </dependency>
 
             <!-- Javax Persistence -->
