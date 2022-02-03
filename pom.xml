@@ -56,7 +56,7 @@
         <maven.compiler>3.5.1</maven.compiler>
         <glassfish-embedded-all.version>3.1.2</glassfish-embedded-all.version>
         <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <spring-orm.version>5.3.14</spring-orm.version>
         <spring-core.version>5.3.14</spring-core.version>
         <spring-boot-starter-web.version>2.6.2</spring-boot-starter-web.version>
