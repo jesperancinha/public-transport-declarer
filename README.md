@@ -2,7 +2,8 @@
 
 ---
 
-[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Bisca%20JE&color=informational)](https://github.com/jesperancinha/biscaje)
+[![Twitter URL](https://img.shields.io/twitter/url?logoColor=blue&style=social&url=https%3A%2F%2Fimg.shields.io%2Ftwitter%2Furl%3Fstyle%3Dsocial)](https://twitter.com/intent/tweet?text=%20Checkout%20this%20%40github%20repo%20by%20%40joaofse%20%F0%9F%91%A8%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%3A%20https%3A//github.com/jesperancinha/biscaje)
+[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Bisca%20JE%20🃏&color=informational)](https://github.com/jesperancinha/biscaje)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f734d44324c349029c07e2656bccef41)](https://www.codacy.com/app/jofisaes/bisca-je?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/bisca-je&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-bisca-je-master)
