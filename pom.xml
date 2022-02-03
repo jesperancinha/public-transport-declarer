@@ -58,22 +58,24 @@
         <glassfish-embedded-all.version>3.1.2</glassfish-embedded-all.version>
         <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <spring-orm.version>5.3.14</spring-orm.version>
-        <spring-core.version>5.3.14</spring-core.version>
-        <spring-boot-starter-web.version>2.6.2</spring-boot-starter-web.version>
-        <spring-boot-starter-test.version>2.1.1.RELEASE</spring-boot-starter-test.version>
-        <spring-boot-starter-data-jpa.version>2.6.2</spring-boot-starter-data-jpa.version>
-        <spring-boot-starter-tomcat.version>2.6.2</spring-boot-starter-tomcat.version>
-        <hibernate-validator.version>6.2.1.Final</hibernate-validator.version>
         <javax.el-api.version>3.0.0</javax.el-api.version>
         <javax.el.version>2.2.6</javax.el.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
         <omni-coveragereporter-maven-plugin.version>0.1.5</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <spring-boot-starter-parent.version>2.6.3</spring-boot-starter-parent.version>
+        <hibernate-validator.version>6.2.1.Final</hibernate-validator.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot-starter-parent.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
             <!-- bisca model -->
             <dependency>
                 <groupId>org.jesperancinha.biscaje</groupId>
@@ -97,11 +99,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-orm</artifactId>
-                <version>${spring-orm.version}</version>
             </dependency>
 
             <dependency>
@@ -343,41 +340,6 @@
                 <groupId>com.google.truth</groupId>
                 <artifactId>truth</artifactId>
                 <version>${truth.version}</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot-starter-web.version}</version>
-            </dependency>
-
-
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-jpa</artifactId>
-                <version>${spring-boot-starter-data-jpa.version}</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring-boot-starter-test.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-tomcat</artifactId>
-                <version>${spring-boot-starter-tomcat.version}</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring-core.version}</version>
             </dependency>
 
             <dependency>
