@@ -6,6 +6,7 @@
 [![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Bisca%20JE%20🃏&color=informational)](https://github.com/jesperancinha/biscaje)
 
 [![CircleCI](https://circleci.com/gh/jesperancinha/biscaje.svg?style=svg)](https://circleci.com/gh/jesperancinha/biscaje)
+[![biscaje](https://github.com/jesperancinha/biscaje/actions/workflows/biscaje.yml/badge.svg)](https://github.com/jesperancinha/biscaje/actions/workflows/biscaje.yml)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/biscaje/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/biscaje&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-bisca-je-master)
