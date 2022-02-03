@@ -11,7 +11,9 @@
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-bisca-je-master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/jesperancinha/bisca-je?branch=master)](https://bettercodehub.com/)
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/biscaje/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jesperancinha/biscaje&utm_campaign=Badge_Coverage)
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/biscaje/badge.svg?branch=master)](https://coveralls.io/github/jesperancinha/biscaje?branch=master)
+[![codecov](https://codecov.io/gh/jesperancinha/biscaje/branch/master/graph/badge.svg?token=MMaiVbOzl1)](https://codecov.io/gh/jesperancinha/biscaje)
 
 [![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/biscaje.svg)](#)
 [![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/biscaje.svg)](#)
