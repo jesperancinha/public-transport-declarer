@@ -1,4 +1,4 @@
-name: name: biscaje-pull_request
+name: biscaje-pull_request
 
 on:
   pull_request:
