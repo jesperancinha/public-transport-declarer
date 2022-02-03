@@ -31,7 +31,7 @@
         <mongo.driver>2.13.0</mongo.driver>
         <jwt.jose4j>0.5.5</jwt.jose4j>
         <codehaus.jackson>1.9.13</codehaus.jackson>
-        <jax.rs>2.0.1</jax.rs>
+        <jax.rs>2.1.1</jax.rs>
         <log4j>1.2.17</log4j>
         <jetty.version>8.1.16.v20140903</jetty.version>
         <hibernate.ogm>4.2.0.Final</hibernate.ogm>
