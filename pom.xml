@@ -35,7 +35,7 @@
         <jax.rs>2.1.1</jax.rs>
         <log4j>1.2.17</log4j>
         <jetty.version>8.1.16.v20140903</jetty.version>
-        <hibernate.ogm>4.2.0.Final</hibernate.ogm>
+        <hibernate.ogm>5.4.1.Final</hibernate.ogm>
         <jboss.jbossts>4.16.6.Final</jboss.jbossts>
         <weld>2.3.3.Final</weld>
         <weld.servlet>2.3.2.Final</weld.servlet>
