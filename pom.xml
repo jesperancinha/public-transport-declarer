@@ -24,7 +24,7 @@
         <jersey-bundle.version>1.19.1</jersey-bundle.version>
         <jersey-server.version>2.23</jersey-server.version>
         <maven.compiler>3.5.1</maven.compiler>
-        <jackson.core>2.7.3</jackson.core>
+        <jackson.core>2.13.1</jackson.core>
         <owasp.esapi>2.2.3.1</owasp.esapi>
         <auth0>2.1.0</auth0>
         <commons.codec>1.4</commons.codec>
