@@ -40,7 +40,7 @@
         <weld>2.3.3.Final</weld>
         <weld.servlet>2.3.2.Final</weld.servlet>
         <project.lombok>1.18.22</project.lombok>
-        <cucumber.version>1.2.4</cucumber.version>
+        <cucumber.version>1.2.5</cucumber.version>
         <activemq-all.version>5.16.3</activemq-all.version>
         <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
