@@ -110,7 +110,7 @@
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
-                <version>9.0.56</version>
+                <version>9.0.58</version>
             </dependency>
 
             <!-- Javax Persistence -->
