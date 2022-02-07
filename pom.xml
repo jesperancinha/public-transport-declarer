@@ -46,7 +46,7 @@
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <arquillian-weld-ee-embedded-1.1.version>1.1.2.Final</arquillian-weld-ee-embedded-1.1.version>
         <javaee-api.version>8.0.1</javaee-api.version>
-        <javax.ejb-api.version>3.2</javax.ejb-api.version>
+        <javax.ejb-api.version>3.2.2</javax.ejb-api.version>
         <arquillian-container-test-api.version>1.1.7.Final</arquillian-container-test-api.version>
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <junit-jupiter-api.version>5.8.2</junit-jupiter-api.version>
