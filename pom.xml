@@ -29,7 +29,7 @@
         <auth0>3.18.3</auth0>
         <commons.codec>1.15</commons.codec>
         <javax.persistence>1.0.2</javax.persistence>
-        <mongo.driver>2.13.0</mongo.driver>
+        <mongo.driver>3.12.10</mongo.driver>
         <jwt.jose4j>0.5.5</jwt.jose4j>
         <codehaus.jackson>1.9.13</codehaus.jackson>
         <jax.rs>2.1.1</jax.rs>
