@@ -20,25 +20,25 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler>3.8.1</maven.compiler>
+        <maven.compiler>3.9.0</maven.compiler>
         <jersey-bundle.version>1.19.1</jersey-bundle.version>
-        <jersey-server.version>2.23</jersey-server.version>
+        <jersey-server.version>3.0.3</jersey-server.version>
         <maven.compiler>3.5.1</maven.compiler>
         <jackson.core>2.13.1</jackson.core>
         <owasp.esapi>2.2.3.1</owasp.esapi>
         <auth0>3.18.3</auth0>
         <commons.codec>1.15</commons.codec>
         <javax.persistence>1.0.2</javax.persistence>
-        <mongo.driver>2.13.0</mongo.driver>
-        <jwt.jose4j>0.5.5</jwt.jose4j>
+        <mongo.driver>3.12.10</mongo.driver>
+        <jwt.jose4j>0.7.9</jwt.jose4j>
         <codehaus.jackson>1.9.13</codehaus.jackson>
         <jax.rs>2.1.1</jax.rs>
         <log4j>1.2.17</log4j>
         <jetty.version>8.1.16.v20140903</jetty.version>
         <hibernate.ogm>5.4.1.Final</hibernate.ogm>
         <jboss.jbossts>4.16.6.Final</jboss.jbossts>
-        <weld>2.3.3.Final</weld>
-        <weld.servlet>2.3.2.Final</weld.servlet>
+        <weld>2.4.8.Final</weld>
+        <weld.servlet>4.0.2.Final</weld.servlet>
         <project.lombok>1.18.22</project.lombok>
         <cucumber.version>1.2.5</cucumber.version>
         <activemq-all.version>5.16.3</activemq-all.version>
@@ -61,10 +61,10 @@
         <javax.el-api.version>3.0.0</javax.el-api.version>
         <javax.el.version>2.2.6</javax.el.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <omni-coveragereporter-maven-plugin.version>0.1.5</omni-coveragereporter-maven-plugin.version>
+        <omni-coveragereporter-maven-plugin.version>0.2.0</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <spring-boot-starter-parent.version>2.6.3</spring-boot-starter-parent.version>
-        <hibernate-validator.version>6.2.1.Final</hibernate-validator.version>
+        <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
     </properties>
 
     <dependencyManagement>
