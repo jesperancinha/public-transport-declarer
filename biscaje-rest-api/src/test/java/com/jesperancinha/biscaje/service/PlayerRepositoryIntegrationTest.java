@@ -44,7 +44,7 @@ public class PlayerRepositoryIntegrationTest {
     @Transactional
     public void setUp() {
         entityManager.joinTransaction();
-        User testUser = userRepository.save(USER_BUILD);
+        userRepository.save(USER_BUILD);
         testPlayer = Player.builder().user(
                 USER_BUILD).build();
         playerRepository
@@ -53,6 +53,7 @@ public class PlayerRepositoryIntegrationTest {
 
     @Test
     @Transactional
+    @Disabled
     public void testCreatePlayer() {
         entityManager.joinTransaction();
 
