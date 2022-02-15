@@ -20,7 +20,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler>3.9.0</maven.compiler>
+        <maven.compiler>3.10.0</maven.compiler>
         <jersey-bundle.version>1.19.1</jersey-bundle.version>
         <jersey-server.version>3.0.4</jersey-server.version>
         <maven.compiler>3.5.1</maven.compiler>
