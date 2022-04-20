@@ -14,7 +14,7 @@
     <url>http://maven.apache.org</url>
 
     <build>
-        <finalName>bisca-rest-api</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

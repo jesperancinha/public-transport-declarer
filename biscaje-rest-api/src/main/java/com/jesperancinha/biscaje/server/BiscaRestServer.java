@@ -3,7 +3,7 @@ package com.jesperancinha.biscaje.server;
 import com.jesperancinha.biscaje.model.User;
 import com.jesperancinha.biscaje.security.BiscaJESecurityGenerator;
 import com.jesperancinha.biscaje.service.UserRepository;
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
 import javax.inject.Inject;
@@ -19,14 +19,14 @@ import java.time.Instant;
 @Controller
 public class BiscaRestServer {
 
-    @Inject
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final BiscaJESecurityGenerator biscaJESecurityGenerator;
 
     @Inject
-    private BiscaJESecurityGenerator biscaJESecurityGenerator;
-
-    @Inject
-    public BiscaRestServer() {
+    public BiscaRestServer(UserRepository userRepository, BiscaJESecurityGenerator biscaJESecurityGenerator) {
+        this.userRepository = userRepository;
+        this.biscaJESecurityGenerator = biscaJESecurityGenerator;
     }
 
     @GET
