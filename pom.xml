@@ -30,7 +30,7 @@
         <commons.codec>1.15</commons.codec>
         <javax.persistence>1.0.2</javax.persistence>
         <mongo.driver>3.12.11</mongo.driver>
-        <jwt.jose4j>0.7.11</jwt.jose4j>
+        <jwt.jose4j>0.7.12</jwt.jose4j>
         <codehaus.jackson>1.9.13</codehaus.jackson>
         <jax.rs>2.1.1</jax.rs>
         <log4j>1.2.17</log4j>
