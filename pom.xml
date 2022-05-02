@@ -41,7 +41,7 @@
         <weld.servlet>5.0.0.Final</weld.servlet>
         <project.lombok>1.18.22</project.lombok>
         <cucumber.version>1.2.5</cucumber.version>
-        <activemq-all.version>5.17.0</activemq-all.version>
+        <activemq-all.version>5.17.1</activemq-all.version>
         <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
         <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
         <arquillian-weld-ee-embedded-1.1.version>1.1.2.Final</arquillian-weld-ee-embedded-1.1.version>
