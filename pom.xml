@@ -22,7 +22,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler>3.10.1</maven.compiler>
         <jersey-bundle.version>1.19.1</jersey-bundle.version>
-        <jersey-server.version>3.0.5</jersey-server.version>
+        <jersey-server.version>3.0.6</jersey-server.version>
         <maven.compiler>3.5.1</maven.compiler>
         <jackson.core>2.13.3</jackson.core>
         <owasp.esapi>2.5.0.0</owasp.esapi>
