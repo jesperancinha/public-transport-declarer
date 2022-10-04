@@ -38,7 +38,7 @@
         <hibernate.ogm>5.4.1.Final</hibernate.ogm>
         <jboss.jbossts>4.16.6.Final</jboss.jbossts>
         <weld>2.4.8.Final</weld>
-        <weld.servlet>5.0.1.Final</weld.servlet>
+        <weld.servlet>5.1.0.Final</weld.servlet>
         <project.lombok>1.18.24</project.lombok>
         <cucumber.version>1.2.5</cucumber.version>
         <activemq-all.version>5.17.2</activemq-all.version>
