@@ -63,7 +63,7 @@
         <maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
         <omni-coveragereporter-maven-plugin.version>0.3.0</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-        <spring-boot-starter-parent.version>2.7.4</spring-boot-starter-parent.version>
+        <spring-boot-starter-parent.version>2.7.5</spring-boot-starter-parent.version>
         <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
     </properties>
 
