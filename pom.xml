@@ -26,7 +26,7 @@
         <maven.compiler>3.5.1</maven.compiler>
         <jackson.core>2.13.4</jackson.core>
         <owasp.esapi>2.5.0.0</owasp.esapi>
-        <auth0>4.2.0</auth0>
+        <auth0>4.2.1</auth0>
         <commons.codec>1.15</commons.codec>
         <javax.persistence>1.0.2</javax.persistence>
         <mongo.driver>3.12.11</mongo.driver>
