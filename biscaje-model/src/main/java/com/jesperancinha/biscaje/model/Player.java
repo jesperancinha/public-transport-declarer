@@ -1,17 +1,21 @@
 package com.jesperancinha.biscaje.model;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 @Builder
 @Setter
 @Table(name = "Player")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Player {
 
     private String id;

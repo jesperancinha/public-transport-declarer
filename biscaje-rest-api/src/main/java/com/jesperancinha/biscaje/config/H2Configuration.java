@@ -1,5 +1,6 @@
 package com.jesperancinha.biscaje.config;
 
+import jakarta.persistence.ValidationMode;
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.persistence.ValidationMode;
 import javax.sql.DataSource;
 import java.util.Properties;
 
