@@ -69,16 +69,7 @@
             <artifactId>postgresql</artifactId>
             <version>42.5.1</version>
         </dependency>
-        <!-- BiscaJE -->
-        <dependency>
-            <groupId>org.jesperancinha.biscaje</groupId>
-            <artifactId>biscaje-model</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.jesperancinha.biscaje</groupId>
-            <artifactId>biscaje-api</artifactId>
-        </dependency>
         <!-- Owasp -->
         <dependency>
             <groupId>org.owasp.esapi</groupId>
@@ -89,26 +80,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.el</artifactId>
         </dependency>
 
         <!-- TEST Libraries -->
