@@ -7,13 +7,11 @@
     <artifactId>biscaje</artifactId>
     <version>1.0.0</version>
 
-    <name>O jogo da bisca/briscola</name>
+    <name>BiscaJE :: Parent</name>
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>biscaje-api</module>
-        <module>biscaje-model</module>
-        <module>biscaje-rest-api</module>
+        <module>biscaje-rest</module>
     </modules>
 
     <properties>
@@ -63,7 +61,7 @@
         <maven-dependency-plugin.version>3.4.0</maven-dependency-plugin.version>
         <omni-coveragereporter-maven-plugin.version>0.3.0</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-        <spring-boot-starter-parent.version>2.7.5</spring-boot-starter-parent.version>
+        <spring-boot-starter-parent.version>3.0.0</spring-boot-starter-parent.version>
         <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
     </properties>
 
@@ -75,18 +73,6 @@
                 <version>${spring-boot-starter-parent.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
-            <!-- bisca model -->
-            <dependency>
-                <groupId>org.jesperancinha.biscaje</groupId>
-                <artifactId>biscaje-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <!-- bisca api -->
-            <dependency>
-                <groupId>org.jesperancinha.biscaje</groupId>
-                <artifactId>biscaje-api</artifactId>
-                <version>${project.version}</version>
             </dependency>
             <!-- bisca rest -->
             <dependency>
@@ -111,6 +97,11 @@
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
                 <version>10.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>3.1.0</version>
             </dependency>
 
             <!-- Javax Persistence -->
