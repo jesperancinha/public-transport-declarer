@@ -55,3 +55,5 @@ locust-welcome-start:
 	cd locust/welcome && locust --host=localhost
 dcup-light:
 	docker-compose -p ${GITHUB_RUN_ID} up -d postgres
+dcd:
+	docker-compose -p ${GITHUB_RUN_ID} down

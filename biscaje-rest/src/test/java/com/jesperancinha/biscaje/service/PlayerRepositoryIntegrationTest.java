@@ -1,6 +1,7 @@
 package com.jesperancinha.biscaje.service;
 
 import com.jesperancinha.biscaje.BiscaJeLauncher;
+import com.jesperancinha.biscaje.containers.AbstractTestContainersIT;
 import com.jesperancinha.biscaje.model.Player;
 import com.jesperancinha.biscaje.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import jakarta.persistence.EntityManager;
@@ -20,11 +22,9 @@ import static com.google.common.truth.Truth.assertThat;
 /**
  * This integration tests runs through the CRUD operaions for the Player data type Objects
  */
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {
-        BiscaJeLauncher.class,
-})
+@SpringBootTest
 @Profile("test")
+@ContextConfiguration(initializers = AbstractTestContainersIT.DockerPostgresDataInitializer.class)
 public class PlayerRepositoryIntegrationTest {
 
     private static final User USER_BUILD = User.builder().build();
