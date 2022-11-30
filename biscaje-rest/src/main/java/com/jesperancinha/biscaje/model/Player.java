@@ -20,7 +20,6 @@ public class Player {
 
     private String id;
 
-    @NotNull
     private User user;
 
     private Long points;
