@@ -11,9 +11,7 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>biscaje-api</module>
-        <module>biscaje-model</module>
-        <module>biscaje-rest-api</module>
+        <module>biscaje-rest</module>
     </modules>
 
     <properties>
@@ -111,6 +109,11 @@
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-dbcp</artifactId>
                 <version>10.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
+                <version>3.1.0</version>
             </dependency>
 
             <!-- Javax Persistence -->

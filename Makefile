@@ -1,3 +1,6 @@
+SHELL := /bin/bash
+GITHUB_RUN_ID ?=123
+
 b: build-maven
 build:
 	mvn clean install
@@ -50,3 +53,5 @@ install:
 	brew install deck
 locust-welcome-start:
 	cd locust/welcome && locust --host=localhost
+dcup-light:
+	docker-compose -p ${GITHUB_RUN_ID} up -d postgres
