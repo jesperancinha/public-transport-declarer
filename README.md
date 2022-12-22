@@ -2,23 +2,23 @@
 
 ---
 
-[![Twitter URL](https://img.shields.io/twitter/url?logoColor=blue&style=social&url=https%3A%2F%2Fimg.shields.io%2Ftwitter%2Furl%3Fstyle%3Dsocial)](https://twitter.com/intent/tweet?text=%20Checkout%20this%20%40github%20repo%20by%20%40joaofse%20%F0%9F%91%A8%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%3A%20https%3A//github.com/jesperancinha/biscaje)
-[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Bisca%20JE%20🃏&color=informational)](https://github.com/jesperancinha/biscaje)
+[![Twitter URL](https://img.shields.io/twitter/url?logoColor=blue&style=social&url=https%3A%2F%2Fimg.shields.io%2Ftwitter%2Furl%3Fstyle%3Dsocial)](https://twitter.com/intent/tweet?text=%20Checkout%20this%20%40github%20repo%20by%20%40joaofse%20%F0%9F%91%A8%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%3A%20https%3A//github.com/jesperancinha/public-transport-declarer)
+[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Public%20Transport%20Declarer%20🚂&color=informational)](https://github.com/jesperancinha/public-transport-declarer)
 
-[![CircleCI](https://circleci.com/gh/jesperancinha/biscaje.svg?style=svg)](https://circleci.com/gh/jesperancinha/biscaje)
-[![biscaje](https://github.com/jesperancinha/biscaje/actions/workflows/biscaje.yml/badge.svg)](https://github.com/jesperancinha/biscaje/actions/workflows/biscaje.yml)
+[![CircleCI](https://circleci.com/gh/jesperancinha/public-transport-declarer.svg?style=svg)](https://circleci.com/gh/jesperancinha/public-transport-declarer)
+[![public-transport-declarer](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/public-transport-declarer.yml/badge.svg)](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/public-transport-declarer.yml)
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/biscaje/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/biscaje&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/public-transport-declarer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/public-transport-declarer&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-bisca-je-master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/jesperancinha/bisca-je?branch=master)](https://bettercodehub.com/)
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/biscaje/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jesperancinha/biscaje&utm_campaign=Badge_Coverage)
-[![Coverage Status](https://coveralls.io/repos/github/jesperancinha/biscaje/badge.svg?branch=master)](https://coveralls.io/github/jesperancinha/biscaje?branch=master)
-[![codecov](https://codecov.io/gh/jesperancinha/biscaje/branch/master/graph/badge.svg?token=MMaiVbOzl1)](https://codecov.io/gh/jesperancinha/biscaje)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/public-transport-declarer/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jesperancinha/public-transport-declarer&utm_campaign=Badge_Coverage)
+[![Coverage Status](https://coveralls.io/repos/github/jesperancinha/public-transport-declarer/badge.svg?branch=master)](https://coveralls.io/github/jesperancinha/public-transport-declarer?branch=master)
+[![codecov](https://codecov.io/gh/jesperancinha/public-transport-declarer/branch/master/graph/badge.svg?token=MMaiVbOzl1)](https://codecov.io/gh/jesperancinha/public-transport-declarer)
 
-[![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/biscaje.svg)](#)
-[![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/biscaje.svg)](#)
-[![GitHub top language](https://img.shields.io/github/languages/code-size/jesperancinha/biscaje.svg)](#)
+[![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/public-transport-declarer.svg)](#)
+[![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/public-transport-declarer.svg)](#)
+[![GitHub top language](https://img.shields.io/github/languages/code-size/jesperancinha/public-transport-declarer.svg)](#)
 
 ---
 
@@ -38,17 +38,11 @@
 
 ---
 
----- Under Construction ----
+# Introduction
 
-An implementation of both [Bisca](https://pt.wikipedia.org/wiki/Bisca) and [Briscola](https://en.wikipedia.org/wiki/Briscola).
+#### Stable releases
 
-Made with Java EE on Spring Boot. Strange, huh? Well, this is to prove that it can be done!
-
-## References
-
-* https://pt.wikipedia.org/wiki/Bisca
-
-* https://en.wikipedia.org/wiki/Briscola
+- [1.0.0](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - [b607761b489cff36b552b91f7ee3c30c06162e02](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - BiscaJE (An attempt to build a game, but never concluded. archived forever)
 
 ## How to run
 
