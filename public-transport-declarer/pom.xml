@@ -9,9 +9,7 @@
     </parent>
 
     <artifactId>public-transport-declarer</artifactId>
-    <packaging>jar</packaging>
     <name>Public Transport Declarer :: Launcher</name>
-    <url>http://maven.apache.org</url>
 
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -68,9 +66,19 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parser-pdf-module -->
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parser-pdf-module</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.tika/tika-parser-pdf-module -->
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+        </dependency>
+
 
         <!-- TEST Libraries -->
-
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>

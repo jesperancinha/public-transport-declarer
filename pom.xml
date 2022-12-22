@@ -24,6 +24,8 @@
 
         <owasp.esapi>2.5.1.0</owasp.esapi>
 
+        <tika.version>2.6.0</tika.version>
+
         <junit-jupiter-api.version>5.9.1</junit-jupiter-api.version>
 
         <omni-coveragereporter-maven-plugin.version>0.3.0</omni-coveragereporter-maven-plugin.version>
@@ -38,6 +40,16 @@
                 <groupId>org.owasp.esapi</groupId>
                 <artifactId>esapi</artifactId>
                 <version>${owasp.esapi}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-parser-pdf-module</artifactId>
+                <version>${tika.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${tika.version}</version>
             </dependency>
 
             <!-- Lombok -->
