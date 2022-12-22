@@ -1,11 +1,11 @@
-name: biscaje
+name: PR public-transport-declarer
 
 on:
-  push:
+  pull_request:
     branches: [ master ]
 
 jobs:
-  build-test-coverage-report:
+  build:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v3
@@ -17,10 +17,3 @@ jobs:
 
         - name: Build and Test
           run:  mvn clean install jacoco:prepare-agent package jacoco:report
-
-        - name: Coverage Reports
-          run: mvn omni-coveragereporter:report
-          env:
-             COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-             CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-             CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}

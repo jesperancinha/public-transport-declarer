@@ -1,11 +1,9 @@
-package com.jesperancinha.ptd;
+package com.jesperancinha.ptd
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test
 
-public class PublicTransporterLauncherTest {
-
+class PublicTransporterLauncherTest {
     @Test
-    public void testContext() {
-
+    fun testContext() {
     }
 }
