@@ -3,179 +3,36 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <groupId>org.jesperancinha.biscaje</groupId>
-    <artifactId>biscaje</artifactId>
+    <groupId>org.jesperancinha.ov</groupId>
+    <artifactId>public-transport-declarer-parent</artifactId>
     <version>1.0.0</version>
 
-    <name>BiscaJE :: Parent</name>
+    <name>Public Transport Declarer :: Parent</name>
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>biscaje-rest</module>
+        <module>public-transport-declarer</module>
     </modules>
 
     <properties>
         <java.version>17</java.version>
+        <maven.compiler>3.5.1</maven.compiler>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.compiler>3.10.1</maven.compiler>
-        <jersey-bundle.version>1.19.1</jersey-bundle.version>
-        <jersey-server.version>3.1.0</jersey-server.version>
-        <maven.compiler>3.5.1</maven.compiler>
-        <jackson.core>2.14.1</jackson.core>
-        <owasp.esapi>2.5.1.0</owasp.esapi>
-        <auth0>4.2.1</auth0>
-        <commons.codec>1.15</commons.codec>
-        <javax.persistence>1.0.2</javax.persistence>
-        <mongo.driver>3.12.11</mongo.driver>
-        <jwt.jose4j>0.9.2</jwt.jose4j>
-        <codehaus.jackson>1.9.13</codehaus.jackson>
-        <jax.rs>2.1.1</jax.rs>
-        <log4j>1.2.17</log4j>
-        <jetty.version>8.1.16.v20140903</jetty.version>
-        <hibernate.ogm>5.4.1.Final</hibernate.ogm>
-        <jboss.jbossts>4.16.6.Final</jboss.jbossts>
-        <weld>2.4.8.Final</weld>
-        <weld.servlet>5.1.0.Final</weld.servlet>
-        <project.lombok>1.18.24</project.lombok>
-        <cucumber.version>1.2.5</cucumber.version>
-        <activemq-all.version>5.17.3</activemq-all.version>
-        <shrinkwrap-resolver-bom.version>2.2.2</shrinkwrap-resolver-bom.version>
-        <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
-        <arquillian-weld-ee-embedded-1.1.version>1.1.2.Final</arquillian-weld-ee-embedded-1.1.version>
-        <javaee-api.version>8.0.1</javaee-api.version>
-        <javax.ejb-api.version>3.2.2</javax.ejb-api.version>
-        <arquillian-container-test-api.version>1.1.7.Final</arquillian-container-test-api.version>
-        <shrinkwrap-api.version>1.2.6</shrinkwrap-api.version>
-        <junit-jupiter-api.version>5.9.1</junit-jupiter-api.version>
-        <truth.version>1.1.3</truth.version>
-        <hibernate-core.version>5.6.14.Final</hibernate-core.version>
-        <h2.version>2.1.214</h2.version>
-        <jetty.version>8.1.16.v20140903</jetty.version>
-        <maven.compiler>3.5.1</maven.compiler>
-        <glassfish-embedded-all.version>3.1.2</glassfish-embedded-all.version>
-        <jboss-javaee-6.0.version>1.0.0.Final</jboss-javaee-6.0.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <javax.el-api.version>3.0.0</javax.el-api.version>
-        <javax.el.version>2.2.6</javax.el.version>
         <maven-dependency-plugin.version>3.4.0</maven-dependency-plugin.version>
+
+        <owasp.esapi>2.5.1.0</owasp.esapi>
+
+        <junit-jupiter-api.version>5.9.1</junit-jupiter-api.version>
+
         <omni-coveragereporter-maven-plugin.version>0.3.0</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
-        <spring-boot-starter-parent.version>3.0.0</spring-boot-starter-parent.version>
-        <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
+        <lombok.version>1.18.24</lombok.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring-boot-starter-parent.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <!-- bisca rest -->
-            <dependency>
-                <groupId>org.jesperancinha.biscaje</groupId>
-                <artifactId>biscaje-rest-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate-core.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.h2database</groupId>
-                <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-dbcp</artifactId>
-                <version>10.1.4</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.persistence</groupId>
-                <artifactId>jakarta.persistence-api</artifactId>
-                <version>3.1.0</version>
-            </dependency>
-
-            <!-- Javax Persistence -->
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>persistence-api</artifactId>
-                <version>${javax.persistence}</version>
-            </dependency>
-
-            <!-- Mongo DB -->
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>bson</artifactId>
-                <version>${mongo.driver}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongo-java-driver</artifactId>
-                <version>${mongo.driver}</version>
-            </dependency>
-
-
-            <!-- JWT -->
-            <dependency>
-                <groupId>org.bitbucket.b_c</groupId>
-                <artifactId>jose4j</artifactId>
-                <version>${jwt.jose4j}</version>
-            </dependency>
-
-            <!-- Autho0 JWT -->
-            <dependency>
-                <groupId>com.auth0</groupId>
-                <artifactId>java-jwt</artifactId>
-                <version>${auth0}</version>
-            </dependency>
-
-            <!-- Jackson -->
-            <dependency>
-                <groupId>org.codehaus.jackson</groupId>
-                <artifactId>jackson-jaxrs</artifactId>
-                <version>${codehaus.jackson}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.jaxrs</groupId>
-                <artifactId>jackson-jaxrs-json-provider</artifactId>
-                <version>${jackson.core}</version>
-            </dependency>
-
-            <!-- JAX-RS -->
-            <dependency>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>javax.ws.rs-api</artifactId>
-                <version>${jax.rs}</version>
-            </dependency>
-
-            <!-- Jersey -->
-            <dependency>
-                <groupId>org.glassfish.jersey.core</groupId>
-                <artifactId>jersey-server</artifactId>
-                <version>${jersey-server.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.jersey.containers</groupId>
-                <artifactId>jersey-container-servlet-core</artifactId>
-                <version>${jersey-server.version}</version>
-            </dependency>
-
-            <!-- Log4j -->
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j}</version>
-            </dependency>
-
             <!-- Owasp -->
             <dependency>
                 <groupId>org.owasp.esapi</groupId>
@@ -183,170 +40,17 @@
                 <version>${owasp.esapi}</version>
             </dependency>
 
-            <!-- Commons -->
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${commons.codec}</version>
-            </dependency>
-
-            <!-- Hibernate -->
-            <dependency>
-                <groupId>org.hibernate.ogm</groupId>
-                <artifactId>hibernate-ogm-mongodb</artifactId>
-                <version>${hibernate.ogm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate.ogm</groupId>
-                <artifactId>hibernate-ogm-core</artifactId>
-                <version>${hibernate.ogm}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate.ogm</groupId>
-                <artifactId>hibernate-ogm-infinispan</artifactId>
-                <version>${hibernate.ogm}</version>
-            </dependency>
-
-            <!-- Weld for CDI -->
-            <dependency>
-                <groupId>org.jboss.weld</groupId>
-                <artifactId>weld-core</artifactId>
-                <version>${weld}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.weld.servlet</groupId>
-                <artifactId>weld-servlet-core</artifactId>
-                <version>${weld.servlet}</version>
-            </dependency>
-
-            <!-- EJB -->
-            <dependency>
-                <groupId>javax.ejb</groupId>
-                <artifactId>javax.ejb-api</artifactId>
-                <version>${javax.ejb-api.version}</version>
-            </dependency>
-
             <!-- Lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${project.lombok}</version>
+                <version>${lombok.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>${javaee-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-client</artifactId>
-                <version>${activemq-all.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- TEST Libraries -->
-            <!-- Cucumber -->
-            <dependency>
-                <groupId>info.cukes</groupId>
-                <artifactId>cucumber-java</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>info.cukes</groupId>
-                <artifactId>cucumber-junit</artifactId>
-                <version>${cucumber.version}</version>
-            </dependency>
-
-            <!-- ActiveMQ-->
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-all</artifactId>
-                <version>${activemq-all.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.activemq.tooling</groupId>
-                <artifactId>activemq-junit</artifactId>
-                <version>${activemq-all.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>activemq-broker</artifactId>
-                <version>${activemq-all.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>*</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit-jupiter-api.version}</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/com.google.truth/truth -->
-            <dependency>
-                <groupId>com.google.truth</groupId>
-                <artifactId>truth</artifactId>
-                <version>${truth.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate-validator.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>${javax.el-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>${javax.el.version}</version>
             </dependency>
 
         </dependencies>

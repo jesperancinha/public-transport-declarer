@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jesperancinha.biscaje</groupId>
-        <artifactId>biscaje</artifactId>
+        <groupId>org.jesperancinha.ov</groupId>
+        <artifactId>public-transport-declarer-parent</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>biscaje-rest-api</artifactId>
+    <artifactId>public-transport-declarer</artifactId>
     <packaging>jar</packaging>
-    <name>BiscaJE :: API</name>
+    <name>Public Transport Declarer :: Launcher</name>
     <url>http://maven.apache.org</url>
 
     <build>
@@ -56,19 +56,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.5.1</version>
-        </dependency>
 
         <!-- Owasp -->
         <dependency>
@@ -95,45 +82,12 @@
             <artifactId>postgresql</artifactId>
             <version>1.17.6</version>
         </dependency>
-        <!-- Cucumber -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.truth/truth -->
-        <dependency>
-            <groupId>com.google.truth</groupId>
-            <artifactId>truth</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
 </project>
