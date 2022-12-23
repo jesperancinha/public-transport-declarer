@@ -1,6 +1,5 @@
 package org.jesperancinha.ptd.parsers
 
-import org.jesperancinha.ptd.PublicTransporterLauncher
 import org.apache.tika.metadata.Metadata
 import org.apache.tika.parser.ParseContext
 import org.apache.tika.parser.pdf.PDFParser
@@ -8,7 +7,6 @@ import org.apache.tika.sax.BodyContentHandler
 import java.io.InputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 /**
  * Parses PDF files generated in the OV Chipkaart website https://www.ov-chipkaart.nl
@@ -26,17 +24,21 @@ class OVPublicTransporParser : IPublicTransportParser {
         val pcontext = ParseContext()
         val pdfparser = PDFParser()
         pdfparser.parse(inputStream, handler, metadata, pcontext)
-        println("Contents of the PDF :$handler")
-        println("Metadata of the PDF:")
-        val metadataNames = metadata.names()
-        for (name in metadataNames) {
-            println(name + " : " + metadata[name])
+        handler.toString().split("\n").filter { isTransportLine(it) }.forEach {
+            println(it)
         }
+//        println("Contents of the PDF :$handler")
+//        println("Metadata of the PDF:")
+//        val metadataNames = metadata.names()
+//        for (name in metadataNames) {
+//                println(name + " : " + metadata[name])
+//        }
     }
 
     override fun isTransportLine(line: String) = try {
-        LocalDate.parse(line.split(" ")[0],  DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-        true
+        val splitStringOnSpace = line.split(" ")
+        LocalDate.parse(splitStringOnSpace[0], DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+        splitStringOnSpace.size > 1
     } catch (e: Exception) {
         false
     }
