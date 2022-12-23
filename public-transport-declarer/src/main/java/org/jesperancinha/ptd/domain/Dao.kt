@@ -1,5 +1,6 @@
 package org.jesperancinha.ptd.domain
 
+import java.math.BigDecimal
 import java.time.LocalDateTime
 
 enum class CheckInOut {
@@ -11,5 +12,6 @@ data class Segment(
     val dateTime: LocalDateTime?,
     val company: String,
     val station: String,
-    val check: CheckInOut
+    val check: CheckInOut,
+    val cost: BigDecimal
 )
