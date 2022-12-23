@@ -1,6 +1,6 @@
-package com.jesperancinha.ptd
+package org.jesperancinha.ptd
 
-import com.jesperancinha.ptd.parsers.OVPublicTransporParser
+import org.jesperancinha.ptd.parsers.OVPublicTransporParser
 import org.apache.tika.exception.TikaException
 import org.apache.tika.metadata.Metadata
 import org.apache.tika.parser.ParseContext

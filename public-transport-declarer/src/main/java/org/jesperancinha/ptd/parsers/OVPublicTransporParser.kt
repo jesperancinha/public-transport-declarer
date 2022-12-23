@@ -1,6 +1,6 @@
-package com.jesperancinha.ptd.parsers
+package org.jesperancinha.ptd.parsers
 
-import com.jesperancinha.ptd.PublicTransporterLauncher
+import org.jesperancinha.ptd.PublicTransporterLauncher
 import org.apache.tika.metadata.Metadata
 import org.apache.tika.parser.ParseContext
 import org.apache.tika.parser.pdf.PDFParser

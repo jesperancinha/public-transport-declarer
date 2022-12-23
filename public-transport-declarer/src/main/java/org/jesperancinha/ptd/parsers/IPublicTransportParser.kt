@@ -1,4 +1,4 @@
-package com.jesperancinha.ptd.parsers
+package org.jesperancinha.ptd.parsers
 
 import java.io.InputStream
 

@@ -1,4 +1,4 @@
-package com.jesperancinha.ptd.parsers
+package org.jesperancinha.ptd.parsers
 
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
