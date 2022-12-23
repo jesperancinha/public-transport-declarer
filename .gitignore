@@ -49,3 +49,6 @@ bisca-api/libs
 
 ### Node modules
 node_modules
+
+## PID
+.attach*

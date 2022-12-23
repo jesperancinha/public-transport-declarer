@@ -40,7 +40,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         pdfparser.parse(inputStream, handler, metadata, pcontext)
         handler.toString().split("\n").filter { isTransportLine(it) }.forEach {
             println(it)
-            createDataObject(it)
+            createDataObject(it).also { println(it) }
         }
 //        println("Contents of the PDF :$handler")
 //        println("Metadata of the PDF:")
@@ -66,9 +66,12 @@ class OVPublicTransporParser : IPublicTransportParser {
     }
 
 
-    private fun parseDateTime(segmentString: String): LocalDateTime {
-        val dateString = segmentString.split(" ").filter { toDate(it) != null }
-        val timeString = segmentString.split(" ").filter { toTime(it) != null }
+    private fun parseDateTime(segmentString: String): LocalDateTime? {
+        val dateString = segmentString.split(" ").firstOrNull { toDate(it) != null }
+        val timeString = segmentString.split(" ").firstOrNull { toTime(it) != null }
+        if(dateString==null || timeString==null){
+            return null;
+        }
         return LocalDateTime.parse(
             "$dateString $timeString",
             DateTimeFormatter.ofPattern("$DATE_PATTERN $TIME_PATTERN")
@@ -80,7 +83,9 @@ class OVPublicTransporParser : IPublicTransportParser {
         nullable.eager {
             try {
                 LocalDate.parse(element, DateTimeFormatter.ofPattern(DATE_PATTERN))
+                element
             } catch (_: Exception) {
+                null
             }
         }
 
@@ -88,7 +93,9 @@ class OVPublicTransporParser : IPublicTransportParser {
         nullable.eager {
             try {
                 LocalTime.parse(element, DateTimeFormatter.ofPattern(TIME_PATTERN))
+                element
             } catch (_: Exception) {
+                null
             }
         }
 

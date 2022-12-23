@@ -8,7 +8,7 @@ enum class CheckInOut {
 }
 
 data class Segment(
-    val dateTime: LocalDateTime,
+    val dateTime: LocalDateTime?,
     val company: String,
     val station: String,
     val check: CheckInOut
