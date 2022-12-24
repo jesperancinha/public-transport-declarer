@@ -40,7 +40,7 @@ A public transport declaration calculator. It is used to automatically filter ou
 #### Stable releases
 
 - [1.0.0](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - [b607761b489cff36b552b91f7ee3c30c06162e02](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - BiscaJE (An attempt to build a game, but never concluded. archived forever)
-
+- [1.0.0-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - [f267cdb8a2aceec534541398e141e8f1579ddf0f](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - First Alpha Version of Public Transport Declarer
 
 ## How to use
 
