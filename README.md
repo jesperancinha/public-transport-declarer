@@ -35,25 +35,11 @@
 
 The project is supposed to provide an easy way to generate documentation required to make public transportation usage declarations.
 
+A public transport declaration calculator. It is used to automatically filter out all relevant travelling segments when travelling with a general public transport card. It receives a PDF file as an input and generates a CSV file with the results as Local Date / Complete value.
+
 #### Stable releases
 
 - [1.0.0](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - [b607761b489cff36b552b91f7ee3c30c06162e02](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - BiscaJE (An attempt to build a game, but never concluded. archived forever)
-
-## How to run
-
-```
-
-$ npm run lite
-
-```
-
-## Status
-
-*Under development*
-
-## Final notes
-
-Please add the generated lib folder to your project dependencies if you cannot complete your build.
 
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 

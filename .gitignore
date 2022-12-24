@@ -39,14 +39,6 @@ out
 target
 libs
 
-### Rest API
-bisca-rest-api/com.jesperancinha.biscaje.entities.User
-bisca-rest-api/activemq-data/localhost/KahaDB/
-bisca-rest-api/duplicate
-bisca-rest-api/libs
-bisca-model/libs
-bisca-api/libs
-
 ### Node modules
 node_modules
 
