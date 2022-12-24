@@ -6,7 +6,7 @@ import org.xml.sax.SAXException
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
-import java.io.IOException
+import java.io.*
 import java.math.BigDecimal
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
@@ -25,7 +25,7 @@ class PublicTransporterCommand : Callable<Int> {
         description = ["The complete declaration file of your public transportation provider"],
         defaultValue = "declaratieoverzicht_22122022110627.pdf"
     )
-    lateinit var origin: String
+    var origin: String = "declaratieoverzicht_22122022110627.pdf"
 
     @Option(
         names = ["-d", "--destination"],
@@ -33,25 +33,26 @@ class PublicTransporterCommand : Callable<Int> {
         defaultValue = "report.csv"
 
     )
-    lateinit var destination: String
+    var destination: String = "report.csv"
 
     @Option(
         names = ["-l", "--list"],
         description = ["A list of all stations that we are supposed to ignore. Defaults to an empty list"],
         defaultValue = ""
     )
-    lateinit var notIncluded: String
+    var notIncluded: String = ""
 
     @Option(
         names = ["-g", "-grenslimit"],
         description = ["Grens comes from dutch and it means limit. Daily values under this will be ignored. Defaults to 10"]
     )
-    lateinit var limit: BigDecimal
+    var limit: BigDecimal= BigDecimal.TEN
 
     override fun call(): Int = run {
-        CalculatorDao().dailyCosts(
-            PublicTransporterLauncher::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
-        )
+        CalculatorDao(
+            notIncluded= notIncluded.split(",").toList(),
+            dailyCostLimit = limit
+        ).dailyCosts(FileInputStream(File(origin)))
         0
     }
 }
@@ -60,7 +61,7 @@ object PublicTransporterLauncher {
     @Throws(TikaException::class, IOException::class, SAXException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        val exitCode: Int = CommandLine(PublicTransporterCommand()).execute(*args)
+        val exitCode: Int = CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g","10","-l","Arnhem,Velp,Schiphol"))
         exitProcess(exitCode)
 
     }
