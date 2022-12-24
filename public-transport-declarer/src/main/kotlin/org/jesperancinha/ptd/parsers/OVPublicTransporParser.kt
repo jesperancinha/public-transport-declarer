@@ -18,7 +18,7 @@ import java.util.regex.Pattern
 private const val DATE_PATTERN = "dd-MM-yyyy"
 private const val TIME_PATTERN = "HH:mm"
 private val TIME_PATTERN_REGEX = Pattern.compile("[0-9]{2}:[0-9]{2}")
-private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, ]+)")
+private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, ']+(-)?[a-zA-Z, ']+)")
 private val CHECKOUT_PATTERN_REGEX = Pattern.compile("(Check-uit)")
 private val CURRENCY_PATTERN = Pattern.compile("(\$|€)( *[0-9]+,?[0-9]*)")
 private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
@@ -42,8 +42,9 @@ class OVPublicTransporParser : IPublicTransportParser {
         val pdfparser = PDFParser()
         pdfparser.parse(inputStream, handler, metadata, pcontext)
         handler.toString().split("\n").filter { isTransportLine(it) }.map {
-            createDataObject(it).also { segment -> println(segment)}
-        }
+            println(it)
+            createDataObject(it)
+        }.onEach { segment -> println(segment) }
     }
 
     private fun createDataObject(segmentString: String) = nullable.eager {
