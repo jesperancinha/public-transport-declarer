@@ -3,12 +3,13 @@ package org.jesperancinha.ptd
 import org.apache.tika.exception.TikaException
 import org.jesperancinha.ptd.domain.CalculatorDao
 import org.xml.sax.SAXException
+import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
-import picocli.CommandLine.Parameters
 import java.io.IOException
 import java.math.BigDecimal
 import java.util.concurrent.Callable
+import kotlin.system.exitProcess
 
 
 @Command(
@@ -43,22 +44,24 @@ class PublicTransporterCommand : Callable<Int> {
 
     @Option(
         names = ["-g", "-grenslimit"],
-        description = ["Grens comes from dutch and it means limit. Daily values under this will be ignore. Defaults to 10"]
+        description = ["Grens comes from dutch and it means limit. Daily values under this will be ignored. Defaults to 10"]
     )
     lateinit var limit: BigDecimal
 
-    override fun call(): Int {
-        TODO("Not yet implemented")
+    override fun call(): Int = run {
+        CalculatorDao().dailyCosts(
+            PublicTransporterLauncher::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
+        )
+        0
     }
-
 }
 
 object PublicTransporterLauncher {
     @Throws(TikaException::class, IOException::class, SAXException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        CalculatorDao().dailyCosts(
-            PublicTransporterLauncher::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
-        )
+        val exitCode: Int = CommandLine(PublicTransporterCommand()).execute(*args)
+        exitProcess(exitCode)
+
     }
 }
