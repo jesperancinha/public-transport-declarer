@@ -1,9 +1,17 @@
 package org.jesperancinha.ptd.parsers
 
+import io.kotest.matchers.bigdecimal.shouldBeGreaterThan
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.shouldBe
+import org.jesperancinha.ptd.domain.CalculatorDao
+import org.jesperancinha.ptd.domain.CheckInOut.CHECKOUT
+import org.jesperancinha.ptd.domain.Currency.EUR
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class OVPublicTransporParserTest {
@@ -11,6 +19,19 @@ class OVPublicTransporParserTest {
     @Test
     fun `should run control test`() {
         LocalDate.parse("09-12-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+    }
+    @Test
+    fun `should parse corner case city names s-Hertogenbosch`() {
+        OVPublicTransporParser().createDataObject("18-11-2022 NS Eindhoven Centraal 15:57 's-Hertogenbosch €  7,10 Check-uit Reizen op Saldo NS Vol tarief (...")
+            .let { segment ->
+                segment.shouldNotBeNull()
+                segment.station shouldBe "'s-Hertogenbosch"
+                segment.company shouldBe "NS Eindhoven Centraal"
+                segment.dateTime shouldBe LocalDateTime.of(2022,11,18,15,57)
+                segment.check shouldBe CHECKOUT
+                segment.currency shouldBe EUR
+                segment.cost shouldBe BigDecimal("7.10")
+            }
     }
 
     @Test
@@ -28,5 +49,25 @@ class OVPublicTransporParserTest {
         ovPublicTransporParser.isTransportLine("1-12-2022 NS Utrecht Centraal 08:38 Gouda €  5,70 Check-uit Reizen op Saldo NS Vol tarief (...")
             .shouldBeFalse()
 
+    }
+
+    @Test
+    fun `should parse without errors for file declaratieoverzicht_22122022110627`() {
+        val resourceAsStream =
+            OVPublicTransporParserTest::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
+        resourceAsStream.shouldNotBeNull()
+        resourceAsStream.let {
+            CalculatorDao().dailyCosts(it).forEach { costs -> costs.second shouldBeGreaterThan BigDecimal.TEN }
+        }
+    }
+
+    @Test
+    fun `should parse without errors for file declaratieoverzicht_24122022170148`() {
+        val resourceAsStream =
+            OVPublicTransporParserTest::class.java.getResourceAsStream("/declaratieoverzicht_24122022170148.pdf")
+        resourceAsStream.shouldNotBeNull()
+        resourceAsStream.let {
+            CalculatorDao().dailyCosts(it).forEach { costs -> costs.second shouldBeGreaterThan BigDecimal.TEN }
+        }
     }
 }

@@ -47,7 +47,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         }.onEach { segment -> println(segment) }
     }
 
-    private fun createDataObject(segmentString: String) = nullable.eager {
+     fun createDataObject(segmentString: String) = nullable.eager {
         Segment(
             dateTime = parseDateTime(segmentString).bind(),
             company = parseCompany(segmentString).bind(),
