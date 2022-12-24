@@ -1,11 +1,7 @@
 package org.jesperancinha.ptd
 
-import org.jesperancinha.ptd.parsers.OVPublicTransporParser
 import org.apache.tika.exception.TikaException
-import org.apache.tika.metadata.Metadata
-import org.apache.tika.parser.ParseContext
-import org.apache.tika.parser.pdf.PDFParser
-import org.apache.tika.sax.BodyContentHandler
+import org.jesperancinha.ptd.domain.CalculatorDao
 import org.xml.sax.SAXException
 import java.io.IOException
 
@@ -13,7 +9,7 @@ object PublicTransporterLauncher {
     @Throws(TikaException::class, IOException::class, SAXException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        OVPublicTransporParser().parseDocument(
+        CalculatorDao().dailyCosts(
             PublicTransporterLauncher::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
         )
     }

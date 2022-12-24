@@ -22,6 +22,8 @@ private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, ]+)")
 private val CHECKOUT_PATTERN_REGEX = Pattern.compile("(Check-uit)")
 private val CURRENCY_PATTERN = Pattern.compile("(\$|€)( *[0-9]+,?[0-9]*)")
 private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
+private const val SPACE_DELIMITER = " "
+private const val TRIPLE_POINTS_DELIMITER = "..."
 
 /**
  * Parses PDF files generated in the OV Chipkaart website https://www.ov-chipkaart.nl
@@ -33,14 +35,14 @@ private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
  *
  */
 class OVPublicTransporParser : IPublicTransportParser {
-    override fun parseDocument(inputStream: InputStream) {
+    override fun parseDocument(inputStream: InputStream) = run {
         val handler = BodyContentHandler()
         val metadata = Metadata()
         val pcontext = ParseContext()
         val pdfparser = PDFParser()
         pdfparser.parse(inputStream, handler, metadata, pcontext)
-        handler.toString().split("\n").filter { isTransportLine(it) }.forEach {
-            createDataObject(it).also { dataObject -> println(dataObject) }
+        handler.toString().split("\n").filter { isTransportLine(it) }.map {
+            createDataObject(it).also { segment -> println(segment)}
         }
     }
 
@@ -86,32 +88,33 @@ class OVPublicTransporParser : IPublicTransportParser {
     }
 
 
-    private fun parseDateTime(segmentString: String): LocalDateTime? {
-        val dateString = segmentString.split(" ", "...").firstOrNull { toDate(it) != null }
-        val timeString = segmentString.split(" ", "...").firstOrNull { toTime(it) != null }
+    private fun parseDateTime(segmentString: String): LocalDateTime? = run {
+        val dateString =
+            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { toDate(it) != null }
+        val timeString =
+            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { toTime(it) != null }
         if (dateString == null || timeString == null) {
-            return null
-        }
-        return LocalDateTime.parse(
-            "$dateString $timeString",
-            DateTimeFormatter.ofPattern("$DATE_PATTERN $TIME_PATTERN")
-        )
+            null
+        } else
+            LocalDateTime.parse(
+                "$dateString $timeString",
+                DateTimeFormatter.ofPattern("$DATE_PATTERN $TIME_PATTERN")
+            )
     }
 
 
-    private fun toDate(element: String) =
-        try {
-            LocalDate.parse(element, DateTimeFormatter.ofPattern(DATE_PATTERN))
-            element
-        } catch (_: Exception) {
-            null
-        }
+    private fun toDate(element: String) = try {
+        LocalDate.parse(element, DateTimeFormatter.ofPattern(DATE_PATTERN))
+        element
+    } catch (_: Exception) {
+        null
+    }
 
 
     private fun toTime(element: String) = TIME_PATTERN_REGEX.matcher(element).run { if (find()) element else null }
 
     override fun isTransportLine(line: String) = try {
-        val splitStringOnSpace = line.split(" ")
+        val splitStringOnSpace = line.split(SPACE_DELIMITER)
         LocalDate.parse(splitStringOnSpace[0], DateTimeFormatter.ofPattern(DATE_PATTERN))
         splitStringOnSpace.size > 1
     } catch (e: Exception) {
