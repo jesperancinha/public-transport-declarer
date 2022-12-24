@@ -25,7 +25,8 @@ data class Segment(
 )
 
 internal class CalculatorDao(
-    val notIncluded: List<String> = listOf("Arnhem", "Velp")
+    val notIncluded: List<String> = listOf("Arnhem", "Velp", "Schiphol"),
+    val dailyCostLimit: BigDecimal = BigDecimal.TEN
 ) {
 
     val ovPublicTransporParser: OVPublicTransporParser by lazy { OVPublicTransporParser() }
@@ -39,12 +40,16 @@ internal class CalculatorDao(
         allSegments.groupBy { it?.dateTime?.toLocalDate() }
             .map {
                 println("${it.key} - ${it.value.map { segment -> segment?.station }.joinToString(" -> ")}")
-            it.key to it.value.sumOf {segment ->
-                if(notIncluded.firstOrNone { not -> segment?.station?.contains(not) == true }
-                        .isNotEmpty()) BigDecimal.ZERO else
-                    segment?.cost ?: BigDecimal.ZERO
+                it.key to it.value.sumOf { segment ->
+                    if (notIncluded.firstOrNone { not ->
+                            segment?.station?.contains(not) == true || segment?.company?.contains(not) == true
+                        }
+                            .isNotEmpty()) BigDecimal.ZERO else
+                        segment?.cost ?: BigDecimal.ZERO
+                }
             }
-            }.forEach { println(it) }
+            .filter { it.second > dailyCostLimit }
+            .forEach { println(it) }
 
     }
 }
