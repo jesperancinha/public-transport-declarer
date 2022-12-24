@@ -4,8 +4,12 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 enum class CheckInOut {
-    CHECKIN,
-    CHECKOUT
+    CHECKIN, CHECKOUT
+}
+
+enum class Currency {
+    EUR,
+    USD
 }
 
 data class Segment(
@@ -13,5 +17,6 @@ data class Segment(
     val company: String,
     val station: String,
     val check: CheckInOut,
-    val cost: BigDecimal
+    val cost: BigDecimal,
+    val currency: Currency
 )

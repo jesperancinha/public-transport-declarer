@@ -5,24 +5,23 @@ import org.apache.tika.metadata.Metadata
 import org.apache.tika.parser.ParseContext
 import org.apache.tika.parser.pdf.PDFParser
 import org.apache.tika.sax.BodyContentHandler
-import org.jesperancinha.ptd.domain.CheckInOut
 import org.jesperancinha.ptd.domain.CheckInOut.*
+import org.jesperancinha.ptd.domain.Currency
 import org.jesperancinha.ptd.domain.Segment
 import java.io.InputStream
 import java.math.BigDecimal
-import java.math.BigInteger
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
-import kotlin.math.cos
 
 private const val DATE_PATTERN = "dd-MM-yyyy"
 private const val TIME_PATTERN = "HH:mm"
 private val TIME_PATTERN_REGEX = Pattern.compile("[0-9]{2}:[0-9]{2}")
 private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, ]+)")
 private val CHECKOUT_PATTERN_REGEX = Pattern.compile("(Check-uit)")
-private val EURO_PATTERN = Pattern.compile("(€)( *[0-9]+,?[0-9]*)")
+private val CURRENCY_PATTERN = Pattern.compile("(\$|€)( *[0-9]+,?[0-9]*)")
+private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
 
 /**
  * Parses PDF files generated in the OV Chipkaart website https://www.ov-chipkaart.nl
@@ -43,12 +42,6 @@ class OVPublicTransporParser : IPublicTransportParser {
         handler.toString().split("\n").filter { isTransportLine(it) }.forEach {
             createDataObject(it).also { dataObject -> println(dataObject) }
         }
-//        println("Contents of the PDF :$handler")
-//        println("Metadata of the PDF:")
-//        val metadataNames = metadata.names()
-//        for (name in metadataNames) {
-//                println(name + " : " + metadata[name])
-//        }
     }
 
     private fun createDataObject(segmentString: String) = nullable.eager {
@@ -57,18 +50,28 @@ class OVPublicTransporParser : IPublicTransportParser {
             company = parseCompany(segmentString).bind(),
             station = parseStation(segmentString).bind(),
             check = parseCheckout(segmentString).bind(),
-            cost = parseCost(segmentString).bind()
+            cost = parseCost(segmentString).bind(),
+            currency = parseCurrency(segmentString).bind()
 
         )
     }
 
-    private fun parseCost(segmentString: String): BigDecimal = EURO_PATTERN.matcher(segmentString).run {
+    private fun parseCurrency(segmentString: String) = CURRENCY_TYPE_PATTERN.matcher(segmentString).run {
         find()
-        BigDecimal(group(2).replace(",",".").trim())
+        when (group(1).replace(",", ".").trim()) {
+            "€" -> Currency.EUR
+            else -> null
+
+        }
+    }
+
+    private fun parseCost(segmentString: String): BigDecimal = CURRENCY_PATTERN.matcher(segmentString).run {
+        find()
+        BigDecimal(group(2).replace(",", ".").trim())
     }
 
     private fun parseCheckout(segmentString: String) = CHECKOUT_PATTERN_REGEX.matcher(segmentString).run {
-        if(find()) CHECKOUT else CHECKIN
+        if (find()) CHECKOUT else CHECKIN
     }
 
     private fun parseStation(segmentString: String): String = STRING_PATTERN_REGEX.matcher(segmentString).run {
@@ -87,7 +90,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         val dateString = segmentString.split(" ", "...").firstOrNull { toDate(it) != null }
         val timeString = segmentString.split(" ", "...").firstOrNull { toTime(it) != null }
         if (dateString == null || timeString == null) {
-            return null;
+            return null
         }
         return LocalDateTime.parse(
             "$dateString $timeString",
