@@ -41,6 +41,31 @@ A public transport declaration calculator. It is used to automatically filter ou
 
 - [1.0.0](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - [b607761b489cff36b552b91f7ee3c30c06162e02](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0) - BiscaJE (An attempt to build a game, but never concluded. archived forever)
 
+
+## How to use
+
+All following examples work if you are inside folder [public-transport-declarer](public-transport-declarer).
+
+###### Help
+
+```shell
+java -jar target/public-transport-declarer.jar --help
+java -jar target/public-transport-declarer.jar -h
+```
+
+###### Version
+
+```shell
+java -jar target/public-transport-declarer.jar -V
+java -jar target/public-transport-declarer.jar --version
+```
+
+###### Example 1
+
+```shell
+java -jar target/public-transport-declarer.jar -o declaratieoverzicht_22122022110627.pdf -g 10 -d report-test.csv -l Arnhem,Velp,Schipol
+```
+
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
 [![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-20/JEOrgLogo-20.png "João Esperancinha Homepage")](http://joaofilipesabinoesperancinha.nl)

@@ -39,7 +39,7 @@ class PublicTransporterCommand : Callable<Int> {
 
     @Option(
         names = ["-l", "--list"],
-        description = ["A list of all stations that we are supposed to ignore. Defaults to an empty list"],
+        description = ["A list of all stations to ignore. Defaults to an empty list"],
         defaultValue = ""
     )
     var notIncluded: String = ""
@@ -62,7 +62,7 @@ class PublicTransporterCommand : Callable<Int> {
 
 fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
     val writer = bufferedWriter()
-    writer.write(""""Date", "Cost"""")
+    writer.write("""Date, Cost""")
     writer.newLine()
     costs.forEach {
         writer.write("${it.first}, ${it.second}")
@@ -71,16 +71,10 @@ fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
     writer.flush()
 }
 
-class PublicTransporterStarter {
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val exitCode: Int = if (args.size == 0)
-                CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g", "10", "-l", "Arnhem,Velp,Schiphol"))
-            else
-                CommandLine(PublicTransporterCommand()).execute(*args)
-            exitProcess(exitCode)
-
-        }
-    }
+fun main(args: Array<String>) {
+    val exitCode: Int = if (args.size == 0)
+        CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g", "10", "-l", "Arnhem,Velp,Schiphol"))
+    else
+        CommandLine(PublicTransporterCommand()).execute(*args)
+    exitProcess(exitCode)
 }

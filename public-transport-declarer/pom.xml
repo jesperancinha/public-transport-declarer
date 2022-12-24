@@ -12,11 +12,18 @@
     <name>Public Transport Declarer :: Launcher</name>
     <properties>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+        <spring-boot-maven-plugin.version>3.0.0</spring-boot-maven-plugin.version>
     </properties>
 
     <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -43,9 +50,7 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <sourceDir>
-                                    src/main/kotlin
-                                </sourceDir>
+                                <sourceDir>src/main/kotlin</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -57,9 +62,7 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <sourceDir>
-                                    src/test/kotlin
-                                </sourceDir>
+                                <sourceDir>src/test/kotlin</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -89,19 +92,22 @@
                 <artifactId>omni-coveragereporter-maven-plugin</artifactId>
                 <version>${omni-coveragereporter-maven-plugin.version}</version>
             </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.3.0</version>
-                    <configuration>
-                        <archive>
-                            <index>true</index>
-                            <manifest>
-                                <mainClass>org.jesperancinha.ptd.PublicTransporterStarter</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
+                <configuration>
+                    <executable>true</executable>
+                    <mainClass>org.jesperancinha.ptd.PublicTransporterLauncherKt</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -126,6 +132,10 @@
             <artifactId>picocli</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.kotest</groupId>
             <artifactId>kotest-assertions-shared-jvm</artifactId>
             <scope>test</scope>
@@ -135,7 +145,6 @@
             <artifactId>kotest-assertions-core-jvm</artifactId>
             <scope>test</scope>
         </dependency>
-
 
 
         <!-- TEST Libraries -->
@@ -154,10 +163,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
         </dependency>
         <dependency>
             <groupId>io.arrow-kt</groupId>
