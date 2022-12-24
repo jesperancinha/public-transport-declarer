@@ -10,7 +10,7 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/public-transport-declarer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/public-transport-declarer&amp;utm_campaign=Badge_Grade)
 [![codebeat badge](https://codebeat.co/badges/ecede707-1d01-44a3-88c1-ef88971bd465)](https://codebeat.co/projects/github-com-jesperancinha-public-transport-declarer-master)
-[![BCH compliance](https://bettercodehub.com/edge/badge/jesperancinha/public-transport-declarer?branch=master)](https://bettercodehub.com/)
+[![BCH compliance](https://bettercodehub.com/edge/badge/jesperancinha/public-transport-declarer?branch=master)](https://bettercodehub.com/results/jesperancinha/public-transport-declarer)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/public-transport-declarer/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jesperancinha/public-transport-declarer&utm_campaign=Badge_Coverage)
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/public-transport-declarer/badge.svg?branch=master)](https://coveralls.io/github/jesperancinha/public-transport-declarer?branch=master)
