@@ -106,6 +106,10 @@
             <artifactId>tika-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.kotest</groupId>
             <artifactId>kotest-assertions-shared-jvm</artifactId>
             <scope>test</scope>
