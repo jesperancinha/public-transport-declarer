@@ -34,7 +34,7 @@ internal class CalculatorDao(
     /**
      * Only the destination cities are shown in the logs for the OVPublicTransportParser
      */
-    fun dailyCosts(inputStream: InputStream) {
+    fun dailyCosts(inputStream: InputStream) = run {
         val allSegments = ovPublicTransporParser.parseDocument(inputStream)
 
         allSegments.groupBy { it?.dateTime?.toLocalDate() }
@@ -49,7 +49,8 @@ internal class CalculatorDao(
                 }
             }
             .filter { it.second > dailyCostLimit }
-            .forEach { println(it) }
+            .onEach { println(it) }
+
 
     }
 }

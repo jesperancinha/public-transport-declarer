@@ -8,6 +8,8 @@ import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.*
 import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
 
@@ -49,12 +51,24 @@ class PublicTransporterCommand : Callable<Int> {
     var limit: BigDecimal= BigDecimal.TEN
 
     override fun call(): Int = run {
-        CalculatorDao(
-            notIncluded= notIncluded.split(",").toList(),
+        val dailyCosts = CalculatorDao(
+            notIncluded = notIncluded.split(",").toList(),
             dailyCostLimit = limit
         ).dailyCosts(FileInputStream(File(origin)))
+        FileOutputStream(destination).apply { writeCsv(dailyCosts) }
         0
     }
+}
+
+fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
+    val writer = bufferedWriter()
+    writer.write(""""Date", "Cost"""")
+    writer.newLine()
+    costs.forEach {
+        writer.write("${it.first}, ${it.second}")
+        writer.newLine()
+    }
+    writer.flush()
 }
 
 object PublicTransporterLauncher {
