@@ -10,6 +10,9 @@
 
     <artifactId>public-transport-declarer</artifactId>
     <name>Public Transport Declarer :: Launcher</name>
+    <properties>
+        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+    </properties>
 
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -86,6 +89,19 @@
                 <artifactId>omni-coveragereporter-maven-plugin</artifactId>
                 <version>${omni-coveragereporter-maven-plugin.version}</version>
             </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <mainClass>org.jesperancinha.ptd.PublicTransporterStarter</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
         </plugins>
     </build>
 

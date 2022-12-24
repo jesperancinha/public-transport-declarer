@@ -48,7 +48,7 @@ class PublicTransporterCommand : Callable<Int> {
         names = ["-g", "-grenslimit"],
         description = ["Grens comes from dutch and it means limit. Daily values under this will be ignored. Defaults to 10"]
     )
-    var limit: BigDecimal= BigDecimal.TEN
+    var limit: BigDecimal = BigDecimal.TEN
 
     override fun call(): Int = run {
         val dailyCosts = CalculatorDao(
@@ -71,12 +71,16 @@ fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
     writer.flush()
 }
 
-object PublicTransporterLauncher {
-    @Throws(TikaException::class, IOException::class, SAXException::class)
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val exitCode: Int = CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g","10","-l","Arnhem,Velp,Schiphol"))
-        exitProcess(exitCode)
+class PublicTransporterStarter {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val exitCode: Int = if (args.size == 0)
+                CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g", "10", "-l", "Arnhem,Velp,Schiphol"))
+            else
+                CommandLine(PublicTransporterCommand()).execute(*args)
+            exitProcess(exitCode)
 
+        }
     }
 }
