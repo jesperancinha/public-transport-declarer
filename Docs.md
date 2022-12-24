@@ -16,10 +16,10 @@ they normally involve very small costs per segment, that together result in very
 
 For example in one day we can have something like:
 
-Nieuwegein -> Utrecht = 2 euros
-Utrecht -> Gouda = 9 euros
-Gouda -> Utrecht = 9 euros
-Utrecht -> Nieuwegein = 3 euros
+1. Nieuwegein -> Utrecht = 2 euros
+2. Utrecht -> Gouda = 9 euros
+3. Gouda -> Utrecht = 9 euros
+4. Utrecht -> Nieuwegein = 3 euros
 
 However, the transportation costs vary per season, per time of day, per kind of day and sometimes just because of
 unexpected changes.
