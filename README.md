@@ -46,6 +46,8 @@ A public transport declaration calculator. It is used to automatically filter ou
 
 All following examples work if you are inside folder [public-transport-declarer](public-transport-declarer).
 
+You can find the detailed information in the [Docs.md](Docs.md).
+
 ###### Help
 
 ```shell
