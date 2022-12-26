@@ -57,7 +57,7 @@ class OVPublicTransporParserTest {
             OVPublicTransporParserTest::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
-            CalculatorDao().dailyCosts(it).forEach { costs -> costs.second shouldBeGreaterThan BigDecimal.TEN }
+            CalculatorDao().dailyCosts(it).forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
         }
     }
 
@@ -67,7 +67,7 @@ class OVPublicTransporParserTest {
             OVPublicTransporParserTest::class.java.getResourceAsStream("/declaratieoverzicht_24122022170148.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
-            CalculatorDao().dailyCosts(it).forEach { costs -> costs.second shouldBeGreaterThan BigDecimal.TEN }
+            CalculatorDao().dailyCosts(it).forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
         }
     }
 }

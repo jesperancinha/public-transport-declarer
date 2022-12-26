@@ -17,7 +17,7 @@ enum class Currency {
 }
 
 data class Segment(
-    val dateTime: LocalDateTime?,
+    val dateTime: LocalDateTime,
     val company: String,
     val station: String,
     val check: CheckInOut,
@@ -29,6 +29,12 @@ data class SegmentNode(
     val date: LocalDate? = null,
     val name: String,
     val next: SegmentNode? = null
+)
+
+data class DailyCost(
+    val date: LocalDate,
+    val description: String = "Event description here",
+    val cost: BigDecimal
 )
 
 internal class CalculatorDao(
@@ -45,24 +51,32 @@ internal class CalculatorDao(
     fun dailyCosts(inputStream: InputStream) = run {
         val allSegments = ovPublicTransporParser.parseDocument(inputStream)
 
-        allSegments.groupBy { it?.dateTime?.toLocalDate() }
+        val allPrefilteredSegments = allSegments
+            .asSequence()
+            .filterNotNull()
+            .groupBy { it.dateTime.toLocalDate() }
             .map {
                 println(it.allRoutesMessage())
                 it.toSumOfAllCosts()
             }
             .filter {
-                it.second > dailyCostLimit
+                it.cost > dailyCostLimit
             }
             .onEach { println(it) }
+            .toList()
+
+        allPrefilteredSegments
 
 
     }
 
-    private inline fun <reified K : LocalDate?, V : List<Segment?>> Map.Entry<K, V>.toSumOfAllCosts() =
-        this.key to this.value.sumOf { segment ->
+    private fun Map.Entry<LocalDate, List<Segment?>>.toSumOfAllCosts() = DailyCost(
+        date = this.key,
+        cost = this.value.sumOf { segment ->
             if (segment.notIncluded()) BigDecimal.ZERO else
                 segment?.cost ?: BigDecimal.ZERO
         }
+    )
 
     private inline fun <reified K : LocalDate?, V : List<Segment?>> Map.Entry<K, V>.allRoutesMessage(): String =
         "${this.key} - ${this.value.joinToString(" -> ") { segment -> "${segment?.company} - ${segment?.station}" }}"

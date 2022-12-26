@@ -1,17 +1,13 @@
 package org.jesperancinha.ptd
 
 import org.jesperancinha.ptd.domain.CalculatorDao
+import org.jesperancinha.ptd.domain.DailyCost
 import org.jesperancinha.ptd.domain.SegmentNode
-import org.jesperancinha.ptd.parsers.DATE_PATTERN
 import org.jesperancinha.ptd.parsers.DATE_PATTERN_2
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.FileReader
-import java.io.OutputStream
+import java.io.*
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -99,12 +95,12 @@ private fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
     }
 }
 
-fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
+fun OutputStream.writeCsv(costs: List<DailyCost>) {
     val writer = bufferedWriter()
-    writer.write("""Date, Cost""")
+    writer.write("""Date, Description, Cost""")
     writer.newLine()
     costs.forEach {
-        writer.write("${it.first}, ${it.second}")
+        writer.write("${it.date}, ${it.description}, ${it.cost}")
         writer.newLine()
     }
     writer.flush()
