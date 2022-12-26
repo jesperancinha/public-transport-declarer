@@ -51,9 +51,44 @@ internal class CalculatorDao(
     fun dailyCosts(inputStream: InputStream) = run {
         val allSegments = ovPublicTransporParser.parseDocument(inputStream)
 
-        allSegments
+        val segmentList = allSegments.sortedBy { it.dateTime }
+
+        val filteredSegmentList = mutableListOf<Segment>()
+        val currentTestList = mutableListOf<Segment>()
+
+        if (travelRoutes.isEmpty()) {
+            filteredSegmentList.addAll(allSegments)
+        } else {
+            travelRoutes.forEach { travelRoute ->
+                segmentList.forEach { segment ->
+                    if (segment.company.contains(travelRoute[0].name)) {
+                        currentTestList.add(segment)
+                    } else if (segment.station.contains(travelRoute[1].name)) {
+                        filteredSegmentList.addAll(currentTestList)
+                        filteredSegmentList.add(segment)
+                        currentTestList.clear()
+                    } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                }
+                currentTestList.clear()
+            }
+
+            travelRoutes.forEach { travelRoute ->
+                segmentList.forEach { segment ->
+                    if (segment.company.contains(travelRoute[1].name)) {
+                        currentTestList.add(segment)
+                    } else if (segment.station.contains(travelRoute[0].name)) {
+                        filteredSegmentList.addAll(currentTestList)
+                        filteredSegmentList.add(segment)
+                        currentTestList.clear()
+                    } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                }
+                currentTestList.clear()
+            }
+        }
+
+        filteredSegmentList.sortedBy { it.dateTime }
+            .toSet()
             .asSequence()
-            .filterNotNull()
             .groupBy { it.dateTime.toLocalDate() }
             .map {
                 println(it.allRoutesMessage())
