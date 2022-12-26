@@ -68,7 +68,7 @@ class PublicTransporterCommand : Callable<Int> {
     override fun call(): Int = run {
         val travelRoutes = readTravelRoutesFromFile(routeFile)
         val dailyCosts = CalculatorDao(
-            notIncluded = notIncluded.split(",").toList(),
+            notIncluded = if (notIncluded == "") emptyList() else notIncluded.split(",").toList(),
             dailyCostLimit = limit,
             travelRoutes = travelRoutes
         ).dailyCosts(FileInputStream(origin?.let { File(it) }

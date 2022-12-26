@@ -25,9 +25,9 @@ data class Segment(
     val currency: Currency
 )
 
-data class SegmentNode (
-    val date:LocalDate? = null,
-    val name:String,
+data class SegmentNode(
+    val date: LocalDate? = null,
+    val name: String,
     val next: SegmentNode? = null
 )
 
@@ -49,16 +49,20 @@ internal class CalculatorDao(
             .map {
                 println("${it.key} - ${it.value.map { segment -> segment?.station }.joinToString(" -> ")}")
                 it.key to it.value.sumOf { segment ->
-                    if (notIncluded.firstOrNone { not ->
-                            segment?.station?.contains(not) == true || segment?.company?.contains(not) == true
-                        }
-                            .isNotEmpty()) BigDecimal.ZERO else
+                    if (segment.notIncluded()) BigDecimal.ZERO else
                         segment?.cost ?: BigDecimal.ZERO
                 }
             }
-            .filter { it.second > dailyCostLimit }
+            .filter {
+                it.second > dailyCostLimit
+            }
             .onEach { println(it) }
 
 
     }
+
+    private fun Segment?.notIncluded(): Boolean = notIncluded.firstOrNone { not ->
+        this?.station?.contains(not) == true || this?.company?.contains(not) == true
+    }.isNotEmpty()
+
 }
