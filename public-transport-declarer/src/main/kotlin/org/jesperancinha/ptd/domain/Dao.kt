@@ -47,11 +47,8 @@ internal class CalculatorDao(
 
         allSegments.groupBy { it?.dateTime?.toLocalDate() }
             .map {
-                println("${it.key} - ${it.value.map { segment -> segment?.station }.joinToString(" -> ")}")
-                it.key to it.value.sumOf { segment ->
-                    if (segment.notIncluded()) BigDecimal.ZERO else
-                        segment?.cost ?: BigDecimal.ZERO
-                }
+                println(it.allRoutesMessage())
+                it.toSumOfAllCosts()
             }
             .filter {
                 it.second > dailyCostLimit
@@ -61,8 +58,20 @@ internal class CalculatorDao(
 
     }
 
+    private inline fun <reified K : LocalDate?, V : List<Segment?>> Map.Entry<K, V>.toSumOfAllCosts() =
+        this.key to this.value.sumOf { segment ->
+            if (segment.notIncluded()) BigDecimal.ZERO else
+                segment?.cost ?: BigDecimal.ZERO
+        }
+
+    private inline fun <reified K : LocalDate?, V : List<Segment?>> Map.Entry<K, V>.allRoutesMessage(): String =
+        "${this.key} - ${this.value.joinToString(" -> ") { segment -> "${segment?.company} - ${segment?.station}" }}"
+
+
     private fun Segment?.notIncluded(): Boolean = notIncluded.firstOrNone { not ->
         this?.station?.contains(not) == true || this?.company?.contains(not) == true
     }.isNotEmpty()
 
 }
+
+
