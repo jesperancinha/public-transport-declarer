@@ -1,15 +1,15 @@
 package org.jesperancinha.ptd
 
-import org.apache.tika.exception.TikaException
 import org.jesperancinha.ptd.domain.CalculatorDao
-import org.xml.sax.SAXException
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.math.BigDecimal
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
 
@@ -24,10 +24,9 @@ class PublicTransporterCommand : Callable<Int> {
 
     @Option(
         names = ["-o", "--origin"],
-        description = ["The complete declaration file of your public transportation provider"],
-        defaultValue = "declaratieoverzicht_22122022110627.pdf"
+        description = ["The complete declaration file of your public transportation provider"]
     )
-    var origin: String = "declaratieoverzicht_22122022110627.pdf"
+    var origin: String? = null
 
     @Option(
         names = ["-d", "--destination"],
@@ -54,7 +53,7 @@ class PublicTransporterCommand : Callable<Int> {
         val dailyCosts = CalculatorDao(
             notIncluded = notIncluded.split(",").toList(),
             dailyCostLimit = limit
-        ).dailyCosts(FileInputStream(File(origin)))
+        ).dailyCosts(FileInputStream(origin?.let { File(it) } ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command")))
         FileOutputStream(destination).apply { writeCsv(dailyCosts) }
         0
     }
@@ -72,9 +71,6 @@ fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
 }
 
 fun main(args: Array<String>) {
-    val exitCode: Int = if (args.size == 0)
-        CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g", "10", "-l", "Arnhem,Velp,Schiphol"))
-    else
-        CommandLine(PublicTransporterCommand()).execute(*args)
+    val exitCode: Int = CommandLine(PublicTransporterCommand()).execute(*args)
     exitProcess(exitCode)
 }

@@ -47,3 +47,7 @@ node_modules
 
 ## POM
 dependency-reduced-pom.xml
+
+## Build
+public-transport-declarer
+public-transport-declarer.build_artifacts.txt

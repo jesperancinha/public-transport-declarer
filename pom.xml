@@ -22,6 +22,9 @@
         <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
         <maven-dependency-plugin.version>3.4.0</maven-dependency-plugin.version>
+        <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+        <spring-boot-maven-plugin.version>3.0.0</spring-boot-maven-plugin.version>
+
         <kotlin.version>1.8.0-RC2</kotlin.version>
 
         <owasp.esapi>2.5.1.0</owasp.esapi>

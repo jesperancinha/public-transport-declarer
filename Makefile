@@ -6,6 +6,8 @@ build:
 	mvn clean install
 build-maven:
 	mvn clean install -DskipTests
+build-maven-jar:
+	mvn clean install -Pjar
 test:
 	mvn test
 test-maven:
@@ -57,3 +59,9 @@ dcup-light:
 	docker-compose -p ${GITHUB_RUN_ID} up -d postgres
 dcd:
 	docker-compose -p ${GITHUB_RUN_ID} down
+create-native:
+	cd public-transport-declarer && make create-native
+install-locally: create-native
+	cd public-transport-declarer && make install-locally
+remove-locally:
+	cd public-transport-declarer && make remove-locally
