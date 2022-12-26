@@ -45,7 +45,9 @@ class OVPublicTransporParser : IPublicTransportParser {
         handler.toString().split("\n").filter { isTransportLine(it) }.map {
             println(it)
             createDataObject(it)
-        }.onEach { segment -> println(segment) }
+        }
+            .filterNotNull()
+            .onEach { segment -> println(segment) }
     }
 
     fun createDataObject(segmentString: String) = nullable.eager {

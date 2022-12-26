@@ -5,7 +5,7 @@ import java.io.InputStream
 
 interface IPublicTransportParser {
 
-    fun parseDocument(inputStream: InputStream): List<Segment?>
+    fun parseDocument(inputStream: InputStream): List<Segment>
 
     fun isTransportLine(line: String): Boolean
 }

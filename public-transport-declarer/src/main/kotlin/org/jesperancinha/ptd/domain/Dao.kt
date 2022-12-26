@@ -51,7 +51,7 @@ internal class CalculatorDao(
     fun dailyCosts(inputStream: InputStream) = run {
         val allSegments = ovPublicTransporParser.parseDocument(inputStream)
 
-        val allPrefilteredSegments = allSegments
+        allSegments
             .asSequence()
             .filterNotNull()
             .groupBy { it.dateTime.toLocalDate() }
@@ -64,10 +64,6 @@ internal class CalculatorDao(
             }
             .onEach { println(it) }
             .toList()
-
-        allPrefilteredSegments
-
-
     }
 
     private fun Map.Entry<LocalDate, List<Segment?>>.toSumOfAllCosts() = DailyCost(
