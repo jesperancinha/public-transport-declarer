@@ -12,7 +12,7 @@
     <name>Public Transport Declarer :: Launcher</name>
     <properties>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
-        <spring-boot-maven-plugin.version>3.0.0</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.0.1</spring-boot-maven-plugin.version>
     </properties>
 
     <build>
