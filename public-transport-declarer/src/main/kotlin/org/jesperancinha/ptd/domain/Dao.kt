@@ -6,6 +6,7 @@ import java.io.InputStream
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.concurrent.atomic.AtomicBoolean
 
 enum class CheckInOut {
     CHECKIN, CHECKOUT
@@ -55,39 +56,50 @@ internal class CalculatorDao(
 
         val filteredSegmentList = mutableListOf<Segment>()
         val currentTestList = mutableListOf<Segment>()
+        val forward = AtomicBoolean(true)
 
         if (travelRoutes.isEmpty()) {
             filteredSegmentList.addAll(allSegments)
         } else {
+            val segmentsGroupedByDay = segmentList.groupBy { it.dateTime.toLocalDate() }
             travelRoutes.forEach { travelRoute ->
-                segmentList.forEach { segment ->
-                    if (segment.company.contains(travelRoute[0].name)) {
-                        currentTestList.add(segment)
-                    } else if (segment.station.contains(travelRoute[1].name)) {
-                        filteredSegmentList.addAll(currentTestList)
-                        filteredSegmentList.add(segment)
+                segmentsGroupedByDay
+                    .forEach { (_, segmentPerDay) ->
+                        segmentPerDay.forEach { segment ->
+                            if (forward.get()) {
+                                if (segment.company.contains(travelRoute[0].name)) {
+                                    currentTestList.add(segment)
+                                } else if (segment.station.contains(travelRoute[1].name)) {
+                                    if (currentTestList.size > 0) {
+                                        filteredSegmentList.addAll(currentTestList)
+                                    }
+                                    filteredSegmentList.add(segment)
+                                    currentTestList.clear()
+                                    forward.set(false)
+                                } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                            }
+                            if (!forward.get()) {
+                                if (segment.company.contains(travelRoute[1].name)) {
+                                    currentTestList.add(segment)
+                                } else if (segment.station.contains(travelRoute[0].name)) {
+                                    if (currentTestList.size > 0) {
+                                        filteredSegmentList.addAll(currentTestList)
+                                    }
+                                    filteredSegmentList.add(segment)
+                                    currentTestList.clear()
+                                    forward.set(true)
+                                } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                            }
+                        }
+                        forward.set(true)
                         currentTestList.clear()
-                    } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
-                }
-                currentTestList.clear()
-            }
-
-            travelRoutes.forEach { travelRoute ->
-                segmentList.forEach { segment ->
-                    if (segment.company.contains(travelRoute[1].name)) {
-                        currentTestList.add(segment)
-                    } else if (segment.station.contains(travelRoute[0].name)) {
-                        filteredSegmentList.addAll(currentTestList)
-                        filteredSegmentList.add(segment)
-                        currentTestList.clear()
-                    } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
-                }
-                currentTestList.clear()
+                    }
             }
         }
 
-        filteredSegmentList.sortedBy { it.dateTime }
+        val toSet = filteredSegmentList.sortedBy { it.dateTime }
             .toSet()
+        toSet
             .asSequence()
             .groupBy { it.dateTime.toLocalDate() }
             .map {
