@@ -1,6 +1,7 @@
 package org.jesperancinha.ptd
 
 import org.jesperancinha.ptd.domain.CalculatorDao
+import org.jesperancinha.ptd.domain.SegmentNode
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
@@ -13,6 +14,15 @@ import java.time.LocalDate
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
 
+const val INSTRUCTION_ROUTES = """
+The route file can contain two types of formats:
+    On considering only routes:
+        station -> station -> station ...
+        Example: Nieuwegein -> Gouda
+    On considering the same for one specific day:
+        local date -> station -> station ...
+        Example: 2022/12/08 -> Nieuwegein -> Amstelveen
+"""
 
 @Command(
     name = "public transport declarer",
@@ -49,14 +59,25 @@ class PublicTransporterCommand : Callable<Int> {
     )
     var limit: BigDecimal = BigDecimal.TEN
 
+    @Option(
+        names = ["-r", "-routes"],
+        description = ["This file contains an exclusive filter where only the listed routes are valid and considered for calculation: $INSTRUCTION_ROUTES"]
+    )
+    var routeFile: String = ""
+
     override fun call(): Int = run {
+        val travelRoutes = readTravelRoutesFromFile(routeFile)
         val dailyCosts = CalculatorDao(
             notIncluded = notIncluded.split(",").toList(),
-            dailyCostLimit = limit
-        ).dailyCosts(FileInputStream(origin?.let { File(it) } ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command")))
+            dailyCostLimit = limit,
+            travelRoutes = travelRoutes
+        ).dailyCosts(FileInputStream(origin?.let { File(it) }
+            ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command")))
         FileOutputStream(destination).apply { writeCsv(dailyCosts) }
         0
     }
+
+    private fun readTravelRoutesFromFile(routeFile: String): List<List<SegmentNode>> = emptyList()
 }
 
 fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {

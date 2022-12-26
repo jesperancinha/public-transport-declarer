@@ -4,6 +4,7 @@ import arrow.core.firstOrNone
 import org.jesperancinha.ptd.parsers.OVPublicTransporParser
 import java.io.InputStream
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 enum class CheckInOut {
@@ -24,9 +25,16 @@ data class Segment(
     val currency: Currency
 )
 
+data class SegmentNode (
+    val date:LocalDate? = null,
+    val name:String,
+    val next: SegmentNode? = null
+)
+
 internal class CalculatorDao(
     val notIncluded: List<String> = listOf("Arnhem", "Velp", "Schiphol"),
-    val dailyCostLimit: BigDecimal = BigDecimal.TEN
+    val dailyCostLimit: BigDecimal = BigDecimal.TEN,
+    val travelRoutes: List<List<SegmentNode>> = emptyList()
 ) {
 
     val ovPublicTransporParser: OVPublicTransporParser by lazy { OVPublicTransporParser() }
