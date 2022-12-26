@@ -8,9 +8,12 @@ import picocli.CommandLine
 class PublicTransporterLauncherTest {
     @Test
     fun `should use the route filter correctly`() {
-        val resourceAsStream =
+        val resourceOrigin =
             OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_22122022110627.pdf")
-        resourceAsStream.shouldNotBeNull()
-        CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g", "0", "-o", resourceAsStream.file))
+        val routes =
+            OVPublicTransporParserTest::class.java.getResource("/routes.txt")
+        resourceOrigin.shouldNotBeNull()
+        routes.shouldNotBeNull()
+        CommandLine(PublicTransporterCommand()).execute(*arrayOf("-g", "0", "-o", resourceOrigin.file, "-r", routes.file))
     }
 }

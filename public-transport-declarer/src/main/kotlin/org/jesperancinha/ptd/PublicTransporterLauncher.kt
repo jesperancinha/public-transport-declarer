@@ -2,15 +2,19 @@ package org.jesperancinha.ptd
 
 import org.jesperancinha.ptd.domain.CalculatorDao
 import org.jesperancinha.ptd.domain.SegmentNode
+import org.jesperancinha.ptd.parsers.DATE_PATTERN
+import org.jesperancinha.ptd.parsers.DATE_PATTERN_2
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.FileReader
 import java.io.OutputStream
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
 
@@ -34,7 +38,7 @@ class PublicTransporterCommand : Callable<Int> {
 
     @Option(
         names = ["-o", "--origin"],
-        description = ["The complete declaration file of your public transportation provider"]
+        description = ["The complete declaration file of your public tr ansportation provider"]
     )
     var origin: String? = null
 
@@ -63,10 +67,11 @@ class PublicTransporterCommand : Callable<Int> {
         names = ["-r", "-routes"],
         description = ["This file contains an exclusive filter where only the listed routes are valid and considered for calculation: $INSTRUCTION_ROUTES"]
     )
-    var routeFile: String = ""
+    var routeFile: String? = null
 
     override fun call(): Int = run {
         val travelRoutes = readTravelRoutesFromFile(routeFile)
+        println(travelRoutes)
         val dailyCosts = CalculatorDao(
             notIncluded = if (notIncluded == "") emptyList() else notIncluded.split(",").toList(),
             dailyCostLimit = limit,
@@ -77,7 +82,21 @@ class PublicTransporterCommand : Callable<Int> {
         0
     }
 
-    private fun readTravelRoutesFromFile(routeFile: String): List<List<SegmentNode>> = emptyList()
+    private fun readTravelRoutesFromFile(routeFile: String?): List<List<SegmentNode>> =
+        routeFile?.let { effectiveRouteFile ->
+            FileReader(File(effectiveRouteFile)).readLines().toSegmentNodeList()
+        } ?: emptyList()
+}
+
+private fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
+    val segs = it.split(">").map { seg -> seg.trim() }
+    val first = segs.first()
+    val dateStamp = first.toDate()
+    if (dateStamp == null) {
+        segs.map { name -> SegmentNode(name = name) }
+    } else {
+        segs.takeLast(segs.size - 1).map { name -> SegmentNode(name = name, date = dateStamp) }
+    }
 }
 
 fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
@@ -89,6 +108,12 @@ fun OutputStream.writeCsv(costs: List<Pair<LocalDate?, BigDecimal>>) {
         writer.newLine()
     }
     writer.flush()
+}
+
+private fun String.toDate() = try {
+    LocalDate.parse(this, DateTimeFormatter.ofPattern(DATE_PATTERN_2))
+} catch (_: Exception) {
+    null
 }
 
 fun main(args: Array<String>) {

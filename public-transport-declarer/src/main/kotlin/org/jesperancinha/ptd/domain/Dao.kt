@@ -40,7 +40,7 @@ internal class CalculatorDao(
     val ovPublicTransporParser: OVPublicTransporParser by lazy { OVPublicTransporParser() }
 
     /**
-     * Only the destination cities are shown in the logs for the OVPublicTransportParser
+     * Both source and destination stations are shown in the logs
      */
     fun dailyCosts(inputStream: InputStream) = run {
         val allSegments = ovPublicTransporParser.parseDocument(inputStream)

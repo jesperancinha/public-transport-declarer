@@ -15,7 +15,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 
-private const val DATE_PATTERN = "dd-MM-yyyy"
+internal const val DATE_PATTERN = "dd-MM-yyyy"
+internal const val DATE_PATTERN_2 = "yyyy-MM-dd"
 private const val TIME_PATTERN = "HH:mm"
 private val TIME_PATTERN_REGEX = Pattern.compile("[0-9]{2}:[0-9]{2}")
 private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, ']+(-)?[a-zA-Z, ']+)")
@@ -47,7 +48,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         }.onEach { segment -> println(segment) }
     }
 
-     fun createDataObject(segmentString: String) = nullable.eager {
+    fun createDataObject(segmentString: String) = nullable.eager {
         Segment(
             dateTime = parseDateTime(segmentString).bind(),
             company = parseCompany(segmentString).bind(),
@@ -91,9 +92,9 @@ class OVPublicTransporParser : IPublicTransportParser {
 
     private fun parseDateTime(segmentString: String): LocalDateTime? = run {
         val dateString =
-            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { toDate(it) != null }
+            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { isDate(it) }
         val timeString =
-            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { toTime(it) != null }
+            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { isTime(it) }
         if (dateString == null || timeString == null) {
             null
         } else
@@ -104,15 +105,15 @@ class OVPublicTransporParser : IPublicTransportParser {
     }
 
 
-    private fun toDate(element: String) = try {
+    private fun isDate(element: String) = try {
         LocalDate.parse(element, DateTimeFormatter.ofPattern(DATE_PATTERN))
-        element
+        true
     } catch (_: Exception) {
-        null
+        false
     }
 
 
-    private fun toTime(element: String) = TIME_PATTERN_REGEX.matcher(element).run { if (find()) element else null }
+    private fun isTime(element: String) = TIME_PATTERN_REGEX.matcher(element).run { find() }
 
     override fun isTransportLine(line: String) = try {
         val splitStringOnSpace = line.split(SPACE_DELIMITER)
