@@ -66,40 +66,42 @@ internal class CalculatorDao(
             travelRoutes.forEach { travelRoute ->
                 segmentsGroupedByDay
                     .forEach { (_, segmentPerDay) ->
-                        segmentPerDay.forEach { segment ->
-                            if (forward.get()) {
-                                if (segment.company.contains(travelRoute[0].name)) {
-                                    if (segment.station.contains(travelRoute[1].name)) {
+                        if (travelRoute[0].date == null || travelRoute[0].date == segmentPerDay[0].dateTime.toLocalDate()) {
+                            segmentPerDay.forEach { segment ->
+                                if (forward.get()) {
+                                    if (segment.company.contains(travelRoute[0].name)) {
+                                        if (segment.station.contains(travelRoute[1].name)) {
+                                            forward.set(false)
+                                            filteredSegmentList.add(segment)
+                                        } else {
+                                            currentTestList.add(segment)
+                                        }
+                                    } else if (segment.station.contains(travelRoute[1].name)) {
+                                        if (currentTestList.size > 0) {
+                                            filteredSegmentList.addAll(currentTestList)
+                                        }
+                                        filteredSegmentList.add(segment)
+                                        currentTestList.clear()
                                         forward.set(false)
-                                        filteredSegmentList.add(segment)
-                                    } else {
-                                        currentTestList.add(segment)
-                                    }
-                                } else if (segment.station.contains(travelRoute[1].name)) {
-                                    if (currentTestList.size > 0) {
-                                        filteredSegmentList.addAll(currentTestList)
-                                    }
-                                    filteredSegmentList.add(segment)
-                                    currentTestList.clear()
-                                    forward.set(false)
-                                } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
-                            } else if (!forward.get()) {
-                                if (segment.company.contains(travelRoute[1].name)) {
-                                    if (segment.station.contains(travelRoute[0].name)) {
-                                        filteredSegmentList.add(segment)
-                                        forward.set(true)
-                                    } else {
-                                        currentTestList.add(segment)
-                                    }
+                                    } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                                } else if (!forward.get()) {
+                                    if (segment.company.contains(travelRoute[1].name)) {
+                                        if (segment.station.contains(travelRoute[0].name)) {
+                                            filteredSegmentList.add(segment)
+                                            forward.set(true)
+                                        } else {
+                                            currentTestList.add(segment)
+                                        }
 
-                                } else if (segment.station.contains(travelRoute[0].name)) {
-                                    if (currentTestList.size > 0) {
-                                        filteredSegmentList.addAll(currentTestList)
-                                    }
-                                    filteredSegmentList.add(segment)
-                                    currentTestList.clear()
-                                    forward.set(true)
-                                } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                                    } else if (segment.station.contains(travelRoute[0].name)) {
+                                        if (currentTestList.size > 0) {
+                                            filteredSegmentList.addAll(currentTestList)
+                                        }
+                                        filteredSegmentList.add(segment)
+                                        currentTestList.clear()
+                                        forward.set(true)
+                                    } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
+                                }
                             }
                         }
                         forward.set(true)
