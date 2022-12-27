@@ -110,9 +110,8 @@ internal class CalculatorDao(
             }
         }
 
-        val toSet = filteredSegmentList.sortedBy { it.dateTime }
+        filteredSegmentList.sortedBy { it.dateTime }
             .toSet()
-        toSet
             .asSequence()
             .groupBy { it.dateTime.toLocalDate() }
             .map {
