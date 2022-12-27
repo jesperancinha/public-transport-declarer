@@ -11,5 +11,7 @@ create-native-no-fallback-old:
 	$(JAVA_HOME)/bin/native-image -jar target/public-transport-declarer.jar --no-fallback
 install-locally: create-native-no-fallback
 	sudo cp public-transport-declarer /usr/local/bin/
+just-install-locally:
+	sudo cp public-transport-declarer /usr/local/bin/
 remove-locally:
 	sudo rm /usr/local/bin/public-transport-declarer
