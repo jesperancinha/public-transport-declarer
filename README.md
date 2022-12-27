@@ -27,7 +27,7 @@
 ---
 [![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-50/kotlin-50.png "Kotlin")](https://kotlinlang.org/)
 
-`kotlin` `kotlin-native` `arrow-kt`
+`kotlin` `graalvm-native` `arrow-kt`
 
 ---
 
@@ -42,6 +42,7 @@ A public transport declaration calculator. It is used to automatically filter ou
 #### Stable releases
 
 - [1.0.0-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - [f267cdb8a2aceec534541398e141e8f1579ddf0f](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - First Alpha Version of Public Transport Declarer
+- [1.0.1-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.1-alpha) - [5bf2864c2a03a1dce039c6e7233599dea6aa83fe](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.1-alpha) - Alpha version with node filter
 
 ## How to use
 
