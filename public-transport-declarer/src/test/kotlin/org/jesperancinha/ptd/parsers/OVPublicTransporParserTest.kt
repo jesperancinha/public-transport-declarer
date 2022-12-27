@@ -20,6 +20,7 @@ class OVPublicTransporParserTest {
     fun `should run control test`() {
         LocalDate.parse("09-12-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"))
     }
+
     @Test
     fun `should parse corner case city names s-Hertogenbosch`() {
         OVPublicTransporParser().createDataObject("18-11-2022 NS Eindhoven Centraal 15:57 's-Hertogenbosch €  7,10 Check-uit Reizen op Saldo NS Vol tarief (...")
@@ -31,6 +32,20 @@ class OVPublicTransporParserTest {
                 segment.check shouldBe CHECKOUT
                 segment.currency shouldBe EUR
                 segment.cost shouldBe BigDecimal("7.10")
+            }
+    }
+
+    @Test
+    fun `should parse corner case shortened cities with triple points`() {
+        OVPublicTransporParser().createDataObject("16-12-2022 Nieuwegein, Nieuwegein City (Per...18:21 Nieuwegein, Nieuwegein City €  2,01 Check-uit")
+            .let { segment ->
+                segment.shouldNotBeNull()
+                segment.station shouldBe "Nieuwegein, Nieuwegein City"
+                segment.company shouldBe "Nieuwegein, Nieuwegein City (Per..."
+                segment.dateTime shouldBe LocalDateTime.of(2022,12,16,18,21)
+                segment.check shouldBe CHECKOUT
+                segment.currency shouldBe EUR
+                segment.cost shouldBe BigDecimal("2.01")
             }
     }
 
