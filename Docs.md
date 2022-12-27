@@ -105,7 +105,23 @@ Date, Description, Cost
 ```
 
 What this file represents is the sum of all costs per day considering all transport mediums after using the provided
-filter
+filter.
+
+It can easily be turned into this:
+
+| Date       | Description              | Cost  |
+|------------|--------------------------|-------|
+| 2022-12-01 | Office work              | 19.55 | 
+| 2022-12-06 | Office work              | 19.62 | 
+| 2022-12-07 | Office work              | 19.48 | 
+| 2022-12-08 | Kotlin Free Training Day | 19.95 |
+| 2022-12-09 | Office work              | 16.84 | 
+| 2022-12-12 | Office work              | 15.51 | 
+| 2022-12-13 | Office work              | 19.48 | 
+| 2022-12-14 | Office work              | 19.55 | 
+| 2022-12-15 | Office work              | 18.55 | 
+| 2022-12-16 | Office work              | 19.86 | 
+| 2022-12-19 | Office work              | 15.51 | 
 
 ## List (-l or --list)
 
