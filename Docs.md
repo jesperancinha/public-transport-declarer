@@ -90,18 +90,18 @@ The destination file the resulting calculation of the whole travel cost for a wh
 Here is an example:
 
 ```csv
-Date, Cost
-2022-12-01, 19.55
-2022-12-06, 19.62
-2022-12-07, 19.48
-2022-12-08, 19.95
-2022-12-09, 16.84
-2022-12-12, 15.51
-2022-12-13, 19.48
-2022-12-14, 19.55
-2022-12-15, 18.55
-2022-12-16, 19.86
-2022-12-19, 15.51
+Date, Description, Cost
+2022-12-01, Office work, 19.55
+2022-12-06, Office work, 19.62
+2022-12-07, Office work, 19.48
+2022-12-08, Kotlin Free Training Day, 19.95
+2022-12-09, Office work, 16.84
+2022-12-12, Office work, 15.51
+2022-12-13, Office work, 19.48
+2022-12-14, Office work, 19.55
+2022-12-15, Office work, 18.55
+2022-12-16, Office work, 19.86
+2022-12-19, Office work, 15.51
 ```
 
 What this file represents is the sum of all costs per day considering all transport mediums after using the provided
