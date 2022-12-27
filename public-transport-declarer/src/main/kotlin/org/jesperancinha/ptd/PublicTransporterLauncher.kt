@@ -88,10 +88,11 @@ private fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
     val segs = it.split(">").map { seg -> seg.trim() }
     val first = segs.first()
     val dateStamp = first.toDate()
+    val description = segs.last().trim()
     if (dateStamp == null) {
-        segs.map { name -> SegmentNode(name = name) }
+        segs.map { name -> SegmentNode(name = name, description = description) }.take(2)
     } else {
-        segs.takeLast(segs.size - 1).map { name -> SegmentNode(name = name, date = dateStamp) }
+        segs.takeLast(segs.size - 1).map { name -> SegmentNode(name = name, date = dateStamp, description = description) }.take(2)
     }
 }
 

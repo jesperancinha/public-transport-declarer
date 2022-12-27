@@ -29,6 +29,7 @@ data class Segment(
 data class SegmentNode(
     val date: LocalDate? = null,
     val name: String,
+    val description: String? = null,
     val next: SegmentNode? = null
 )
 
@@ -68,7 +69,12 @@ internal class CalculatorDao(
                         segmentPerDay.forEach { segment ->
                             if (forward.get()) {
                                 if (segment.company.contains(travelRoute[0].name)) {
-                                    currentTestList.add(segment)
+                                    if (segment.station.contains(travelRoute[1].name)) {
+                                        forward.set(false)
+                                        filteredSegmentList.add(segment)
+                                    } else {
+                                        currentTestList.add(segment)
+                                    }
                                 } else if (segment.station.contains(travelRoute[1].name)) {
                                     if (currentTestList.size > 0) {
                                         filteredSegmentList.addAll(currentTestList)
@@ -77,10 +83,15 @@ internal class CalculatorDao(
                                     currentTestList.clear()
                                     forward.set(false)
                                 } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
-                            }
-                            if (!forward.get()) {
+                            } else if (!forward.get()) {
                                 if (segment.company.contains(travelRoute[1].name)) {
-                                    currentTestList.add(segment)
+                                    if (segment.station.contains(travelRoute[0].name)) {
+                                        filteredSegmentList.add(segment)
+                                        forward.set(true)
+                                    } else {
+                                        currentTestList.add(segment)
+                                    }
+
                                 } else if (segment.station.contains(travelRoute[0].name)) {
                                     if (currentTestList.size > 0) {
                                         filteredSegmentList.addAll(currentTestList)

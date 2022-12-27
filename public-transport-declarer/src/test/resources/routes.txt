@@ -1,4 +1,4 @@
-2022-12-08 > Nieuwegein > Amstel
-Nieuwegein > Gouda
-Utrecht > Gouda
-Antonius > Gouda
+2022-12-08 > Nieuwegein > Amstel > Kotlin Free Training Day
+Nieuwegein > Gouda > Office work
+Utrecht > Gouda > Office work
+Antonius > Gouda > Office work
