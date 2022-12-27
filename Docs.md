@@ -161,3 +161,9 @@ names. The names we declare in this file are actually just strings that are matc
 It is also important to be aware that this filter is exclusive. This means if this switch is used, only the routes
 defined in it will be considered when calculating your public transportation declaration. However, this is a much better
 way to make sure that you get all the necessary routes in an accurate way.
+
+## Run examples
+
+```shell
+java -jar target/public-transport-declarer.jar -o declaratieoverzicht_22122022110627.pdf -r routes.txt -d report-test.csv
+```

@@ -1,5 +1,25 @@
 # Public transport declarer launcher
 
+
+##### Runnable jar
+
+To build
+
+```shell
+make b
+```
+
+To run
+
+```shell
+java -jar target/public-transport-declarer.jar -o declaratieoverzicht_22122022110627.pdf -r routes.txt -d report-test.csv
+```
+
+---
+
+Check the [Docs](../Docs.md) file for more detailed instructions on how to run.
+
+
 ## About me 👨🏽‍💻🚀🏳️‍🌈
 
 [![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-20/JEOrgLogo-20.png "João Esperancinha Homepage")](http://joaofilipesabinoesperancinha.nl)
