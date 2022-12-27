@@ -23,7 +23,8 @@ data class Segment(
     val station: String,
     val check: CheckInOut,
     val cost: BigDecimal,
-    val currency: Currency
+    val currency: Currency,
+    val description: String? = null
 )
 
 data class SegmentNode(
@@ -35,7 +36,7 @@ data class SegmentNode(
 
 data class DailyCost(
     val date: LocalDate,
-    val description: String = "Event description here",
+    val description: String,
     val cost: BigDecimal
 )
 
@@ -72,22 +73,22 @@ internal class CalculatorDao(
                                     if (segment.company.contains(travelRoute[0].name)) {
                                         if (segment.station.contains(travelRoute[1].name)) {
                                             forward.set(false)
-                                            filteredSegmentList.add(segment)
+                                            filteredSegmentList.add(segment, travelRoute[0].description)
                                         } else {
                                             currentTestList.add(segment)
                                         }
                                     } else if (segment.station.contains(travelRoute[1].name)) {
                                         if (currentTestList.size > 0) {
-                                            filteredSegmentList.addAll(currentTestList)
+                                            filteredSegmentList.addAll(currentTestList, travelRoute[0].description)
                                         }
-                                        filteredSegmentList.add(segment)
+                                        filteredSegmentList.add(segment, travelRoute[0].description)
                                         currentTestList.clear()
                                         forward.set(false)
                                     } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
                                 } else if (!forward.get()) {
                                     if (segment.company.contains(travelRoute[1].name)) {
                                         if (segment.station.contains(travelRoute[0].name)) {
-                                            filteredSegmentList.add(segment)
+                                            filteredSegmentList.add(segment, travelRoute[0].description)
                                             forward.set(true)
                                         } else {
                                             currentTestList.add(segment)
@@ -95,9 +96,9 @@ internal class CalculatorDao(
 
                                     } else if (segment.station.contains(travelRoute[0].name)) {
                                         if (currentTestList.size > 0) {
-                                            filteredSegmentList.addAll(currentTestList)
+                                            filteredSegmentList.addAll(currentTestList, travelRoute[0].description)
                                         }
-                                        filteredSegmentList.add(segment)
+                                        filteredSegmentList.add(segment, travelRoute[0].description)
                                         currentTestList.clear()
                                         forward.set(true)
                                     } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
@@ -130,7 +131,8 @@ internal class CalculatorDao(
         cost = this.value.sumOf { segment ->
             if (segment.notIncluded()) BigDecimal.ZERO else
                 segment?.cost ?: BigDecimal.ZERO
-        }
+        },
+        description = this.value.last()?.description ?: "Event description here"
     )
 
     private inline fun <reified K : LocalDate?, V : List<Segment?>> Map.Entry<K, V>.allRoutesMessage(): String =
@@ -143,4 +145,8 @@ internal class CalculatorDao(
 
 }
 
+private fun MutableList<Segment>.addAll(list: MutableList<Segment>, description: String?) =
+    addAll(list.map { it.copy(description = description) })
 
+private fun MutableList<Segment>.add(element: Segment, description: String?) =
+    add(element.copy(description = description))

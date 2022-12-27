@@ -24,17 +24,15 @@ For example in one day we can have something like:
 However, the transportation costs vary per season, per time of day, per kind of day and sometimes just because of
 unexpected changes.
 
-So the costs are almost always unpredictable and this forces us to go through the PDF's provided by the OV company and
+So the costs are almost always unpredictable and this forces us to go through the PDFs provided by the OV company and
 manually make some very tedious work of getting all these small costs together per day.
 This is what this program attempts to do.
 
-The first version is out but it is not super reliable yet. it's only an alpha-version.
+The first version is out, but it is not super reliable yet. it's only an alpha-version.
 
-However you can already run some trials, because it already makes the sums per day correcty.
+However, you can already run some trials, because it already makes the sums per day correctly.
 
-What still needs to be done is:
-
-1. Intelligent route calculation via travel nodes
+I recommend to always double-check the generated public transportation declaration.
 
 ## How to run
 
@@ -49,31 +47,44 @@ This will result in the help instructions:
 ```shell
 Usage: public transport declarer [-hV] [-d=<destination>] [-g=<limit>]
                                  [-l=<notIncluded>] [-o=<origin>]
+                                 [-r=<routeFile>]
 Makes an accurate calculation of the public transport usage to make work
 related declarations
   -d, --destination=<destination>
                              The destination CSV file with the costs list per
                                datetime/value
-  -g, -grenslimit=<limit>    Grens comes from dutch and it means limit. Daily
+  -g, --grenslimit=<limit>   Grens comes from dutch and it means limit. Daily
                                values under this will be ignored. Defaults to 10
   -h, --help                 Show this help message and exit.
   -l, --list=<notIncluded>   A list of all stations to ignore. Defaults to an
                                empty list
-  -o, --origin=<origin>      The complete declaration file of your public
-                               transportation provider
+  -o, --origin=<origin>      The complete declaration file of your public tr
+                               ansportation provider
+  -r, -routes=<routeFile>    This file contains an exclusive filter where only
+                               the listed routes are valid and considered for
+                               calculation:
+                             The route file can contain two types of formats:
+                                 On considering only routes:
+                                     station -> station -> station ...
+                                     Example: Nieuwegein -> Gouda
+                                 On considering the same for one specific day:
+                                     local date -> station -> station ...
+                                     Example: 2022/12/08 -> Nieuwegein ->
+                               Amstelveen
+
   -V, --version              Print version information and exit.
 ```
 
 The input commands are several. Let's have a look at each of them.
 
-## Origin
+## Origin(-o or --origin)
 
 The origin file is a PDF file. In the future, this program will allow to receive different sorts of pdfs of different
 companies. For now it only accepts the cost declaration of the [OV-Chipkaart](https://www.ov-chipkaart.nl) from The
 Netherlands.
 Just use the full path of the file. It can be an absolute path or a relative path.
 
-## Destination
+## Destination (-d or --destination)
 
 The destination file the resulting calculation of the whole travel cost for a whole day after going through all filters.
 Here is an example:
@@ -96,15 +107,57 @@ Date, Cost
 What this file represents is the sum of all costs per day considering all transport mediums after using the provided
 filter
 
-## List
+## List (-l or --list)
 
 With this optional value, we can filter stations out that we don't want to use in our calculation. It uses basic text
 search and the filtering works by checking if the `station` string or the `company` string contain any of the comma
 separated elements. If they do, then that travel segment will not be taken into account for the day calculation.
 
-## Grenslimit
+## Grenslimit (-g or --grenslimit)
 
 GrensLimit is just a limit to where we say that we can ignore travelling days. If the calculation of a travelling day
 results under this limit, then this means practically that we didn't spend the usual minimum expected value to travel to
 work. In this case, those days are ignored and not included in the resulting CSV file.
- 
+
+## Routes (-r or --routes)
+
+In order to provide a good filtering over the routes that are actually billable, we mostly need to consider 2 types of
+routes:
+
+1. A permanent one - This is route we usually take to work. No matter how many transport mediums we use, this route
+   stays almost 100% of the time the same. We start at our address, and we end up at our work address. We also take into
+   account the return route.
+2. A route used for a certain activity sponsored by our company - This could be a course, a conference, a talk, a
+   meetup or anything that your company agrees to be a part of your company interests.
+
+Routes are defined by:
+
+```text
+Optional date with format yyyy-MM-dd > origin station > destination station > comment
+```
+
+We want to define this as easily as possible. With this switch, we specify a filename that contains route definitions.
+Let's look at one example:
+
+```text
+2022-12-08 > Nieuwegein > Amstel > Kotlin Free Training Day
+Nieuwegein > Gouda > Office work
+Utrecht > Gouda > Office work
+Antonius > Gouda > Office work
+```
+
+In this case we are defining 4 routes.
+
+The first route has a date as the first element. This means that this route will
+only be considered it it matches for this day and is included in the general declaration.
+
+The second route will make sure to select all routes that are detected to run between Nieuwegein and Gouda.
+
+In the same way the following routes define routes between Utrecht and Gouda and Antonius and Gouda.
+
+When downloading the generic declarations provided by the OV-Chipkaart (as an example), stations may have different
+names. The names we declare in this file are actually just strings that are matched by `contains`.
+
+It is also important to be aware that this filter is exclusive. This means if this switch is used, only the routes
+defined in it will be considered when calculating your public transportation declaration. However, this is a much better
+way to make sure that you get all the necessary routes in an accurate way.

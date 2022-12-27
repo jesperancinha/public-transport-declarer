@@ -54,7 +54,7 @@ class PublicTransporterCommand : Callable<Int> {
     var notIncluded: String = ""
 
     @Option(
-        names = ["-g", "-grenslimit"],
+        names = ["-g", "--grenslimit"],
         description = ["Grens comes from dutch and it means limit. Daily values under this will be ignored. Defaults to 10"]
     )
     var limit: BigDecimal = BigDecimal.TEN
