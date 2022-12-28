@@ -183,3 +183,64 @@ way to make sure that you get all the necessary routes in an accurate way.
 ```shell
 java -jar target/public-transport-declarer.jar -o declaratieoverzicht_22122022110627.pdf -r routes.txt -d report-test.csv
 ```
+
+
+## Installing the native executable
+
+The current version is compatible with general Linux distributions and was tested on:
+
+`Linux 5.15.0-56-generic #62-Ubuntu SMP Tue Nov 22 19:54:14 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux`
+
+Since it is using a generic GraalVM plugin, it is probaly already compatible with other OS's like Windows or MAC-OS, but I cannot guarantee that yet because I still wasn't able to get around to test this on those systems.
+
+To install locally in a Linux distribution please have a first look at the installation script located in the [Makefile](./Makefile) located at the root of this project.
+
+```makefile
+install-locally:
+	cd public-transport-declarer && make install-locally
+```
+
+This will callL
+
+```makefile
+build-maven:
+	mvn clean install -Pjar
+create-native: build-maven
+	mvn clean install -Pnative
+	cp target/public-transport-declarer .
+create-native-no-fallback: create-native
+install-locally: create-native-no-fallback
+	sudo cp public-transport-declarer /usr/local/bin
+```
+
+Which in general terms, it means that it will make a jar build, a native build and finally make a copy of the resulting executable to your machine's `/usr/local/bin`.
+This last step is manual, and you'll need to use `sudo` for it.
+This way we take advantage of the system PATH to access the program.
+This is the reason you should first look at this script and make sure that it's ok to copy this file into that folder. If not, then just run:
+
+```shell
+make create-native
+```
+
+After this step you'll get the executable and then better decide where in the System PATH is a better location for it.
+
+## More Help
+
+```shell
+java -jar target/public-transport-declarer.jar --help
+java -jar target/public-transport-declarer.jar -h
+```
+
+###### Version
+
+```shell
+java -jar target/public-transport-declarer.jar -V
+java -jar target/public-transport-declarer.jar --version
+```
+
+###### Example 1
+
+```shell
+java -jar target/public-transport-declarer.jar -o declaratieoverzicht_24122022170148.pdf -g 10 -d report-test-01.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport
+java -jar target/public-transport-declarer.jar -o declaratieoverzicht_22122022110627.pdf -g 10 -d report-test-02.csv -l Arnhem,Velp,Schipol,Airport
+```
