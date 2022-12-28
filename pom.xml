@@ -12,6 +12,7 @@
 
     <modules>
         <module>public-transport-declarer</module>
+        <module>pdf-native-test</module>
     </modules>
 
     <properties>
