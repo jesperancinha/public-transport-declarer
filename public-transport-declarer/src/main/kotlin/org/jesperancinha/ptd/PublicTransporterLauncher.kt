@@ -137,6 +137,7 @@ private fun String.toDate() = try {
 }
 
 fun main(args: Array<String>) {
-    val exitCode: Int = CommandLine(PublicTransporterCommand()).execute(*args)
+    val exitCode: Int = if (args.isEmpty()) CommandLine(PublicTransporterCommand()).execute(*arrayOf("-h"))
+    else CommandLine(PublicTransporterCommand()).execute(*args)
     exitProcess(exitCode)
 }

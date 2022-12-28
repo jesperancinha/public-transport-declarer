@@ -61,7 +61,7 @@ dcd:
 	docker-compose -p ${GITHUB_RUN_ID} down
 create-native:
 	cd public-transport-declarer && make create-native
-install-locally: create-native
+install-locally:
 	cd public-transport-declarer && make install-locally
 remove-locally:
 	cd public-transport-declarer && make remove-locally
