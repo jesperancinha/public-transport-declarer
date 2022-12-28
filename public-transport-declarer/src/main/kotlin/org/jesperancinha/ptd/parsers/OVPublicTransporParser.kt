@@ -1,15 +1,14 @@
 package org.jesperancinha.ptd.parsers
 
 import arrow.core.continuations.nullable
-import org.apache.tika.metadata.Metadata
-import org.apache.tika.parser.ParseContext
-import org.apache.tika.parser.pdf.PDFParser
-import org.apache.tika.sax.BodyContentHandler
-import org.jesperancinha.ptd.domain.CheckInOut.*
+import com.lowagie.text.pdf.PdfReader
+import com.lowagie.text.pdf.parser.PdfTextExtractor
+import org.jesperancinha.ptd.domain.CheckInOut.CHECKIN
+import org.jesperancinha.ptd.domain.CheckInOut.CHECKOUT
 import org.jesperancinha.ptd.domain.Currency
 import org.jesperancinha.ptd.domain.Segment
-import java.io.InputStream
 import java.math.BigDecimal
+import java.net.URL
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -26,6 +25,14 @@ private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
 private const val SPACE_DELIMITER = " "
 private const val TRIPLE_POINTS_DELIMITER = "..."
 
+class PtdPdfReader {
+    fun readStream(fileUrl: URL): String = PdfReader(fileUrl)
+        .let { reader ->
+            (0..reader.numberOfPages)
+                .joinToString("\n") { PdfTextExtractor(reader).getTextFromPage(it).trim() }
+        }
+}
+
 /**
  * Parses PDF files generated in the OV Chipkaart website https://www.ov-chipkaart.nl
  *
@@ -36,17 +43,14 @@ private const val TRIPLE_POINTS_DELIMITER = "..."
  *
  */
 class OVPublicTransporParser : IPublicTransportParser {
-    override fun parseDocument(inputStream: InputStream) = run {
-        val handler = BodyContentHandler()
-        val metadata = Metadata()
-        val pcontext = ParseContext()
-        val pdfparser = PDFParser()
-        pdfparser.parse(inputStream, handler, metadata, pcontext)
-        handler.toString().split("\n").filter { isTransportLine(it) }.map {
+
+    val pdfReader: PtdPdfReader by lazy { PtdPdfReader() }
+    override fun parseDocument(fileUrl: URL) = run {
+
+        pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
             println(it)
             createDataObject(it)
         }
-            .filterNotNull()
             .onEach { segment -> println(segment) }
     }
 
@@ -95,8 +99,7 @@ class OVPublicTransporParser : IPublicTransportParser {
     private fun parseDateTime(segmentString: String): LocalDateTime? = run {
         val dateString =
             segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { isDate(it) }
-        val timeString =
-            segmentString.split(SPACE_DELIMITER, TRIPLE_POINTS_DELIMITER).firstOrNull { isTime(it) }
+        val timeString = TIME_PATTERN_REGEX.matcher(segmentString).apply { find() }.group(0)
         if (dateString == null || timeString == null) {
             null
         } else
@@ -118,7 +121,7 @@ class OVPublicTransporParser : IPublicTransportParser {
     private fun isTime(element: String) = TIME_PATTERN_REGEX.matcher(element).run { find() }
 
     override fun isTransportLine(line: String) = try {
-        val splitStringOnSpace = line.split(SPACE_DELIMITER)
+        val splitStringOnSpace = line.trim().split(SPACE_DELIMITER)
         LocalDate.parse(splitStringOnSpace[0], DateTimeFormatter.ofPattern(DATE_PATTERN))
         splitStringOnSpace.size > 1
     } catch (e: Exception) {

@@ -72,8 +72,8 @@ class PublicTransporterCommand : Callable<Int> {
             notIncluded = if (notIncluded == "") emptyList() else notIncluded.split(",").toList(),
             dailyCostLimit = limit,
             travelRoutes = travelRoutes
-        ).dailyCosts(FileInputStream(origin?.let { File(it) }
-            ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command")))
+        ).dailyCosts(origin?.let { File(it).toURI().toURL() }
+            ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command"))
         FileOutputStream(destination).apply { writeCsv(dailyCosts) }
         0
     }

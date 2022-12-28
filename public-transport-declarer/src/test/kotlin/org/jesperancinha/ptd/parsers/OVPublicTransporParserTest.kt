@@ -69,7 +69,7 @@ class OVPublicTransporParserTest {
     @Test
     fun `should parse without errors for file declaratieoverzicht_22122022110627`() {
         val resourceAsStream =
-            OVPublicTransporParserTest::class.java.getResourceAsStream("/declaratieoverzicht_22122022110627.pdf")
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_22122022110627.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
             CalculatorDao().dailyCosts(it).forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
@@ -79,7 +79,7 @@ class OVPublicTransporParserTest {
     @Test
     fun `should parse without errors for file declaratieoverzicht_24122022170148`() {
         val resourceAsStream =
-            OVPublicTransporParserTest::class.java.getResourceAsStream("/declaratieoverzicht_24122022170148.pdf")
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_24122022170148.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
             CalculatorDao().dailyCosts(it).forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }

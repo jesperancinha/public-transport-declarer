@@ -2,8 +2,8 @@ package org.jesperancinha.ptd.domain
 
 import arrow.core.firstOrNone
 import org.jesperancinha.ptd.parsers.OVPublicTransporParser
-import java.io.InputStream
 import java.math.BigDecimal
+import java.net.URL
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.atomic.AtomicBoolean
@@ -51,8 +51,8 @@ internal class CalculatorDao(
     /**
      * Both source and destination stations are shown in the logs
      */
-    fun dailyCosts(inputStream: InputStream) = run {
-        val allSegments = ovPublicTransporParser.parseDocument(inputStream)
+    fun dailyCosts(fileUrl: URL) = run {
+        val allSegments = ovPublicTransporParser.parseDocument(fileUrl)
 
         val segmentList = allSegments.sortedBy { it.dateTime }
 
