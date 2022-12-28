@@ -7,7 +7,10 @@ import org.jesperancinha.ptd.parsers.DATE_PATTERN_2
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.FileReader
+import java.io.OutputStream
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -67,14 +70,19 @@ class PublicTransporterCommand : Callable<Int> {
 
     override fun call(): Int = run {
         val travelRoutes = readTravelRoutesFromFile(routeFile)
-        println(travelRoutes)
+        logger.info(">>>>> Travel routes")
+        logger.info(travelRoutes)
         val dailyCosts = CalculatorDao(
             notIncluded = if (notIncluded == "") emptyList() else notIncluded.split(",").toList(),
             dailyCostLimit = limit,
             travelRoutes = travelRoutes
         ).dailyCosts(origin?.let { File(it).toURI().toURL() }
             ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command"))
+        logger.info(">>>>> CSV Format")
         FileOutputStream(destination).apply { writeCsv(dailyCosts) }
+        logger.info(">>>>> Markup Format")
+        dailyCosts.toMarkup()
+        logger.info("Report successfully writen to $destination!")
         0
     }
 
@@ -82,6 +90,20 @@ class PublicTransporterCommand : Callable<Int> {
         routeFile?.let { effectiveRouteFile ->
             FileReader(File(effectiveRouteFile)).readLines().toSegmentNodeList()
         } ?: emptyList()
+
+    private fun List<DailyCost>.toMarkup() {
+        logger.info("| Date | Description | Cost |")
+        logger.info("|---|---|---|")
+        this.forEach {
+            logger.info("| ${it.date} | ${it.description} | ${it.cost} |")
+        }
+    }
+
+    companion object {
+        private val logger = object {
+            fun info(text: Any) = println(text)
+        }
+    }
 }
 
 private fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
@@ -92,7 +114,8 @@ private fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
     if (dateStamp == null) {
         segs.map { name -> SegmentNode(name = name, description = description) }.take(2)
     } else {
-        segs.takeLast(segs.size - 1).map { name -> SegmentNode(name = name, date = dateStamp, description = description) }.take(2)
+        segs.takeLast(segs.size - 1)
+            .map { name -> SegmentNode(name = name, date = dateStamp, description = description) }.take(2)
     }
 }
 

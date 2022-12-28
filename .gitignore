@@ -54,3 +54,6 @@ public-transport-declarer.build_artifacts.txt
 
 ## Test files
 !public-transport-declarer/src/test/resources/routes.ptd
+
+## report
+report.csv

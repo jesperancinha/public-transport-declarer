@@ -30,8 +30,7 @@ data class Segment(
 data class SegmentNode(
     val date: LocalDate? = null,
     val name: String,
-    val description: String? = null,
-    val next: SegmentNode? = null
+    val description: String? = null
 )
 
 data class DailyCost(
@@ -110,19 +109,20 @@ internal class CalculatorDao(
                     }
             }
         }
+        logger.info(">>>>> Pay Segments")
 
         filteredSegmentList.sortedBy { it.dateTime }
             .toSet()
             .asSequence()
             .groupBy { it.dateTime.toLocalDate() }
             .map {
-                println(it.allRoutesMessage())
+                logger.info(it.allRoutesMessage())
                 it.toSumOfAllCosts()
             }
             .filter {
                 it.cost > dailyCostLimit
             }
-            .onEach { println(it) }
+            .onEach { logger.info(it) }
             .toList()
     }
 
@@ -142,6 +142,12 @@ internal class CalculatorDao(
     private fun Segment?.notIncluded(): Boolean = notIncluded.firstOrNone { not ->
         this?.station?.contains(not) == true || this?.company?.contains(not) == true
     }.isNotEmpty()
+
+    companion object {
+        private val logger = object {
+            fun info(text: Any) = println(text)
+        }
+    }
 
 }
 

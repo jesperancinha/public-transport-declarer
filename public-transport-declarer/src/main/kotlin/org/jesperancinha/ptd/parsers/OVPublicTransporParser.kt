@@ -47,11 +47,13 @@ class OVPublicTransporParser : IPublicTransportParser {
     val pdfReader: PtdPdfReader by lazy { PtdPdfReader() }
     override fun parseDocument(fileUrl: URL) = run {
 
+        logger.info(">>>>> Raw Segments")
         pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
-            println(it)
+            logger.info(it)
             createDataObject(it)
         }
-            .onEach { segment -> println(segment) }
+            .also { logger.info(">>>>> Parsed Segments") }
+            .onEach { segment -> logger.info(segment) }
     }
 
     fun createDataObject(segmentString: String) = nullable.eager {
@@ -126,5 +128,11 @@ class OVPublicTransporParser : IPublicTransportParser {
         splitStringOnSpace.size > 1
     } catch (e: Exception) {
         false
+    }
+
+    companion object {
+        private val logger = object {
+            fun info(text: Any) = println(text)
+        }
     }
 }
