@@ -6,6 +6,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>pdf-native-test</artifactId>
+    <name>Public Transport Declarer :: pdf-native-test</name>
 
     <properties>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
