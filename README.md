@@ -51,7 +51,7 @@ All following examples work if you are inside folder [public-transport-declarer]
 
 You can find the detailed information in the [Docs.md](Docs.md).
 
-##### Installing the native executable
+### Installing the native executable
 
 The current version is compatible with general Linux distributions and was tested on:
 
@@ -90,7 +90,7 @@ make create-native
 
 After this step you'll get the executable and then better decide where in the System PATH is a better location for it.
 
-##### Help
+### Help
 
 ```shell
 java -jar target/public-transport-declarer.jar --help
