@@ -4,6 +4,7 @@ import org.jesperancinha.ptd.domain.CalculatorDao
 import org.jesperancinha.ptd.domain.DailyCost
 import org.jesperancinha.ptd.domain.SegmentNode
 import org.jesperancinha.ptd.parsers.DATE_PATTERN_2
+import org.jesperancinha.ptd.parsers.OVPublicTransporParser
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
@@ -72,17 +73,22 @@ class PublicTransporterCommand : Callable<Int> {
         val travelRoutes = readTravelRoutesFromFile(routeFile)
         logger.info(">>>>> Travel routes")
         logger.info(travelRoutes)
-        val dailyCosts = CalculatorDao(
+        val calculatorDao = CalculatorDao(
             notIncluded = if (notIncluded == "") emptyList() else notIncluded.split(",").toList(),
             dailyCostLimit = limit,
             travelRoutes = travelRoutes
-        ).dailyCosts(origin?.let { File(it).toURI().toURL() }
+        )
+        val dailyCosts = calculatorDao.dailyCosts(origin?.let { File(it).toURI().toURL() }
             ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command"))
         logger.info(">>>>> CSV Format")
         FileOutputStream(destination).apply { writeCsv(dailyCosts) }
         logger.info(">>>>> Markup Format")
         dailyCosts.toMarkup()
         logger.info("Report successfully writen to $destination!")
+        if(calculatorDao.error.get()){
+            logger.info(">>>>>>>>>>>>>>> WARNING -> An error has been detected while parsing the pdf file!")
+            logger.info(">>>>>>>>>>>>>>> In these cases it is suggested to run the application via the jar file.")
+        }
         0
     }
 

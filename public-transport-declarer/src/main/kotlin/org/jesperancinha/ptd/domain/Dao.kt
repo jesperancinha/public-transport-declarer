@@ -45,6 +45,8 @@ internal class CalculatorDao(
     val travelRoutes: List<List<SegmentNode>> = emptyList()
 ) {
 
+    val error = AtomicBoolean(false)
+
     val ovPublicTransporParser: OVPublicTransporParser by lazy { OVPublicTransporParser() }
 
     /**
@@ -53,6 +55,7 @@ internal class CalculatorDao(
     fun dailyCosts(fileUrl: URL) = run {
         val allSegments = ovPublicTransporParser.parseDocument(fileUrl)
 
+        error.set(ovPublicTransporParser.error.get())
         val segmentList = allSegments.sortedBy { it.dateTime }
 
         val filteredSegmentList = mutableListOf<Segment>()

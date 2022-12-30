@@ -12,6 +12,7 @@ import java.net.URL
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.regex.Pattern
 
 internal const val DATE_PATTERN = "dd-MM-yyyy"
@@ -26,11 +27,29 @@ private const val SPACE_DELIMITER = " "
 private const val TRIPLE_POINTS_DELIMITER = "..."
 
 class PtdPdfReader {
+
+    val error = AtomicBoolean(false)
+
     fun readStream(fileUrl: URL): String = PdfReader(fileUrl)
         .let { reader ->
+            val pdfTextExtractor = PdfTextExtractor(reader)
             (0..reader.numberOfPages)
-                .joinToString("\n") { PdfTextExtractor(reader).getTextFromPage(it).trim() }
+                .joinToString("\n") {
+                    try {
+                        pdfTextExtractor.getTextFromPage(it).trim()
+                    } catch (ex: Exception) {
+                        logger.error(ex)
+                        error.set(true)
+                        ""
+                    }
+                }
         }
+
+    companion object {
+        private val logger = object {
+            fun error(text: Any) = println(text)
+        }
+    }
 }
 
 /**
@@ -45,6 +64,8 @@ class PtdPdfReader {
 class OVPublicTransporParser : IPublicTransportParser {
 
     val pdfReader: PtdPdfReader by lazy { PtdPdfReader() }
+    val error = AtomicBoolean(false)
+
     override fun parseDocument(fileUrl: URL) = run {
 
         logger.info(">>>>> Raw Segments")
@@ -53,6 +74,13 @@ class OVPublicTransporParser : IPublicTransportParser {
             createDataObject(it)
         }
             .also { logger.info(">>>>> Parsed Segments") }
+            .also {
+                if (pdfReader.error.get()) {
+                    logger.info(">>>>>>>>>>>>>>> WARNING -> An error has been detected while parsing the pdf file!")
+                    logger.info(">>>>>>>>>>>>>>> In these cases it is suggested to run the application via the jar file.")
+                    error.set(true)
+                }
+            }
             .onEach { segment -> logger.info(segment) }
     }
 
