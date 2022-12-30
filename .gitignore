@@ -57,3 +57,6 @@ public-transport-declarer.build_artifacts.txt
 
 ## report
 report.csv
+
+## Reports to ignore
+declaratieoverzicht_30122022182530.pdf
