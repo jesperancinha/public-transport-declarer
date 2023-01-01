@@ -39,7 +39,7 @@ data class DailyCost(
     val cost: BigDecimal
 )
 
-internal class CalculatorDao(
+class CalculatorDao(
     val notIncluded: List<String> = listOf("Arnhem", "Velp", "Schiphol"),
     val dailyCostLimit: BigDecimal = BigDecimal.TEN,
     val travelRoutes: List<List<SegmentNode>> = emptyList()
@@ -53,9 +53,26 @@ internal class CalculatorDao(
      * Both source and destination stations are shown in the logs
      */
     fun dailyCosts(fileUrl: URL) = run {
-        val allSegments = ovPublicTransporParser.parseDocument(fileUrl)
-
+        val allSegments = findAllSegments(fileUrl)
         error.set(ovPublicTransporParser.error.get())
+        val filteredSegmentList = filterAllSegments(allSegments)
+        logger.info(">>>>> Pay Segments")
+        filteredSegmentList.sortedBy { it.dateTime }
+            .toSet()
+            .asSequence()
+            .groupBy { it.dateTime.toLocalDate() }
+            .map {
+                logger.info(it.allRoutesMessage())
+                it.toSumOfAllCosts()
+            }
+            .filter {
+                it.cost > dailyCostLimit
+            }
+            .onEach { logger.info(it) }
+            .toList()
+    }
+
+    internal fun filterAllSegments(allSegments: List<Segment>): MutableList<Segment> {
         val segmentList = allSegments.sortedBy { it.dateTime }
 
         val filteredSegmentList = mutableListOf<Segment>()
@@ -99,9 +116,9 @@ internal class CalculatorDao(
                                     } else if (segment.station.contains(travelRoute[0].name)) {
                                         if (currentTestList.size > 0) {
                                             filteredSegmentList.addAll(currentTestList, travelRoute[0].description)
+                                            filteredSegmentList.add(segment, travelRoute[0].description)
+                                            currentTestList.clear()
                                         }
-                                        filteredSegmentList.add(segment, travelRoute[0].description)
-                                        currentTestList.clear()
                                         forward.set(true)
                                     } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
                                 }
@@ -112,22 +129,10 @@ internal class CalculatorDao(
                     }
             }
         }
-        logger.info(">>>>> Pay Segments")
-
-        filteredSegmentList.sortedBy { it.dateTime }
-            .toSet()
-            .asSequence()
-            .groupBy { it.dateTime.toLocalDate() }
-            .map {
-                logger.info(it.allRoutesMessage())
-                it.toSumOfAllCosts()
-            }
-            .filter {
-                it.cost > dailyCostLimit
-            }
-            .onEach { logger.info(it) }
-            .toList()
+        return filteredSegmentList
     }
+
+    private fun findAllSegments(fileUrl: URL) = ovPublicTransporParser.parseDocument(fileUrl)
 
     private fun Map.Entry<LocalDate, List<Segment?>>.toSumOfAllCosts() = DailyCost(
         date = this.key,

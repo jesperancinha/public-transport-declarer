@@ -4,7 +4,6 @@ import org.jesperancinha.ptd.domain.CalculatorDao
 import org.jesperancinha.ptd.domain.DailyCost
 import org.jesperancinha.ptd.domain.SegmentNode
 import org.jesperancinha.ptd.parsers.DATE_PATTERN_2
-import org.jesperancinha.ptd.parsers.OVPublicTransporParser
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
@@ -112,7 +111,7 @@ class PublicTransporterCommand : Callable<Int> {
     }
 }
 
-private fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
+internal fun List<String>.toSegmentNodeList(): List<List<SegmentNode>> = map {
     val segs = it.split(">").map { seg -> seg.trim() }
     val first = segs.first()
     val dateStamp = first.toDate()

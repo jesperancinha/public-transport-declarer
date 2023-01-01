@@ -17,7 +17,7 @@ import java.util.regex.Pattern
 
 internal const val DATE_PATTERN = "dd-MM-yyyy"
 internal const val DATE_PATTERN_2 = "yyyy-MM-dd"
-private const val TIME_PATTERN = "HH:mm"
+internal const val TIME_PATTERN = "HH:mm"
 private val TIME_PATTERN_REGEX = Pattern.compile("[0-9]{2}:[0-9]{2}")
 private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, '.(]+(-)?[a-zA-Z, '.(]+)")
 private val CHECKOUT_PATTERN_REGEX = Pattern.compile("(Check-uit)")
@@ -25,7 +25,7 @@ private val CURRENCY_PATTERN = Pattern.compile("(\$|€)( *[0-9]+,?[0-9]*)")
 private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
 private const val SPACE_DELIMITER = " "
 private const val TRIPLE_POINTS_DELIMITER = "..."
-
+internal val dateTimePattern = DateTimeFormatter.ofPattern("$DATE_PATTERN $TIME_PATTERN")
 class PtdPdfReader {
 
     val error = AtomicBoolean(false)
@@ -135,7 +135,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         } else
             LocalDateTime.parse(
                 "$dateString $timeString",
-                DateTimeFormatter.ofPattern("$DATE_PATTERN $TIME_PATTERN")
+                dateTimePattern
             )
     }
 
