@@ -99,9 +99,9 @@ class CalculatorDao(
                                     } else if (segment.station.contains(travelRoute[1].name)) {
                                         if (currentTestList.size > 0) {
                                             filteredSegmentList.addAll(currentTestList, travelRoute[0].description)
+                                            filteredSegmentList.add(segment, travelRoute[0].description)
+                                            currentTestList.clear()
                                         }
-                                        filteredSegmentList.add(segment, travelRoute[0].description)
-                                        currentTestList.clear()
                                         forward.set(false)
                                     } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
                                 } else if (!forward.get()) {

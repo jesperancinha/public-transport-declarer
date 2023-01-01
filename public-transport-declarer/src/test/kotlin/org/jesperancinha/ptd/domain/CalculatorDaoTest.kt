@@ -519,10 +519,10 @@ class CalculatorDaoTest {
 
     @Test
     fun `should filter elements correctly`() {
-        val filteredSegments = calculatorDao.filterAllSegments(testCases).onEach { println(it) }
+        val filteredSegments = calculatorDao.filterAllSegments(testCases).onEach { println(it) }.toSet()
 
         filteredSegments.shouldNotBeNull()
         filteredSegments.shouldNotBeEmpty()
-        filteredSegments.shouldHaveSize(84)
+        filteredSegments.shouldHaveSize(44)
     }
 }
