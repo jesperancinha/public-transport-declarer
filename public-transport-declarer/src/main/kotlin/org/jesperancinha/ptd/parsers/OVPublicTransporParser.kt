@@ -20,6 +20,7 @@ internal const val DATE_PATTERN_2 = "yyyy-MM-dd"
 internal const val TIME_PATTERN = "HH:mm"
 private val TIME_PATTERN_REGEX = Pattern.compile("[0-9]{2}:[0-9]{2}")
 private val STRING_PATTERN_REGEX = Pattern.compile("([a-zA-Z, '.(]+(-)?[a-zA-Z, '.(]+)")
+private val VERIFY_CHECKOUT = Pattern.compile("([Cc]heck-uit)")
 private val CHECKOUT_PATTERN_REGEX = Pattern.compile("(Check-uit)")
 private val CURRENCY_PATTERN = Pattern.compile("(\$|€)( *[0-9]+,?[0-9]*)")
 private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
@@ -71,7 +72,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         logger.info(">>>>> Raw Segments")
         pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
             logger.info(it)
-            createDataObject(it)
+            if (VERIFY_CHECKOUT.matcher(it).find()) createDataObject(it) else null
         }
             .also { logger.info(">>>>> Parsed Segments") }
             .also {
