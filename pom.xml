@@ -25,7 +25,7 @@
         <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
 
-        <spring-boot-maven-plugin.version>3.0.2</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.0.3</spring-boot-maven-plugin.version>
 
         <kotlin.version>1.8.10</kotlin.version>
 
