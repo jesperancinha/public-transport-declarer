@@ -4,6 +4,7 @@ import arrow.core.firstOrNone
 import org.jesperancinha.ptd.parsers.OVPublicTransporParser
 import java.math.BigDecimal
 import java.net.URL
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.atomic.AtomicBoolean
@@ -25,7 +26,9 @@ data class Segment(
     val cost: BigDecimal,
     val currency: Currency,
     val description: String? = null
-)
+) {
+    fun isWorkDay(): Boolean = !(dateTime.dayOfWeek == DayOfWeek.SATURDAY || dateTime.dayOfWeek == DayOfWeek.SUNDAY)
+}
 
 data class SegmentNode(
     val date: LocalDate? = null,
@@ -52,8 +55,8 @@ class CalculatorDao(
     /**
      * Both source and destination stations are shown in the logs
      */
-    fun dailyCosts(fileUrl: URL) = run {
-        val allSegments = findAllSegments(fileUrl)
+    fun dailyCosts(fileUrl: URL, all: Boolean) = run {
+        val allSegments = findAllSegments(fileUrl, all)
         error.set(ovPublicTransporParser.error.get())
         val filteredSegmentList = filterAllSegments(allSegments)
         logger.info(">>>>> Pay Segments")
@@ -132,7 +135,7 @@ class CalculatorDao(
         return filteredSegmentList
     }
 
-    private fun findAllSegments(fileUrl: URL) = ovPublicTransporParser.parseDocument(fileUrl)
+    private fun findAllSegments(fileUrl: URL, all: Boolean) = ovPublicTransporParser.parseDocument(fileUrl, all)
 
     private fun Map.Entry<LocalDate, List<Segment?>>.toSumOfAllCosts() = DailyCost(
         date = this.key,

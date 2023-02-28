@@ -67,7 +67,7 @@ class OVPublicTransporParser : IPublicTransportParser {
     val pdfReader: PtdPdfReader by lazy { PtdPdfReader() }
     val error = AtomicBoolean(false)
 
-    override fun parseDocument(fileUrl: URL) = run {
+    override fun parseDocument(fileUrl: URL, all: Boolean) = run {
 
         logger.info(">>>>> Raw Segments")
         pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
@@ -83,6 +83,7 @@ class OVPublicTransporParser : IPublicTransportParser {
                 }
             }
             .onEach { segment -> logger.info(segment) }
+            .filter { all || it.isWorkDay() }
     }
 
     fun createDataObject(segmentString: String) = nullable.eager {

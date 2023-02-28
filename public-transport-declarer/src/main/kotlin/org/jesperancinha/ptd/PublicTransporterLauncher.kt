@@ -68,6 +68,12 @@ class PublicTransporterCommand : Callable<Int> {
     )
     var routeFile: String? = null
 
+    @Option(
+        names = ["-a", "--all"],
+        description = ["Running with this option, will enable output of weekend public transportation. It is to false by default because it's more common to declare costs during weekdays"]
+    )
+    var all: Boolean = false
+
     override fun call(): Int = run {
         val travelRoutes = readTravelRoutesFromFile(routeFile)
         logger.info(">>>>> Travel routes")
@@ -77,8 +83,11 @@ class PublicTransporterCommand : Callable<Int> {
             dailyCostLimit = limit,
             travelRoutes = travelRoutes
         )
-        val dailyCosts = calculatorDao.dailyCosts(origin?.let { File(it).toURI().toURL() }
-            ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command"))
+        val dailyCosts = calculatorDao.dailyCosts(
+            fileUrl = origin?.let { File(it).toURI().toURL() }
+            ?: throw RuntimeException("Origin file is mandatory! Please use -o to provide the origin file. Run with -help for more info on how to run this command"),
+            all = all
+        )
         logger.info(">>>>> CSV Format")
         FileOutputStream(destination).apply { writeCsv(dailyCosts) }
         logger.info(">>>>> Markup Format")

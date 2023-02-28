@@ -3,6 +3,7 @@ package org.jesperancinha.ptd.parsers
 import io.kotest.matchers.bigdecimal.shouldBeGreaterThan
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import org.jesperancinha.ptd.domain.CalculatorDao
@@ -72,7 +73,9 @@ class OVPublicTransporParserTest {
             OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_22122022110627.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
-            CalculatorDao().dailyCosts(it).forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
+            CalculatorDao().dailyCosts(it, true)
+                .shouldHaveSize(11)
+                .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
         }
     }
 
@@ -82,7 +85,33 @@ class OVPublicTransporParserTest {
             OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_24122022170148.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
-            CalculatorDao().dailyCosts(it).forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
+            CalculatorDao().dailyCosts(it, true)
+                .shouldHaveSize(7)
+                .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
+        }
+    }
+
+    @Test
+    fun `should parse without errors for file declaratieoverzicht_22122022110627 with default option`() {
+        val resourceAsStream =
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_22122022110627.pdf")
+        resourceAsStream.shouldNotBeNull()
+        resourceAsStream.let {
+            CalculatorDao().dailyCosts(it, false)
+                .shouldHaveSize(11)
+                .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
+        }
+    }
+
+    @Test
+    fun `should parse without errors for file declaratieoverzicht_24122022170148 with default option`() {
+        val resourceAsStream =
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_24122022170148.pdf")
+        resourceAsStream.shouldNotBeNull()
+        resourceAsStream.let {
+            CalculatorDao().dailyCosts(it, false)
+                .shouldHaveSize(7)
+                .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
         }
     }
 }

@@ -5,7 +5,7 @@ import java.net.URL
 
 interface IPublicTransportParser {
 
-    fun parseDocument(fileUrl: URL): List<Segment>
+    fun parseDocument(fileUrl: URL, all: Boolean): List<Segment>
 
     fun isTransportLine(line: String): Boolean
 }
