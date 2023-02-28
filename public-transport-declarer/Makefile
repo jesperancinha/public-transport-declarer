@@ -15,3 +15,4 @@ just-install-locally:
 	sudo cp public-transport-declarer /usr/local/bin/
 remove-locally:
 	sudo rm /usr/local/bin/public-transport-declarer
+jar: build-maven
