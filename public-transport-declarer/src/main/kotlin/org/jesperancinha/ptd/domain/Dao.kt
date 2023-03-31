@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 import java.util.concurrent.atomic.AtomicBoolean
 
 enum class CheckInOut {
-    CHECKIN, CHECKOUT
+    CHECKIN, CHECKOUT, OTHER
 }
 
 enum class Currency {

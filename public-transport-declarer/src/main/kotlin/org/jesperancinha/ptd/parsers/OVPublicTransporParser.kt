@@ -4,8 +4,7 @@ import arrow.core.continuations.nullable
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.lowagie.text.pdf.PdfReader
 import com.lowagie.text.pdf.parser.PdfTextExtractor
-import org.jesperancinha.ptd.domain.CheckInOut.CHECKIN
-import org.jesperancinha.ptd.domain.CheckInOut.CHECKOUT
+import org.jesperancinha.ptd.domain.CheckInOut.*
 import org.jesperancinha.ptd.domain.Currency
 import org.jesperancinha.ptd.domain.Currency.EUR
 import org.jesperancinha.ptd.domain.Segment
@@ -29,6 +28,7 @@ private val CURRENCY_TYPE_PATTERN = Pattern.compile("(\$|€)")
 private const val SPACE_DELIMITER = " "
 private const val TRIPLE_POINTS_DELIMITER = "..."
 internal val dateTimePattern = DateTimeFormatter.ofPattern("$DATE_PATTERN $TIME_PATTERN")
+
 class PtdPdfReader {
 
     val error = AtomicBoolean(false)
@@ -68,36 +68,41 @@ class OVPublicTransporParser : IPublicTransportParser {
 
     val pdfReader: PtdPdfReader by lazy { PtdPdfReader() }
     val error = AtomicBoolean(false)
-    val dateTimeFormatter by  lazy { DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") }
+    val dateTimeFormatter by lazy { DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") }
     override fun parseDocument(fileUrl: URL, all: Boolean): List<Segment> = run {
 
         logger.info(">>>>> Raw Segments")
-        if(requireNotNull(fileUrl.path).endsWith("csv")){
-            csvReader().readAllWithHeader(fileUrl.readText().replace(";",",")).map { row: Map<String, String> ->
-                        Segment(
-                            dateTime = LocalDateTime.parse("${row["Datum"]} ${row["Check-in"]?.let { it.ifEmpty { "00:00" } }}", dateTimeFormatter),
-                            station = requireNotNull(row["Vertrek"]),
-                            description = "${requireNotNull(row["Vertrek"])} to ${requireNotNull(row["Bestemming"])}".let {
-                                if (row["transaction"]?.isNotEmpty() != null) {
-                                    "${it} with transaction ${row["Transactie"]}"
-                                } else it
-                            },
-                            check = row["Transactie"]?.let {
-                                when (it) {
-                                    "Check-in" -> CHECKIN
-                                    "Check-out" -> CHECKOUT
-                                    else -> CHECKOUT
-                                }
-                            } ?: CHECKOUT,
-                            company = "",
-                            cost = row["Bedrag"]?.let {
-                                if (it.isEmpty()) BigDecimal.ZERO else it.replace(",",".") .toBigDecimal()
-                            } ?: BigDecimal.ZERO,
-                            currency = EUR
-                        )
+        if (requireNotNull(fileUrl.path).endsWith("csv")) {
+            csvReader().readAllWithHeader(fileUrl.readText().replace(";", ",")).map { row: Map<String, String> ->
+                Segment(
+                    dateTime = LocalDateTime.parse(
+                        "${row["Datum"]} ${row["Check-in"]?.let { it.ifEmpty { "00:00" } }}",
+                        dateTimeFormatter
+                    ),
+                    station = requireNotNull(row["Vertrek"]),
+                    description = "${requireNotNull(row["Vertrek"])} ${requireNotNull(row["Bestemming"]).let {
+                        if(it.isEmpty()) "" else "to $it"}
+                    }".let {
+                        if (row["Transactie"]?.isNotEmpty() != null) {
+                            "$it with transaction ${row["Transactie"]}"
+                        } else it
+                    },
+                    check = row["Transactie"]?.let {
+                        when (it) {
+                            "Check-in" -> CHECKIN
+                            "Check-out" -> CHECKOUT
+                            else -> OTHER
+                        }
+                    } ?: OTHER,
+                    company = requireNotNull(row["Bestemming"]),
+                    cost = row["Bedrag"]?.let {
+                        if (it.isEmpty()) BigDecimal.ZERO else it.replace(",", ".").toBigDecimal()
+                    } ?: BigDecimal.ZERO,
+                    currency = EUR
+                )
 
-            }.toList()
-        }else {
+            }.filter { !(it.description?.contains("Saldo opgeladen") ?: false) }.toList()
+        } else {
             pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
                 logger.info(it)
                 if (VERIFY_CHECKOUT.matcher(it).find()) createDataObject(it) else null

@@ -97,7 +97,7 @@ class OVPublicTransporParserTest {
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
             CalculatorDao().dailyCosts(it, true)
-                .shouldHaveSize(13)
+                .shouldHaveSize(11)
                 .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
         }
     }
