@@ -54,6 +54,7 @@ public-transport-declarer.build_artifacts.txt
 
 ## Test files
 !public-transport-declarer/src/test/resources/routes.ptd
+!public-transport-declarer/src/test/resources/transacties_31032023194834.csv
 
 ## report
 report.csv

@@ -1,11 +1,13 @@
 package org.jesperancinha.ptd.parsers
 
 import arrow.core.continuations.nullable
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.lowagie.text.pdf.PdfReader
 import com.lowagie.text.pdf.parser.PdfTextExtractor
 import org.jesperancinha.ptd.domain.CheckInOut.CHECKIN
 import org.jesperancinha.ptd.domain.CheckInOut.CHECKOUT
 import org.jesperancinha.ptd.domain.Currency
+import org.jesperancinha.ptd.domain.Currency.EUR
 import org.jesperancinha.ptd.domain.Segment
 import java.math.BigDecimal
 import java.net.URL
@@ -66,24 +68,51 @@ class OVPublicTransporParser : IPublicTransportParser {
 
     val pdfReader: PtdPdfReader by lazy { PtdPdfReader() }
     val error = AtomicBoolean(false)
-
-    override fun parseDocument(fileUrl: URL, all: Boolean) = run {
+    val dateTimeFormatter by  lazy { DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") }
+    override fun parseDocument(fileUrl: URL, all: Boolean): List<Segment> = run {
 
         logger.info(">>>>> Raw Segments")
-        pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
-            logger.info(it)
-            if (VERIFY_CHECKOUT.matcher(it).find()) createDataObject(it) else null
-        }
-            .also { logger.info(">>>>> Parsed Segments") }
-            .also {
-                if (pdfReader.error.get()) {
-                    logger.info(">>>>>>>>>>>>>>> WARNING -> An error has been detected while parsing the pdf file!")
-                    logger.info(">>>>>>>>>>>>>>> In these cases it is suggested to run the application via the jar file.")
-                    error.set(true)
-                }
+        if(requireNotNull(fileUrl.path).endsWith("csv")){
+            csvReader().readAllWithHeader(fileUrl.readText().replace(";",",")).map { row: Map<String, String> ->
+                        Segment(
+                            dateTime = LocalDateTime.parse("${row["Datum"]} ${row["Check-in"]?.let { it.ifEmpty { "00:00" } }}", dateTimeFormatter),
+                            station = requireNotNull(row["Vertrek"]),
+                            description = "${requireNotNull(row["Vertrek"])} to ${requireNotNull(row["Bestemming"])}".let {
+                                if (row["transaction"]?.isNotEmpty() != null) {
+                                    "${it} with transaction ${row["Transactie"]}"
+                                } else it
+                            },
+                            check = row["Transactie"]?.let {
+                                when (it) {
+                                    "Check-in" -> CHECKIN
+                                    "Check-out" -> CHECKOUT
+                                    else -> CHECKOUT
+                                }
+                            } ?: CHECKOUT,
+                            company = "",
+                            cost = row["Bedrag"]?.let {
+                                if (it.isEmpty()) BigDecimal.ZERO else it.replace(",",".") .toBigDecimal()
+                            } ?: BigDecimal.ZERO,
+                            currency = EUR
+                        )
+
+            }.toList()
+        }else {
+            pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
+                logger.info(it)
+                if (VERIFY_CHECKOUT.matcher(it).find()) createDataObject(it) else null
             }
-            .onEach { segment -> logger.info(segment) }
-            .filter { all || it.isWorkDay() }
+                .also { logger.info(">>>>> Parsed Segments") }
+                .also {
+                    if (pdfReader.error.get()) {
+                        logger.info(">>>>>>>>>>>>>>> WARNING -> An error has been detected while parsing the pdf file!")
+                        logger.info(">>>>>>>>>>>>>>> In these cases it is suggested to run the application via the jar file.")
+                        error.set(true)
+                    }
+                }
+                .onEach { segment -> logger.info(segment) }
+                .filter { all || it.isWorkDay() }
+        }
     }
 
     fun createDataObject(segmentString: String) = nullable.eager {
@@ -101,7 +130,7 @@ class OVPublicTransporParser : IPublicTransportParser {
     private fun parseCurrency(segmentString: String) = CURRENCY_TYPE_PATTERN.matcher(segmentString).run {
         find()
         when (group(1).replace(",", ".").trim()) {
-            "€" -> Currency.EUR
+            "€" -> EUR
             else -> null
 
         }

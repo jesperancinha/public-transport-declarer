@@ -90,6 +90,17 @@ class OVPublicTransporParserTest {
                 .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
         }
     }
+    @Test
+    fun `should parse without errors for CSV file transacties_31032023194834`() {
+        val resourceAsStream =
+            OVPublicTransporParserTest::class.java.getResource("/transacties_31032023194834.csv")
+        resourceAsStream.shouldNotBeNull()
+        resourceAsStream.let {
+            CalculatorDao().dailyCosts(it, true)
+                .shouldHaveSize(13)
+                .forEach { costs -> costs.cost shouldBeGreaterThan BigDecimal.TEN }
+        }
+    }
 
     @Test
     fun `should parse without errors for file declaratieoverzicht_22122022110627 with default option`() {
