@@ -8,6 +8,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
 
 enum class CheckInOut {
     CHECKIN, CHECKOUT, OTHER
@@ -18,14 +19,17 @@ enum class Currency {
     USD
 }
 
+val idGenerator = AtomicLong()
+
 data class Segment(
+    val id: Long = idGenerator.incrementAndGet(),
     val dateTime: LocalDateTime,
-    val company: String,
+    val destination: String,
     val station: String,
     val check: CheckInOut,
     val cost: BigDecimal,
     val currency: Currency,
-    val description: String? = null
+    val description: String? = null,
 ) {
     fun isWorkDay(): Boolean = !(dateTime.dayOfWeek == DayOfWeek.SATURDAY || dateTime.dayOfWeek == DayOfWeek.SUNDAY)
 }
@@ -33,19 +37,19 @@ data class Segment(
 data class SegmentNode(
     val date: LocalDate? = null,
     val name: String,
-    val description: String? = null
+    val description: String? = null,
 )
 
 data class DailyCost(
     val date: LocalDate,
     val description: String,
-    val cost: BigDecimal
+    val cost: BigDecimal,
 )
 
 class CalculatorDao(
     val notIncluded: List<String> = listOf("Arnhem", "Velp", "Schiphol"),
     val dailyCostLimit: BigDecimal = BigDecimal.TEN,
-    val travelRoutes: List<List<SegmentNode>> = emptyList()
+    val travelRoutes: List<List<SegmentNode>> = emptyList(),
 ) {
 
     val error = AtomicBoolean(false)
@@ -92,7 +96,7 @@ class CalculatorDao(
                         if (travelRoute[0].date == null || travelRoute[0].date == segmentPerDay[0].dateTime.toLocalDate()) {
                             segmentPerDay.forEach { segment ->
                                 if (forward.get()) {
-                                    if (segment.company.contains(travelRoute[0].name)) {
+                                    if (segment.destination.contains(travelRoute[0].name)) {
                                         if (segment.station.contains(travelRoute[1].name)) {
                                             forward.set(false)
                                             filteredSegmentList.add(segment, travelRoute[0].description)
@@ -108,7 +112,7 @@ class CalculatorDao(
                                         forward.set(false)
                                     } else if (currentTestList.isNotEmpty()) currentTestList.add(segment)
                                 } else if (!forward.get()) {
-                                    if (segment.company.contains(travelRoute[1].name)) {
+                                    if (segment.destination.contains(travelRoute[1].name)) {
                                         if (segment.station.contains(travelRoute[0].name)) {
                                             filteredSegmentList.add(segment, travelRoute[0].description)
                                             forward.set(true)
@@ -147,11 +151,11 @@ class CalculatorDao(
     )
 
     private inline fun <reified K : LocalDate?, V : List<Segment?>> Map.Entry<K, V>.allRoutesMessage(): String =
-        "${this.key} - ${this.value.joinToString(" -> ") { segment -> "${segment?.company} - ${segment?.station}" }}"
+        "${this.key} - ${this.value.joinToString(" -> ") { segment -> "${segment?.destination} - ${segment?.station}" }}"
 
 
     private fun Segment?.notIncluded(): Boolean = notIncluded.firstOrNone { not ->
-        this?.station?.contains(not) == true || this?.company?.contains(not) == true
+        this?.station?.contains(not) == true || this?.destination?.contains(not) == true
     }.isNotEmpty()
 
     companion object {

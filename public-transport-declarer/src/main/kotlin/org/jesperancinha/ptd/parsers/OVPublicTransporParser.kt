@@ -5,7 +5,6 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.lowagie.text.pdf.PdfReader
 import com.lowagie.text.pdf.parser.PdfTextExtractor
 import org.jesperancinha.ptd.domain.CheckInOut.*
-import org.jesperancinha.ptd.domain.Currency
 import org.jesperancinha.ptd.domain.Currency.EUR
 import org.jesperancinha.ptd.domain.Segment
 import java.math.BigDecimal
@@ -14,6 +13,8 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 import java.util.regex.Pattern
 
 internal const val DATE_PATTERN = "dd-MM-yyyy"
@@ -70,38 +71,11 @@ class OVPublicTransporParser : IPublicTransportParser {
     val error = AtomicBoolean(false)
     val dateTimeFormatter by lazy { DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") }
     override fun parseDocument(fileUrl: URL, all: Boolean): List<Segment> = run {
-
         logger.info(">>>>> Raw Segments")
         if (requireNotNull(fileUrl.path).endsWith("csv")) {
             csvReader().readAllWithHeader(fileUrl.readText().replace(";", ",")).map { row: Map<String, String> ->
-                Segment(
-                    dateTime = LocalDateTime.parse(
-                        "${row["Datum"]} ${row["Check-in"]?.let { it.ifEmpty { "00:00" } }}",
-                        dateTimeFormatter
-                    ),
-                    station = requireNotNull(row["Vertrek"]),
-                    description = "${requireNotNull(row["Vertrek"])} ${requireNotNull(row["Bestemming"]).let {
-                        if(it.isEmpty()) "" else "to $it"}
-                    }".let {
-                        if (row["Transactie"]?.isNotEmpty() != null) {
-                            "$it with transaction ${row["Transactie"]}"
-                        } else it
-                    },
-                    check = row["Transactie"]?.let {
-                        when (it) {
-                            "Check-in" -> CHECKIN
-                            "Check-out" -> CHECKOUT
-                            else -> OTHER
-                        }
-                    } ?: OTHER,
-                    company = requireNotNull(row["Bestemming"]),
-                    cost = row["Bedrag"]?.let {
-                        if (it.isEmpty()) BigDecimal.ZERO else it.replace(",", ".").toBigDecimal()
-                    } ?: BigDecimal.ZERO,
-                    currency = EUR
-                )
-
-            }.filter { !(it.description?.contains("Saldo opgeladen") ?: false) }.toList()
+                createDataObject(row)
+            }.groupCsvSegments()
         } else {
             pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
                 logger.info(it)
@@ -120,10 +94,39 @@ class OVPublicTransporParser : IPublicTransportParser {
         }
     }
 
+    private fun createDataObject(row: Map<String, String>) = Segment(
+        dateTime = LocalDateTime.parse(
+            "${row["Datum"]} ${row["Check-in"]?.let { it.ifEmpty { "00:00" } }}",
+            dateTimeFormatter
+        ),
+        station = requireNotNull(row["Vertrek"]),
+        description = "${requireNotNull(row["Vertrek"]?.trim())} ${
+            requireNotNull(row["Bestemming"]).let {
+                if (it.isEmpty()) "" else "to $it"
+            }
+        }".let {
+            if (row["Transactie"]?.isNotEmpty() != null) {
+                "$it with transaction ${row["Transactie"]}"
+            } else it
+        }.replace("  ", " "),
+        check = row["Transactie"]?.let {
+            when (it) {
+                "Check-in" -> CHECKIN
+                "Check-uit" -> CHECKOUT
+                else -> OTHER
+            }
+        } ?: OTHER,
+        destination = requireNotNull(row["Bestemming"]),
+        cost = row["Bedrag"]?.let {
+            if (it.isEmpty()) BigDecimal.ZERO else it.replace(",", ".").toBigDecimal()
+        } ?: BigDecimal.ZERO,
+        currency = EUR
+    )
+
     fun createDataObject(segmentString: String) = nullable.eager {
         Segment(
             dateTime = parseDateTime(segmentString).bind(),
-            company = parseCompany(segmentString).bind(),
+            destination = parseCompany(segmentString).bind(),
             station = parseStation(segmentString).bind(),
             check = parseCheckout(segmentString).bind(),
             cost = parseCost(segmentString).bind(),
@@ -200,3 +203,32 @@ class OVPublicTransporParser : IPublicTransportParser {
         }
     }
 }
+
+private fun List<Segment>.groupCsvSegments(): List<Segment> =
+    filter { !(it.description?.contains("Saldo opgeladen") ?: false) }
+        .sortedBy { it.id }
+        .let {
+            val combinedList = mutableListOf<Segment>()
+            it.forEach { segment ->
+                when {
+                    combinedList.isEmpty() -> combinedList.add(segment)
+                    else -> combinedList.last().let { lastSegment ->
+                        if (lastSegment.destination.isEmpty() && lastSegment.check == CHECKIN) {
+                            combinedList.removeLast()
+                            combinedList.add(
+                                lastSegment.copy(
+                                    cost = segment.cost,
+                                    check = segment.check,
+                                    destination = segment.destination,
+                                    description = "${segment.station} to ${segment.destination}",
+                                    dateTime = maxOf(segment.dateTime, lastSegment.dateTime)
+                                )
+                            )
+                        } else {
+                            combinedList.add(segment)
+                        }
+                    }
+                }
+            }
+            combinedList
+        }

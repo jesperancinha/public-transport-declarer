@@ -28,7 +28,7 @@ class OVPublicTransporParserTest {
             .let { segment ->
                 segment.shouldNotBeNull()
                 segment.station shouldBe "'s-Hertogenbosch"
-                segment.company shouldBe "NS Eindhoven Centraal"
+                segment.destination shouldBe "NS Eindhoven Centraal"
                 segment.dateTime shouldBe LocalDateTime.of(2022,11,18,15,57)
                 segment.check shouldBe CHECKOUT
                 segment.currency shouldBe EUR
@@ -42,7 +42,7 @@ class OVPublicTransporParserTest {
             .let { segment ->
                 segment.shouldNotBeNull()
                 segment.station shouldBe "Nieuwegein, Nieuwegein City"
-                segment.company shouldBe "Nieuwegein, Nieuwegein City (Per..."
+                segment.destination shouldBe "Nieuwegein, Nieuwegein City (Per..."
                 segment.dateTime shouldBe LocalDateTime.of(2022,12,16,18,21)
                 segment.check shouldBe CHECKOUT
                 segment.currency shouldBe EUR
