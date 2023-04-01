@@ -32,8 +32,6 @@
 
 # Introduction
 
-`--- Under Construction ---`
-
 The project is supposed to provide an easy way to generate documentation required to make public transportation usage declarations.
 
 A public transport declaration calculator. It is used to automatically filter out all relevant travelling segments when travelling with a general public transport card. It receives a PDF file as an input and generates a CSV file with the results as Local Date / Complete value.
