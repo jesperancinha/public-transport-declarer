@@ -24,7 +24,7 @@ For example in one day we can have something like:
 However, the transportation costs vary per season, per time of day, per kind of day and sometimes just because of
 unexpected changes.
 
-So the costs are almost always unpredictable and this forces us to go through the PDFs provided by the OV company and
+So the costs are almost always unpredictable and this forces us to go through the spot-on PDF/CSVs provided by the OV company and
 manually make some very tedious work of getting all these small costs together per day.
 This is what this program attempts to do.
 
@@ -79,7 +79,7 @@ The input commands are several. Let's have a look at each of them.
 
 ## Origin(-o or --origin)
 
-The origin file is a PDF file. In the future, this program will allow to receive different sorts of pdfs of different
+The origin file is a PDF or a CSV file. In the future, this program will allow to receive different sorts of pdfs or other types from different
 companies. For now it only accepts the cost declaration of the [OV-Chipkaart](https://www.ov-chipkaart.nl) from The
 Netherlands.
 Just use the full path of the file. It can be an absolute path or a relative path.

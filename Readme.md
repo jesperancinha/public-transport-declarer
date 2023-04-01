@@ -43,6 +43,7 @@ A public transport declaration calculator. It is used to automatically filter ou
 -   [1.0.0-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - [f267cdb8a2aceec534541398e141e8f1579ddf0f](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - First Alpha Version of Public Transport Declarer
 -   [1.0.1-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.1-alpha) - [5bf2864c2a03a1dce039c6e7233599dea6aa83fe](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.1-alpha) - Alpha version with node filter
 -   [1.0.2-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.2-alpha) - [c84c235fe2cc4ab1fde7231d8b151defbac9f16e](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.2-alpha) - Native support available
+-   [1.0.3-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.3-alpha) - [627881532578237e8f1a5f2110f85032ba2c8a8d](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.3-alpha) - CSV files support for OV-Chipkaart
 
 ## How to use
 
