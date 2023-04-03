@@ -23,20 +23,9 @@
 
 ## Technologies used
 
----
-[![alt text](https://raw.githubusercontent.com/jesperancinha/project-signer/master/project-signer-templates/icons-50/kotlin-50.png "Kotlin")](https://kotlinlang.org/)
+Please check the [TechStack.md](TechStack.md) file for details.
 
-`kotlin` `graalvm-native` `arrow-kt`
-
----
-
-# Introduction
-
-The project is supposed to provide an easy way to generate documentation required to make public transportation usage declarations.
-
-A public transport declaration calculator. It is used to automatically filter out all relevant travelling segments when travelling with a general public transport card. It receives a PDF file as an input and generates a CSV file with the results as Local Date / Complete value.
-
-#### Stable releases
+## Stable releases
 
 -   [1.0.0-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - [f267cdb8a2aceec534541398e141e8f1579ddf0f](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.0-alpha) - First Alpha Version of Public Transport Declarer
 -   [1.0.1-alpha](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.1-alpha) - [5bf2864c2a03a1dce039c6e7233599dea6aa83fe](https://github.com/jesperancinha/public-transport-declarer/tree/1.0.1-alpha) - Alpha version with node filter
