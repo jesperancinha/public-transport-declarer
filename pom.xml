@@ -30,7 +30,7 @@
 
         <kotlin.version>1.8.20</kotlin.version>
 
-        <spring-boot-maven-plugin.version>3.0.5</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.0.6</spring-boot-maven-plugin.version>
         <owasp.esapi>2.5.2.0</owasp.esapi>
 
         <openpdf.version>1.3.30</openpdf.version>
