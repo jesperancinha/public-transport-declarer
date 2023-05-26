@@ -34,7 +34,7 @@
         <owasp.esapi>2.5.2.0</owasp.esapi>
 
         <openpdf.version>1.3.30</openpdf.version>
-        <kotlin-csv.version>1.9.0</kotlin-csv.version>
+        <kotlin-csv.version>1.9.1</kotlin-csv.version>
 
         <junit-jupiter-api.version>5.9.3</junit-jupiter-api.version>
         <omni-coveragereporter-maven-plugin.version>0.4.3</omni-coveragereporter-maven-plugin.version>
