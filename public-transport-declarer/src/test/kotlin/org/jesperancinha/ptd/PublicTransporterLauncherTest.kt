@@ -1,13 +1,19 @@
 package org.jesperancinha.ptd
 
+import io.kotest.inspectors.shouldForAll
+import io.kotest.matchers.bigdecimal.shouldBeGreaterThan
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import org.jesperancinha.ptd.domain.CalculatorDao
 import org.jesperancinha.ptd.parsers.OVPublicTransporParserTest
 import org.junit.jupiter.api.Test
 import picocli.CommandLine
 import java.io.File
 import java.io.FileReader
+import java.math.BigDecimal
 
 class PublicTransporterLauncherTest {
     @Test
@@ -155,5 +161,60 @@ class PublicTransporterLauncherTest {
             value shouldBe "20.64"
         }
 
+    }
+
+
+    @Test
+    fun `should parse without errors for file transacties_31052023161105 csv with custom options`() {
+        val resourceOrigin =
+            OVPublicTransporParserTest::class.java.getResource("/transacties_31052023161105.csv")
+        val routes =
+            OVPublicTransporParserTest::class.java.getResource("/routes.txt")
+        resourceOrigin.shouldNotBeNull()
+        routes.shouldNotBeNull()
+        CommandLine(PublicTransporterCommand()).execute(
+            *arrayOf(
+                "-g",
+                "0",
+                "-o",
+                resourceOrigin.file,
+                "-r",
+                routes.file,
+                "-l",
+                "Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche"
+            )
+        )
+
+        val file = File("report.csv")
+        val readLines = FileReader(file).readLines()
+        file.deleteOnExit()
+        readLines.shouldHaveSize(7)
+        val map = readLines.map {
+            it.split(",").map { str -> str.trim() }
+        }
+        map[1].let { (date, description, value) ->
+            description shouldBe "Office work"
+            value shouldBe "20.50"
+        }
+        map[2].let { (date, description, value) ->
+            description shouldBe "Office work"
+            value shouldBe "20.64"
+        }
+        map[3].let { (date, description, value) ->
+            description shouldBe "Office work"
+            value shouldBe "12.37"
+        }
+        map[4].let { (date, description, value) ->
+            description shouldBe "Office work"
+            value shouldBe "13.08"
+        }
+        map[5].let { (date, description, value) ->
+            description shouldBe "Office work"
+            value shouldBe "11.93"
+        }
+        map[6].let { (date, description, value) ->
+            description shouldBe "Office work"
+            value shouldBe "11.79"
+        }
     }
 }

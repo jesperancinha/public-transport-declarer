@@ -213,7 +213,9 @@ private fun List<Segment>.groupCsvSegments(): List<Segment> =
                 when {
                     combinedList.isEmpty() -> combinedList.add(segment)
                     else -> combinedList.last().let { lastSegment ->
-                        if (lastSegment.destination.isEmpty() && lastSegment.check == CHECKIN) {
+                        if (lastSegment.destination.isEmpty() && lastSegment.check == CHECKIN &&
+                            lastSegment.dateTime.dayOfMonth == segment.dateTime.dayOfMonth
+                        ) {
                             combinedList.removeLast()
                             combinedList.add(
                                 lastSegment.copy(

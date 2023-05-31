@@ -1,10 +1,13 @@
 package org.jesperancinha.ptd.parsers
 
+import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.bigdecimal.shouldBeGreaterThan
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import org.jesperancinha.ptd.domain.CalculatorDao
 import org.jesperancinha.ptd.domain.CheckInOut.CHECKOUT
