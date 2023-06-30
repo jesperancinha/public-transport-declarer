@@ -247,4 +247,5 @@ java -jar target/public-transport-declarer.jar -o declaratieoverzicht_2802202319
 java -jar target/public-transport-declarer.jar -o src/test/resources/transacties_31032023194834.csv -g 10 -d report-test-01.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche
 java -jar target/public-transport-declarer.jar -o src/test/resources/transacties_31032023194834.csv -g 10 -d report-test-01.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche -r routes.txt
 java -jar target/public-transport-declarer.jar -o transacties_31052023161105.csv -g 10 -d report.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche -r routes.txt
+java -jar target/public-transport-declarer.jar -o transacties_30062023185731.csv -g 10 -d report.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche -r routes.txt
 ```
