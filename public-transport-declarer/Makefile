@@ -19,4 +19,4 @@ remove-locally:
 	sudo rm /usr/local/bin/public-transport-declarer
 jar: build-maven
 generate-last-via-csv: jar
-	java -jar target/public-transport-declarer.jar -o $(shell ls -l *.csv | tail -n1 | cut -d" " -f9) -g 10 -d report.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche -r routes.txt
+	java -jar target/public-transport-declarer.jar -o $(shell ls -l transact*.csv | tail -n1 | cut -d" " -f10) -g 10 -d report.csv -l Arnhem,Velp,Schipol,Eindhoven,Amstelveenseweg,Ede,Wageningen,Amsterdam,Zoetermeer,Hertogenbosch,Airport,Leidsche -r routes.txt
