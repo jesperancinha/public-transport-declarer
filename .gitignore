@@ -63,3 +63,6 @@ report.csv
 declaratieoverzicht_30122022182530.pdf
 declaratieoverzicht_22122022110627.pdf
 declaratieoverzicht_28022023190418.pdf
+
+# Must be in
+!public-transport-declarer/generateReport.sh
