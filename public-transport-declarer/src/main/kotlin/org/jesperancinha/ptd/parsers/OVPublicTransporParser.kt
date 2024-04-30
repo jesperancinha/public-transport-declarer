@@ -13,8 +13,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicLong
 import java.util.regex.Pattern
 
 internal const val DATE_PATTERN = "dd-MM-yyyy"
@@ -73,9 +71,16 @@ class OVPublicTransporParser : IPublicTransportParser {
     override fun parseDocument(fileUrl: URL, all: Boolean): List<Segment> = run {
         logger.info(">>>>> Raw Segments")
         if (requireNotNull(fileUrl.path).endsWith("csv")) {
-            csvReader().readAllWithHeader(fileUrl.readText().replace(";", ",")).map { row: Map<String, String> ->
-                createDataObject(row)
-            }.groupCsvSegments()
+            val data = fileUrl
+                .readText()
+            csvReader {
+                delimiter = ';'
+            }.readAllWithHeader(
+                data
+            )
+                .map { row: Map<String, String> ->
+                    createDataObject(row)
+                }.groupCsvSegments()
         } else {
             pdfReader.readStream(fileUrl).split("\n").filter { isTransportLine(it) }.mapNotNull {
                 logger.info(it)
