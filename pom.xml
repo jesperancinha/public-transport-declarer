@@ -26,7 +26,7 @@
         <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
         <build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
-        <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
+        <native-maven-plugin.version>0.10.2</native-maven-plugin.version>
 
         <kotlin.version>1.9.24</kotlin.version>
 
