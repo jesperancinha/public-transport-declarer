@@ -66,3 +66,13 @@ declaratieoverzicht_28022023190418.pdf
 
 # Must be in
 !public-transport-declarer/generateReport.sh
+
+# NPM
+package-lock.json
+yarn.lock
+
+## Automation
+cypressUpdateOne.sh
+docker-composetmp.yml
+packagetmp.json
+pluginUpdatesOne.sh

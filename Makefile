@@ -65,3 +65,5 @@ install-locally:
 	cd public-transport-declarer && make install-locally
 remove-locally:
 	cd public-transport-declarer && make remove-locally
+deps-plugins-update:
+	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/pluginUpdatesOne.sh | bash
