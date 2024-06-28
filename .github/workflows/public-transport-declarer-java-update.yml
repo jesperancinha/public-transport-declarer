@@ -1,4 +1,4 @@
-name: Updates plugins
+name: Updates java
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  update-plugins:
+  update-java:
     runs-on: ubuntu-latest
 
     steps:
@@ -14,15 +14,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run dependency update script
-        run: make deps-plugins-update
+        run: make deps-java-update
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: Update plugins
-          branch: update-plugins
-          title: 'Update plugins'
+          commit-message: Update java
+          branch: update-java
+          title: 'Update java'
           body: |
-            This pull request updates the following dependencies:
+            This pull request updates the JDK:
             - Current plugin updates
-          labels: dependencies
+          labels: JDK
