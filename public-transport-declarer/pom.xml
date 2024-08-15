@@ -155,12 +155,12 @@
         <dependency>
             <groupId>com.github.doyaaaaaken</groupId>
             <artifactId>kotlin-csv-jvm</artifactId>
-            <version>${kotlin-csv.version}</version>
+            <version>${doyaaaaaken.csv.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.doyaaaaaken</groupId>
             <artifactId>kotlin-csv-js</artifactId>
-            <version>${kotlin-csv.version}</version>
+            <version>${doyaaaaaken.csv.version}</version>
         </dependency>
 
 
