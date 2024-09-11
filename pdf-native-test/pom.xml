@@ -10,7 +10,7 @@
 
     <properties>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <native-maven-plugin.version>0.10.2</native-maven-plugin.version>
+        <native-maven-plugin.version>0.10.3</native-maven-plugin.version>
     </properties>
 
     <dependencies>

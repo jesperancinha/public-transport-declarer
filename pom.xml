@@ -26,7 +26,7 @@
         <maven-dependency-plugin.version>3.8.0</maven-dependency-plugin.version>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
         <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
-        <native-maven-plugin.version>0.10.2</native-maven-plugin.version>
+        <native-maven-plugin.version>0.10.3</native-maven-plugin.version>
 
         <spring-boot-maven-plugin.version>3.3.3</spring-boot-maven-plugin.version>
         <owasp.esapi>2.5.4.0</owasp.esapi>
