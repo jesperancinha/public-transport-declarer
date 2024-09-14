@@ -2,7 +2,7 @@
 
 ---
 
-[![Twitter URL](https://img.shields.io/twitter/url?logoColor=blue&style=social&url=https%3A%2F%2Fimg.shields.io%2Ftwitter%2Furl%3Fstyle%3Dsocial)](https://twitter.com/intent/tweet?text=%20Checkout%20this%20%40github%20repo%20by%20%40joaofse%20%F0%9F%91%A8%F0%9F%8F%BD%E2%80%8D%F0%9F%92%BB%3A%20https%3A//github.com/jesperancinha/public-transport-declarer)
+
 [![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Public%20Transport%20Declarer%20🚂&color=informational)](https://github.com/jesperancinha/public-transport-declarer)
 
 [![CircleCI](https://circleci.com/gh/jesperancinha/public-transport-declarer.svg?style=svg)](https://circleci.com/gh/jesperancinha/public-transport-declarer)
