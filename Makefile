@@ -66,7 +66,7 @@ install-locally:
 remove-locally:
 	cd public-transport-declarer && make remove-locally
 deps-plugins-update:
-	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/pluginUpdatesOne.sh | bash
+	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/pluginUpdatesOne.sh | bash -s -- $(PARAMS)
 deps-java-update:
 	curl -sL https://raw.githubusercontent.com/jesperancinha/project-signer/master/javaUpdatesOne.sh | bash
 deps-node-update:
