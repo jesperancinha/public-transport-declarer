@@ -35,7 +35,7 @@
         <kotlin.version>2.0.21</kotlin.version>
         <com.jsoizo.version>1.10.0</com.jsoizo.version>
 
-        <junit-jupiter-api.version>5.11.2</junit-jupiter-api.version>
+        <junit-jupiter-api.version>5.11.3</junit-jupiter-api.version>
         <omni-coveragereporter-maven-plugin.version>0.4.4</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <arrow.version>1.2.4</arrow.version>
