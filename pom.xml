@@ -29,7 +29,7 @@
         <native-maven-plugin.version>0.10.3</native-maven-plugin.version>
 
         <spring-boot-maven-plugin.version>3.4.0</spring-boot-maven-plugin.version>
-        <owasp.esapi>2.5.5.0</owasp.esapi>
+        <owasp.esapi>2.6.0.0</owasp.esapi>
 
         <openpdf.version>2.0.3</openpdf.version>
         <kotlin.version>2.0.21</kotlin.version>
