@@ -156,7 +156,7 @@ class CalculatorDao(
 
     private fun Segment?.notIncluded(): Boolean = notIncluded.firstOrNone { not ->
         this?.station?.contains(not) == true || this?.destination?.contains(not) == true
-    }.isNotEmpty()
+    }.isSome()
 
     companion object {
         private val logger = object {
