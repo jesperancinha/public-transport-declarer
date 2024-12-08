@@ -1,6 +1,6 @@
 package org.jesperancinha.ptd.parsers
 
-import arrow.core.continuations.nullable
+import arrow.core.raise.nullable
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.lowagie.text.pdf.PdfReader
 import com.lowagie.text.pdf.parser.PdfTextExtractor
@@ -128,7 +128,7 @@ class OVPublicTransporParser : IPublicTransportParser {
         currency = EUR
     )
 
-    fun createDataObject(segmentString: String) = nullable.eager {
+    fun createDataObject(segmentString: String) = nullable {
         Segment(
             dateTime = parseDateTime(segmentString).bind(),
             destination = parseCompany(segmentString).bind(),
