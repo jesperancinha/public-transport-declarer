@@ -28,14 +28,14 @@
         <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
         <native-maven-plugin.version>0.10.4</native-maven-plugin.version>
 
-        <spring-boot-maven-plugin.version>3.4.0</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>3.4.1</spring-boot-maven-plugin.version>
         <owasp.esapi>2.6.0.0</owasp.esapi>
 
         <openpdf.version>2.0.3</openpdf.version>
         <kotlin.version>2.1.0</kotlin.version>
         <com.jsoizo.version>1.10.0</com.jsoizo.version>
 
-        <junit-jupiter-api.version>5.11.3</junit-jupiter-api.version>
+        <junit-jupiter-api.version>5.11.4</junit-jupiter-api.version>
         <omni-coveragereporter-maven-plugin.version>0.4.4</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <arrow.version>2.0.0</arrow.version>
