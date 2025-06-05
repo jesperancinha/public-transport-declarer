@@ -25,7 +25,7 @@
         <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
         <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
-        <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
         <native-maven-plugin.version>0.10.6</native-maven-plugin.version>
 
         <spring-boot-maven-plugin.version>3.5.0</spring-boot-maven-plugin.version>
