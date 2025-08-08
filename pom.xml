@@ -31,7 +31,7 @@
         <spring-boot-maven-plugin.version>3.5.4</spring-boot-maven-plugin.version>
         <owasp.esapi>2.7.0.0</owasp.esapi>
 
-        <openpdf.version>2.2.4</openpdf.version>
+        <openpdf.version>2.4.0</openpdf.version>
         <kotlin.version>2.2.0</kotlin.version>
         <com.jsoizo.version>1.10.0</com.jsoizo.version>
 
