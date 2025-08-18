@@ -1,8 +1,8 @@
 package org.jesperancinha.ptd
 
-import com.lowagie.text.Document
-import com.lowagie.text.pdf.PdfReader
-import com.lowagie.text.pdf.parser.PdfTextExtractor
+import org.openpdf.text.Document
+import org.openpdf.text.pdf.PdfReader
+import org.openpdf.text.pdf.parser.PdfTextExtractor
 import java.io.File
 
 //class Dummy

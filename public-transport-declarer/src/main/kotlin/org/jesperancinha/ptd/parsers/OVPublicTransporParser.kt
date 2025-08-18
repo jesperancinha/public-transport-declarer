@@ -2,8 +2,8 @@ package org.jesperancinha.ptd.parsers
 
 import arrow.core.raise.nullable
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import com.lowagie.text.pdf.PdfReader
-import com.lowagie.text.pdf.parser.PdfTextExtractor
+import org.openpdf.text.pdf.PdfReader
+import org.openpdf.text.pdf.parser.PdfTextExtractor
 import org.jesperancinha.ptd.domain.CheckInOut.*
 import org.jesperancinha.ptd.domain.Currency.EUR
 import org.jesperancinha.ptd.domain.Segment
