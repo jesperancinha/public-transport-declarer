@@ -18,7 +18,7 @@
     <properties>
         <java.version>25</java.version>
         <maven.compiler>3.5.1</maven.compiler>
-        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
