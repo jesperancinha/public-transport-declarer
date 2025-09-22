@@ -9,7 +9,7 @@
     <name>Public Transport Declarer :: pdf-native-test</name>
 
     <properties>
-        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
         <native-maven-plugin.version>0.11.0</native-maven-plugin.version>
     </properties>
 
