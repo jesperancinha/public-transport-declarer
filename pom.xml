@@ -23,7 +23,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
-        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
         <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
         <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
         <native-maven-plugin.version>0.11.1</native-maven-plugin.version>
@@ -35,7 +35,7 @@
         <kotlin.version>2.2.20</kotlin.version>
         <com.jsoizo.version>1.10.0</com.jsoizo.version>
 
-        <junit-jupiter-api.version>5.13.4</junit-jupiter-api.version>
+        <junit-jupiter-api.version>6.0.0</junit-jupiter-api.version>
         <omni-coveragereporter-maven-plugin.version>0.4.5</omni-coveragereporter-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <arrow.version>2.1.2</arrow.version>
