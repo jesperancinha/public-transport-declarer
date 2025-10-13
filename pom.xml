@@ -37,7 +37,7 @@
 
         <junit-jupiter-api.version>6.0.0</junit-jupiter-api.version>
         <omni-coveragereporter-maven-plugin.version>0.4.5</omni-coveragereporter-maven-plugin.version>
-        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <arrow.version>2.1.2</arrow.version>
         <kotest.version>4.0.7</kotest.version>
         <kotest-assertions.version>6.0.3</kotest-assertions.version>
