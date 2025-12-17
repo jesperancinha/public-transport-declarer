@@ -32,7 +32,7 @@
         <owasp.esapi>2.7.0.0</owasp.esapi>
 
         <openpdf.version>3.0.0</openpdf.version>
-        <kotlin.version>2.2.21</kotlin.version>
+        <kotlin.version>2.3.0</kotlin.version>
         <com.jsoizo.version>1.10.0</com.jsoizo.version>
 
         <junit-jupiter-api.version>6.0.1</junit-jupiter-api.version>
