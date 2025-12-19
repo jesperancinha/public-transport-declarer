@@ -28,7 +28,7 @@
         <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
         <native-maven-plugin.version>0.11.3</native-maven-plugin.version>
 
-        <spring-boot-maven-plugin.version>4.0.0</spring-boot-maven-plugin.version>
+        <spring-boot-maven-plugin.version>4.0.1</spring-boot-maven-plugin.version>
         <owasp.esapi>2.7.0.0</owasp.esapi>
 
         <openpdf.version>3.0.0</openpdf.version>
