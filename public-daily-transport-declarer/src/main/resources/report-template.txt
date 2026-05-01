@@ -1,4 +1,8 @@
-Journey from {{checkInStation}} to {{checkOutStation}} by {{transportType}}.
-Check-in: {{checkInTime}}
-Check-out: {{checkOutTime}}
-Cost: {{cost}}
+De terugreis naar het werk bevat de volgende routes:
+
+---journeys
+Vanaf {{checkInStation}} om {{checkInTime}} tot {{checkOutStation}} om {{checkOutTime}} met de {{transportType}} heeft {{cost}} gekost en {{duration}}.
+---
+
+De totale kosten bedragen {{totalCost}}, waarbij de wandeltijd tussen Gouda Centraal en het kantoor buiten beschouwing is gelaten.
+De totale reistijd van {{totalDuration}} is eveneens aangemerkt als werktijd tijdens de reis.
