@@ -9,6 +9,8 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 
+private val HOUR_MINUTE_REGEX = Regex("[0-9]{2}:[0-9]{2}")
+
 class DailyPdfParser {
     private val datePattern = DateTimeFormatter.ofPattern("dd-MM-yyyy")
     private val timePattern = Pattern.compile("[0-9]{2}:[0-9]{2}")
@@ -19,7 +21,7 @@ class DailyPdfParser {
         val reader = PdfReader(fileUrl)
         val extractor = PdfTextExtractor(reader)
         val text = (1..reader.numberOfPages).joinToString("\n") { extractor.getTextFromPage(it) }
-        
+
         return text.split("\n")
             .filter { isTransportLine(it) }
             .flatMap { parseLine(it) }
@@ -47,7 +49,7 @@ class DailyPdfParser {
         if (parts.size < 2) return emptyList()
 
         val date = LocalDate.parse(parts[0], datePattern)
-        
+
         val costMatcher = costPattern.matcher(line)
         val cost = if (costMatcher.find()) {
             BigDecimal(costMatcher.group(2).replace(",", ".").trim())
@@ -56,31 +58,20 @@ class DailyPdfParser {
         }
 
         val type = when {
-            line.contains("Tram", ignoreCase = true) ||  line.contains("Qbuzz", ignoreCase = true)  -> TransportType.TRAM
+            line.contains("Tram", ignoreCase = true) || line.contains("Qbuzz", ignoreCase = true) || line.contains("Connexxion", ignoreCase = true) -> TransportType.TRAM
             line.contains("Bus", ignoreCase = true) -> TransportType.BUS
-            line.contains("Trein", ignoreCase = true) || line.contains("NS", ignoreCase = true) || line.contains("Arriva", ignoreCase = true) -> TransportType.TRAIN
+            line.contains("Trein", ignoreCase = true) || line.contains(
+                "NS",
+                ignoreCase = true
+            ) || line.contains("Arriva", ignoreCase = true) -> TransportType.TRAIN
+
             else -> TransportType.OTHER
         }
 
-        // Search for times in the line
         val times = mutableListOf<String>()
         val timeMatcher = timePattern.matcher(line)
         while (timeMatcher.find()) {
             times.add(timeMatcher.group())
-        }
-
-        if (times.size >= 2) {
-            // Likely one line with both check-in and check-out
-            // Format: Date Company Start Time End Station Cost Check-uit
-            // Actually in the PDF: 01-12-2022 Qbuzz Nieuwegein, Nieuwegein City08:17Utrecht, CS Jaarbeursplein€ 2,64Check-uit
-            // Wait, the time is ATTACHED to the start station or end station in the extractor?
-            // "Nieuwegein City08:17Utrecht"
-            
-            // Let's re-examine: 01-12-2022 Qbuzz Nieuwegein, Nieuwegein City08:17Utrecht, CS Jaarbeursplein€ 2,64Check-uit
-            // Time 08:17 is there.
-            
-            // If there's only one time but it's a "Check-uit", it might be that the check-in time is missing or we need to infer it.
-            // But wait, "Check-uit" line usually means the cost is for the WHOLE journey.
         }
 
         val isCheckOut = line.contains("Check-uit", ignoreCase = true)
@@ -93,13 +84,6 @@ class DailyPdfParser {
                 date.atStartOfDay()
             }
 
-            val checkInDateTime = if (times.size >= 1) {
-                LocalDateTime.parse("${parts[0]} ${times.first()}", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
-            } else {
-                dateTime.minusMinutes(30)
-            }
-
-            segments.add(Segment(checkInDateTime, departure, type, CheckInOut.CHECKIN, BigDecimal.ZERO))
             segments.add(Segment(dateTime, destination, type, CheckInOut.CHECKOUT, cost))
         } else if (line.contains("Check-in", ignoreCase = true)) {
             val dateTime = if (times.isNotEmpty()) {
@@ -107,10 +91,27 @@ class DailyPdfParser {
             } else {
                 date.atStartOfDay()
             }
-            segments.add(Segment(dateTime, extractStation(line), type, CheckInOut.CHECKIN, cost))
+            segments.add(Segment(dateTime, extractCheckInStation(line), type, CheckInOut.CHECKIN, cost))
         }
 
         return segments
+    }
+
+    private fun extractCheckInStation(line: String): String {
+        val timeMatch = HOUR_MINUTE_REGEX.find(line)
+        if (timeMatch != null) {
+            val timeIndex = timeMatch.range.first
+            val beforeTime = line.substring(0, timeIndex).trim()
+            val parts = beforeTime.split(Pattern.compile("\\s+"))
+            if (parts.size >= 2) {
+                return parts.drop(2).joinToString(" ").trim()
+                    .replace(transportTypePattern.pattern().toRegex(), "").trim()
+            }
+            val afterTime = (line.substring(timeIndex + 5).trim() as String).replace("Check-in", "").split(" ").drop(1)
+                .joinToString(" ")
+            return afterTime.split("Reizen")[0].trim()
+        }
+        return "Unknown"
     }
 
     private fun extractStation(line: String): String {
@@ -167,31 +168,33 @@ class DailyPdfParser {
 fun List<Segment>.toJourneys(): List<Journey> {
     val journeys = mutableListOf<Journey>()
     val sortedSegments = this.sortedBy { it.dateTime }
-    
+
     val pendingCheckIns = mutableListOf<Segment>()
-    
+
     for (segment in sortedSegments) {
         if (segment.check == CheckInOut.CHECKIN) {
             pendingCheckIns.add(segment)
         } else {
             // It's a Check-out.
-            val lastCheckIn = pendingCheckIns.lastOrNull { it.type == segment.type && it.dateTime.toLocalDate() == segment.dateTime.toLocalDate() }
+            val lastCheckIn =
+                pendingCheckIns.lastOrNull { it.type == segment.type && it.dateTime.toLocalDate() == segment.dateTime.toLocalDate() }
             if (lastCheckIn != null) {
                 pendingCheckIns.remove(lastCheckIn)
                 journeys.add(Journey(lastCheckIn, segment, segment.type))
             } else {
                 // Check-out without a corresponding Check-in line in the PDF.
                 // Create a dummy check-in
-                val dummyCheckIn = Segment(segment.dateTime.minusMinutes(30), "Unknown", segment.type, CheckInOut.CHECKIN, BigDecimal.ZERO)
+                val dummyCheckIn = Segment(
+                    segment.dateTime.minusMinutes(30),
+                    "Unknown",
+                    segment.type,
+                    CheckInOut.CHECKIN,
+                    BigDecimal.ZERO
+                )
                 journeys.add(Journey(dummyCheckIn, segment, segment.type))
             }
         }
     }
-    
-    // Remaining pending check-ins are incomplete journeys
-    for (incomplete in pendingCheckIns) {
-        journeys.add(Journey(incomplete, null, incomplete.type))
-    }
-    
     return journeys.sortedBy { it.checkIn.dateTime }
+
 }

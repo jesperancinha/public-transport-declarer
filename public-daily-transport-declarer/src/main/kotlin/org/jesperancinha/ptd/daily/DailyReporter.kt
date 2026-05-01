@@ -25,13 +25,14 @@ class DailyReporter {
         val reportContent = if (matchResult != null) {
             val journeyTemplate = matchResult.groupValues[1].trim()
             val journeyReports = journeys.filter { it.isComplete }.joinToString("\n") { journey ->
+                val journeyCost = journey.checkIn.cost + (journey.checkOut?.cost ?: BigDecimal.ZERO)
                 journeyTemplate
                     .replace("{{checkInStation}}", journey.checkIn.station)
                     .replace("{{checkOutStation}}", journey.checkOut?.station ?: "Unknown")
                     .replace("{{transportType}}", journey.type.name)
                     .replace("{{checkInTime}}", journey.checkIn.dateTime.format(dateTimeFormatter).split(" ").last())
                     .replace("{{checkOutTime}}", journey.checkOut?.dateTime?.format(dateTimeFormatter)?.split(" ")?.last() ?: "N/A")
-                    .replace("{{cost}}", (journey.checkIn.cost + (journey.checkOut?.cost ?: BigDecimal.ZERO)).toString())
+                    .replace("{{cost}}", String.format("%.2f", journeyCost))
                     .replace("{{duration}}", journey.duration.toDurationString())
             }
             
@@ -39,7 +40,7 @@ class DailyReporter {
             val totalDuration = journeys.filter { it.isComplete }.fold(java.time.Duration.ZERO) { acc, journey -> acc.plus(journey.duration) }
             
             template.replace(journeysSectionRegex, journeyReports)
-                .replace("{{totalCost}}", totalCost.toString())
+                .replace("{{totalCost}}", String.format("%.2f", totalCost))
                 .replace("{{totalDuration}}", totalDuration.toDurationString())
         } else {
             "Template Error: journeys section not found"

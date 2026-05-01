@@ -8,7 +8,7 @@ import java.io.File
 //class Dummy
 
 fun main() {
-    val reader = PdfReader(File("declaratieoverzicht_22122022110627.pdf").toURI().toURL())
+    val reader = PdfReader(File("declaratieoverzicht_test.pdf").toURI().toURL())
     println(reader.fileLength)
     println(reader.info)
     println(reader.isEncrypted)

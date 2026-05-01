@@ -41,6 +41,7 @@ class DailyPublicTransporterCommand : Callable<Int> {
                 
                 val segments = parser.parse(pdfFile.toURI().toURL())
                 val journeys = segments.toJourneys()
+                println("Found ${segments.size} segments and ${journeys.size} journeys (${journeys.count { it.isComplete }} complete).")
                 val totalMatches = validator.validate(pdfFile.toURI().toURL(), journeys)
                 
                 reporter.generateReport(subfolder, journeys, totalMatches)

@@ -19,7 +19,7 @@ class PublicTransporterLauncherTest {
     @Test
     fun `should use the route filter correctly for PDF files`() {
         val resourceOrigin =
-            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_22122022110627.pdf")
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_test.pdf")
         val routes =
             OVPublicTransporParserTest::class.java.getResource("/routes.txt")
         resourceOrigin.shouldNotBeNull()

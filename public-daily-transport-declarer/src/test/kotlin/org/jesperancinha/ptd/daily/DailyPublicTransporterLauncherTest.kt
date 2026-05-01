@@ -13,7 +13,9 @@ class DailyPublicTransporterLauncherTest {
         val resourcePdf = javaClass.getResource("/declaratieoverzicht_test.pdf")
         val tempDir = Files.createTempDirectory("ptd-test").toFile()
         val pdfFile = File(tempDir, "test.pdf")
-        Files.copy(resourcePdf.openStream(), pdfFile.toPath())
+        if (resourcePdf != null) {
+            Files.copy(resourcePdf.openStream(), pdfFile.toPath())
+        }
 
         val command = DailyPublicTransporterCommand()
         command.inputFolder = tempDir.absolutePath
