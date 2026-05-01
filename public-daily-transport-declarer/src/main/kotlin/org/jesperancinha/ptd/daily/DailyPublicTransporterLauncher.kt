@@ -1,0 +1,61 @@
+package org.jesperancinha.ptd.daily
+
+import picocli.CommandLine
+import picocli.CommandLine.Command
+import picocli.CommandLine.Option
+import java.io.File
+import java.util.concurrent.Callable
+import kotlin.system.exitProcess
+
+@Command(
+    name = "public-daily-transport-declarer",
+    mixinStandardHelpOptions = true,
+    version = ["1.0.0"],
+    description = ["Processes PDF transport files in a folder and generates reports per file."]
+)
+class DailyPublicTransporterCommand : Callable<Int> {
+
+    @Option(
+        names = ["-i", "--input"],
+        description = ["The input folder containing PDF files"],
+        required = true
+    )
+    lateinit var inputFolder: String
+
+    private val parser = DailyPdfParser()
+    private val validator = DailyPdfValidator()
+    private val reporter = DailyReporter()
+
+    override fun call(): Int {
+        val folder = File(inputFolder)
+        if (!folder.isDirectory) {
+            println("Error: $inputFolder is not a directory.")
+            return 1
+        }
+
+        folder.listFiles { _, name -> name.lowercase().endsWith(".pdf") }?.forEach { pdfFile ->
+            println("Processing ${pdfFile.name}...")
+            try {
+                val subfolderName = pdfFile.nameWithoutExtension
+                val subfolder = File(folder, subfolderName)
+                
+                val segments = parser.parse(pdfFile.toURI().toURL())
+                val journeys = segments.toJourneys()
+                val totalMatches = validator.validate(pdfFile.toURI().toURL(), journeys)
+                
+                reporter.generateReport(subfolder, journeys, totalMatches)
+                println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
+            } catch (e: Exception) {
+                println("Error processing ${pdfFile.name}: ${e.message}")
+                e.printStackTrace()
+            }
+        } ?: println("No PDF files found in $inputFolder")
+
+        return 0
+    }
+}
+
+fun main(args: Array<String>) {
+    val exitCode = CommandLine(DailyPublicTransporterCommand()).execute(*args)
+    exitProcess(exitCode)
+}

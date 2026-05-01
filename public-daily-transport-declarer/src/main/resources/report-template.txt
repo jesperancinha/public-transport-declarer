@@ -1,0 +1,4 @@
+Journey from {{checkInStation}} to {{checkOutStation}} by {{transportType}}.
+Check-in: {{checkInTime}}
+Check-out: {{checkOutTime}}
+Cost: {{cost}}
