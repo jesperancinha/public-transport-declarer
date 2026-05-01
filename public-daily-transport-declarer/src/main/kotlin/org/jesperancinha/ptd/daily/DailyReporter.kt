@@ -17,25 +17,39 @@ class DailyReporter {
         val errorFile = File(folder, "error.txt")
         val logFile = File(folder, "log.txt")
 
-        val reportContent = StringBuilder()
         val errorContent = StringBuilder()
 
-        journeys.forEach { journey ->
-            if (journey.isComplete) {
-                var journeyText = template
+        val journeysSectionRegex = Regex("---journeys([\\s\\S]*?)---")
+        val matchResult = journeysSectionRegex.find(template)
+        
+        val reportContent = if (matchResult != null) {
+            val journeyTemplate = matchResult.groupValues[1].trim()
+            val journeyReports = journeys.filter { it.isComplete }.joinToString("\n") { journey ->
+                journeyTemplate
                     .replace("{{checkInStation}}", journey.checkIn.station)
                     .replace("{{checkOutStation}}", journey.checkOut?.station ?: "Unknown")
                     .replace("{{transportType}}", journey.type.name)
-                    .replace("{{checkInTime}}", journey.checkIn.dateTime.format(dateTimeFormatter))
-                    .replace("{{checkOutTime}}", journey.checkOut?.dateTime?.format(dateTimeFormatter) ?: "N/A")
+                    .replace("{{checkInTime}}", journey.checkIn.dateTime.format(dateTimeFormatter).split(" ").last())
+                    .replace("{{checkOutTime}}", journey.checkOut?.dateTime?.format(dateTimeFormatter)?.split(" ")?.last() ?: "N/A")
                     .replace("{{cost}}", (journey.checkIn.cost + (journey.checkOut?.cost ?: BigDecimal.ZERO)).toString())
-                reportContent.append(journeyText).append("\n---\n")
-            } else {
-                errorContent.append("Incomplete journey: Check-in at ${journey.checkIn.station} on ${journey.checkIn.dateTime.format(dateTimeFormatter)} by ${journey.type.name}\n")
+                    .replace("{{duration}}", journey.duration.toDurationString())
             }
+            
+            val totalCost = journeys.filter { it.isComplete }.sumOf { it.checkIn.cost + (it.checkOut?.cost ?: BigDecimal.ZERO) }
+            val totalDuration = journeys.filter { it.isComplete }.fold(java.time.Duration.ZERO) { acc, journey -> acc.plus(journey.duration) }
+            
+            template.replace(journeysSectionRegex, journeyReports)
+                .replace("{{totalCost}}", totalCost.toString())
+                .replace("{{totalDuration}}", totalDuration.toDurationString())
+        } else {
+            "Template Error: journeys section not found"
         }
 
-        reportFile.writeText(reportContent.toString())
+        journeys.filter { !it.isComplete }.forEach { journey ->
+            errorContent.append("Incomplete journey: Check-in at ${journey.checkIn.station} on ${journey.checkIn.dateTime.format(dateTimeFormatter)} by ${journey.type.name}\n")
+        }
+
+        reportFile.writeText(reportContent)
         errorFile.writeText(errorContent.toString())
         
         val logContent = if (totalMatches) {

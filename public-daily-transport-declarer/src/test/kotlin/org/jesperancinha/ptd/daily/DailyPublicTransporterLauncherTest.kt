@@ -10,7 +10,7 @@ class DailyPublicTransporterLauncherTest {
 
     @Test
     fun `should process pdf files and create subfolders with reports`() {
-        val resourcePdf = javaClass.getResource("/declaratieoverzicht_22122022110627.pdf")
+        val resourcePdf = javaClass.getResource("/declaratieoverzicht_test.pdf")
         val tempDir = Files.createTempDirectory("ptd-test").toFile()
         val pdfFile = File(tempDir, "test.pdf")
         Files.copy(resourcePdf.openStream(), pdfFile.toPath())
