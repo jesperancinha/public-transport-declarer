@@ -5,4 +5,4 @@ Vanaf {{checkInStation}} om {{checkInTime}} tot {{checkOutStation}} om {{checkOu
 ---
 
 De totale kosten bedragen {{totalCost}} EUROS, waarbij de wandeltijd tussen Gouda Centraal en het kantoor buiten beschouwing is gelaten.
-De totale reistijd van {{totalDuration}} is eveneens aangemerkt als werktijd tijdens de reis.
+De reistijd in het openbaar vervoer (exclusief overstappen) van {{totalDuration}} is eveneens als werktijd tijdens de reis aangemerkt.

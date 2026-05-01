@@ -28,7 +28,7 @@ data class Journey(
     val isComplete: Boolean = checkOut != null
 ) {
     val duration: Duration
-        get() = if (checkIn.dateTime != null && checkOut?.dateTime != null) {
+        get() = if (checkOut?.dateTime != null) {
             Duration.between(checkIn.dateTime, checkOut.dateTime)
         } else {
             Duration.ZERO
