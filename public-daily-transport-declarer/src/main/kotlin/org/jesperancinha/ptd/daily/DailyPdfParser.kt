@@ -40,7 +40,7 @@ class DailyPdfParser {
         }
     }
 
-    private fun parseLine(line: String): List<Segment> {
+    internal fun parseLine(line: String): List<Segment> {
         val segments = mutableListOf<Segment>()
         val trimmed = line.trim()
         val parts = trimmed.split(Pattern.compile("\\s+"))
@@ -84,20 +84,23 @@ class DailyPdfParser {
         }
 
         val isCheckOut = line.contains("Check-uit", ignoreCase = true)
-        
+
         if (isCheckOut) {
-            // We'll treat this as a single "Journey" segment for now if it contains a cost.
-            // In this specific PDF format, one line = one journey (check-in to check-out).
-            // So we can create two segments: one for check-in (at unknown time/station) and one for check-out.
-            // Or just create one segment and handle it specially.
-            
+            val (departure, destination) = extractStations(line)
             val dateTime = if (times.isNotEmpty()) {
-                LocalDateTime.parse("${parts[0]} ${times[0]}", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
+                LocalDateTime.parse("${parts[0]} ${times.last()}", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
             } else {
                 date.atStartOfDay()
             }
-            
-            segments.add(Segment(dateTime, extractStation(line), type, CheckInOut.CHECKOUT, cost))
+
+            val checkInDateTime = if (times.size >= 1) {
+                LocalDateTime.parse("${parts[0]} ${times.first()}", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
+            } else {
+                dateTime.minusMinutes(30)
+            }
+
+            segments.add(Segment(checkInDateTime, departure, type, CheckInOut.CHECKIN, BigDecimal.ZERO))
+            segments.add(Segment(dateTime, destination, type, CheckInOut.CHECKOUT, cost))
         } else if (line.contains("Check-in", ignoreCase = true)) {
             val dateTime = if (times.isNotEmpty()) {
                 LocalDateTime.parse("${parts[0]} ${times[0]}", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
@@ -111,6 +114,10 @@ class DailyPdfParser {
     }
 
     private fun extractStation(line: String): String {
+        return extractStations(line).second
+    }
+
+    private fun extractStations(line: String): Pair<String, String> {
         // Find "€"
         val euroIndex = line.indexOf("€")
         if (euroIndex != -1) {
@@ -118,26 +125,42 @@ class DailyPdfParser {
             val beforeEuro = line.substring(0, euroIndex).trim()
             // The station is usually after the company name and maybe after a time
             val timeMatcher = timePattern.matcher(beforeEuro)
-            var lastTimeEnd = -1
+            val times = mutableListOf<Pair<Int, Int>>()
             while (timeMatcher.find()) {
-                lastTimeEnd = timeMatcher.end()
+                times.add(timeMatcher.start() to timeMatcher.end())
             }
-            
-            val stationPart = if (lastTimeEnd != -1) {
-                beforeEuro.substring(lastTimeEnd).trim()
+
+            if (times.isNotEmpty()) {
+                val lastTime = times.last()
+                val destination = beforeEuro.substring(lastTime.second).trim()
+                    .replace(transportTypePattern.pattern().toRegex(), "").trim()
+
+                val departure = if (times.size >= 1) {
+                    val firstTime = times.first()
+                    // Vertrek is before the first time found, but after date and company
+                    val beforeFirstTime = beforeEuro.substring(0, firstTime.first).trim()
+                    val parts = beforeFirstTime.split(Pattern.compile("\\s+"))
+                    if (parts.size >= 2) {
+                        parts.drop(2).joinToString(" ").trim()
+                            .replace(transportTypePattern.pattern().toRegex(), "").trim()
+                    } else {
+                        beforeFirstTime
+                    }
+                } else "Unknown"
+
+                return departure to destination
             } else {
                 // If no time found, try skipping the date and company
                 val parts = beforeEuro.split(Pattern.compile("\\s+"))
-                if (parts.size > 2) {
+                val stationPart = if (parts.size > 2) {
                     parts.drop(2).joinToString(" ")
                 } else {
                     beforeEuro
                 }
+                return "Unknown" to stationPart.replace(transportTypePattern.pattern().toRegex(), "").trim()
             }
-            // Clean up station part from any remaining info like transport type if it's there
-            return stationPart.replace(transportTypePattern.pattern().toRegex(), "").trim()
         }
-        return "Unknown"
+        return "Unknown" to "Unknown"
     }
 }
 
