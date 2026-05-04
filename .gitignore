@@ -66,6 +66,7 @@ declaratieoverzicht_28022023190418.pdf
 declaratieoverzicht_test
 public-daily-transport-declarer/reports/*.pdf
 public-daily-transport-declarer/reports/**/*.txt
+public-daily-transport-declarer/reports/**/*.pdf
 # Must be in
 !public-transport-declarer/generateReport.sh
 
