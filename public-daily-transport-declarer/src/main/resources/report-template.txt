@@ -1,8 +1,17 @@
 De terugreis naar het werk bevat de volgende routes:
 
+Complete reis:
 ---journeys
-Vanaf {{checkInStation}} om {{checkInTime}} tot {{checkOutStation}} om {{checkOutTime}} met de {{transportType}} heeft {{cost}} gekost en {{duration}}.
+Vanaf {{checkInStation}} om {{checkInTime}} tot {{checkOutStation}} om {{checkOutTime}} met de {{transportType}} heeft {{cost}} EUR gekost en {{duration}} geduurd.
 ---
 
-De totale kosten bedragen {{totalCost}} EUROS, waarbij de wandeltijd tussen Gouda Centraal en het kantoor buiten beschouwing is gelaten.
+---incomplete-title
+Checkout gemist:
+---
+---incomplete
+Vanaf {{checkInStationInc}} om {{checkInTimeInc}} heeft {{costInc}} EUR gekost.
+---
+
+De totale kosten bedragen {{totalCost}} EUR, waarbij de wandeltijd tussen Gouda Centraal en het kantoor buiten beschouwing is gelaten.
 De reistijd in het openbaar vervoer (exclusief overstappen) van {{totalDuration}} is eveneens als werktijd tijdens de reis aangemerkt.
+(* reizen korter dan 5 minuten worden vaak opgenomen vanwege administratieve correcties, waaronder check-in/check-out-correcties, overstappen door dienstregelingwijzigingen en spitstijdcorrecties. Dit zijn de meest voorkomende redenen voor deze transacties.)

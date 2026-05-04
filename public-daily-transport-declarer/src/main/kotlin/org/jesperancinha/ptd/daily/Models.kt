@@ -13,7 +13,7 @@ data class Segment(
     val station: String,
     val type: TransportType,
     val check: CheckInOut,
-    val cost: BigDecimal,
+    val cost: BigDecimal = BigDecimal.ZERO,
     val currency: String = "EUR"
 )
 
@@ -34,6 +34,11 @@ data class Journey(
             Duration.ZERO
         }
 }
+
+data class DailyJourney(
+    val completeJourneys: List<Journey>,
+    val missedCheckoutSegments: List<Segment>,
+)
 
 fun Duration.toDurationString(): String {
     val hours = toHours()

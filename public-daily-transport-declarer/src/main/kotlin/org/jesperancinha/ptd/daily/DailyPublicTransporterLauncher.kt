@@ -40,11 +40,16 @@ class DailyPublicTransporterCommand : Callable<Int> {
                 val subfolder = File(folder, subfolderName)
                 
                 val segments = parser.parse(pdfFile.toURI().toURL())
-                val journeys = segments.toJourneys()
-                println("Found ${segments.size} segments and ${journeys.size} journeys (${journeys.count { it.isComplete }} complete).")
-                val totalMatches = validator.validate(pdfFile.toURI().toURL(), journeys)
+                val dailyJourneys = segments.toDailyJourneys()
+                val completeJourneys = dailyJourneys.completeJourneys
+                val incompleteSegments = dailyJourneys.missedCheckoutSegments
+                println("Found ${segments.size} segments:")
+                println("- ${completeJourneys.size} journeys.")
+                println("- ${completeJourneys.count { it.isComplete }} complete.")
+                println("- ${incompleteSegments.count()} missing checkouts.")
+                val totalMatches = validator.validate(pdfFile.toURI().toURL(), completeJourneys)
                 
-                reporter.generateReport(subfolder, journeys, totalMatches)
+                reporter.generateReport(subfolder, dailyJourneys, totalMatches)
                 println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
             } catch (e: Exception) {
                 println("Error processing ${pdfFile.name}: ${e.message}")

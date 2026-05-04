@@ -107,7 +107,7 @@ class DailyPdfParser {
                 return parts.drop(2).joinToString(" ").trim()
                     .replace(transportTypePattern.pattern().toRegex(), "").trim()
             }
-            val afterTime = (line.substring(timeIndex + 5).trim() as String).replace("Check-in", "").split(" ").drop(1)
+            val afterTime = line.substring(timeIndex + 5).trim().replace("Check-in", "").split(" ").drop(1)
                 .joinToString(" ")
             return afterTime.split("Reizen")[0].trim()
         }
@@ -165,7 +165,7 @@ class DailyPdfParser {
     }
 }
 
-fun List<Segment>.toJourneys(): List<Journey> {
+fun List<Segment>.toDailyJourneys(): DailyJourney {
     val journeys = mutableListOf<Journey>()
     val sortedSegments = this.sortedBy { it.dateTime }
 
@@ -195,6 +195,9 @@ fun List<Segment>.toJourneys(): List<Journey> {
             }
         }
     }
-    return journeys.sortedBy { it.checkIn.dateTime }
+    return DailyJourney(
+        completeJourneys = journeys.sortedBy { it.checkIn.dateTime },
+        missedCheckoutSegments = pendingCheckIns
+    )
 
 }

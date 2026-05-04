@@ -17,13 +17,14 @@ class DailyPdfParserMatchTest {
             Segment(now.plusMinutes(30), "Station C", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("2.00"))
         )
         
-        val journeys = segments.toJourneys()
-        
-        journeys shouldHaveSize 2
-        journeys[0].checkIn.station shouldBe "Station A"
-        journeys[0].checkOut?.station shouldBe "Station B"
-        journeys[1].checkIn.station shouldBe "Station B"
-        journeys[1].checkOut?.station shouldBe "Station C"
+        val journeys = segments.toDailyJourneys()
+
+        val completeJourneys = journeys.completeJourneys
+        completeJourneys shouldHaveSize 2
+        completeJourneys[0].checkIn.station shouldBe "Station A"
+        completeJourneys[0].checkOut?.station shouldBe "Station B"
+        completeJourneys[1].checkIn.station shouldBe "Station B"
+        completeJourneys[1].checkOut?.station shouldBe "Station C"
     }
 
     @Test
@@ -32,12 +33,13 @@ class DailyPdfParserMatchTest {
         val segments = listOf(
             Segment(now, "Station B", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("1.50"))
         )
-        
-        val journeys = segments.toJourneys()
-        
-        journeys shouldHaveSize 1
-        journeys[0].checkIn.station shouldBe "Unknown"
-        journeys[0].checkOut?.station shouldBe "Station B"
+
+        val journeys = segments.toDailyJourneys()
+
+        val completeJourneys = journeys.completeJourneys
+        completeJourneys shouldHaveSize 1
+        completeJourneys[0].checkIn.station shouldBe "Unknown"
+        completeJourneys[0].checkOut?.station shouldBe "Station B"
     }
 
     @Test
@@ -71,15 +73,16 @@ class DailyPdfParserMatchTest {
             Segment(now.plusMinutes(10), "Station B", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("1.50")),
             Segment(now.plusMinutes(15), "Station Y", TransportType.BUS, CheckInOut.CHECKOUT, BigDecimal("2.00"))
         )
-        
-        val journeys = segments.toJourneys()
-        
-        journeys shouldHaveSize 2
+
+        val journeys = segments.toDailyJourneys()
+
+        val completeJourneys = journeys.completeJourneys
+        completeJourneys shouldHaveSize 2
         // They are sorted by check-in time
-        journeys[0].checkIn.station shouldBe "Station A"
-        journeys[0].type shouldBe TransportType.TRAM
-        journeys[1].checkIn.station shouldBe "Station X"
-        journeys[1].type shouldBe TransportType.BUS
+        completeJourneys[0].checkIn.station shouldBe "Station A"
+        completeJourneys[0].type shouldBe TransportType.TRAM
+        completeJourneys[1].checkIn.station shouldBe "Station X"
+        completeJourneys[1].type shouldBe TransportType.BUS
     }
 
     private infix fun <T> List<T>.shouldHaveSize(size: Int) {
