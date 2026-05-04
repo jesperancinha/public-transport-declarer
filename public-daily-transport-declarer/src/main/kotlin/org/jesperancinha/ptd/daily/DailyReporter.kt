@@ -9,6 +9,7 @@ import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.time.Duration
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class DailyReporter {
     private val template = this::class.java.getResource("/report-template.txt")?.readText()
@@ -63,6 +64,7 @@ class DailyReporter {
 
         val fullReport = reportContentWithJourneys.replace("{{totalCost}}", String.format("%.2f", totalCost))
             .replace("{{totalDuration}}", totalDuration.toDurationString())
+            .replace("{{date}}", journeys.first().checkIn.dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("nl", "NL"))))
             .replace("\n\n\n", "\n\n")
             .replace("\n\n\n", "\n\n")
             .replace("\n\n\n", "\n\n")

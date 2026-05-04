@@ -1,8 +1,10 @@
+Hieronder volgt een overzicht van de terugreis naar het werk op {{date}}:
+
 De terugreis naar het werk bevat de volgende routes:
 
 Complete reis:
 ---journeys
-Vanaf {{checkInStation}} om {{checkInTime}} tot {{checkOutStation}} om {{checkOutTime}} met de {{transportType}} heeft {{cost}} EUR gekost en {{duration}} geduurd.
+Vanaf {{checkInStation}} om {{checkInTime}} naar {{checkOutStation}} om {{checkOutTime}} met de {{transportType}} heeft {{cost}} EUR gekost en {{duration}} geduurd.
 ---
 
 ---incomplete-title
