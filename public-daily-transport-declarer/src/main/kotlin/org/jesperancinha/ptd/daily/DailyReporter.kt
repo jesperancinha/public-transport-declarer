@@ -1,6 +1,11 @@
 package org.jesperancinha.ptd.daily
 
+import org.openpdf.text.Document
+import org.openpdf.text.Font
+import org.openpdf.text.Paragraph
+import org.openpdf.text.pdf.PdfWriter
 import java.io.File
+import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.time.Duration
 import java.time.format.DateTimeFormatter
@@ -82,6 +87,7 @@ class DailyReporter {
         }
 
         reportFile.writeText(fullReport)
+        generatePDFReport(folder, fullReport)
         errorFile.writeText(errorContent.toString())
 
         val logContent = if (totalMatches) {
@@ -90,6 +96,18 @@ class DailyReporter {
             "WARNING: Total cost DOES NOT match the PDF total.\n"
         }
         logFile.writeText(logContent + "Processed ${journeys.size} journeys (${journeys.filter { it.isComplete }.size} complete, ${journeys.filter { !it.isComplete }.size} incomplete).\n")
+    }
+
+    private fun generatePDFReport(folder: File, fullReport: String) {
+        val pdfFile = File(folder, "report.pdf")
+        val document = Document()
+        PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+        document.open()
+        val font = Font(Font.HELVETICA, 12f)
+        fullReport.split("\n").forEach { line ->
+            document.add(Paragraph(line, font))
+        }
+        document.close()
     }
 
     private fun String.createContent(
