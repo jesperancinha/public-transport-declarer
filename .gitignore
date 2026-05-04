@@ -61,9 +61,12 @@ report.csv
 
 ## Reports to ignore
 declaratieoverzicht_30122022182530.pdf
-declaratieoverzicht_22122022110627.pdf
+declaratieoverzicht_test.pdf
 declaratieoverzicht_28022023190418.pdf
-
+declaratieoverzicht_test
+public-daily-transport-declarer/reports/*.pdf
+public-daily-transport-declarer/reports/**/*.txt
+public-daily-transport-declarer/reports/**/*.pdf
 # Must be in
 !public-transport-declarer/generateReport.sh
 
@@ -78,4 +81,5 @@ packagetmp.json
 pluginUpdatesOne.sh
 javaUpdatesOne.sh
 nodeUpdatesOne.sh
-
+dependabot.yml.bak
+.output.txt
