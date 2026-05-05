@@ -4,14 +4,14 @@ De terugreis naar het werk bevat de volgende routes:
 
 Complete reis:
 ---journeys
-- vanaf {{checkInStation}} om {{checkInTime}} naar {{checkOutStation}} om {{checkOutTime}} met de {{transportType}} heeft {{cost}} EUR gekost en {{duration}} geduurd.
+- vanaf {{checkInStation}} om {{checkInTime}} naar {{checkOutStation}} om {{checkOutTime}} met de {{transportType}}, heeft {{cost}} EUR gekost en {{duration}} geduurd.
 ---
 
 ---incomplete-title
 Checkout gemist:
 ---
 ---incomplete
-- vanaf {{checkInStationInc}} om {{checkInTimeInc}} heeft {{costInc}} EUR gekost.
+- vanaf {{checkInStationInc}} om {{checkInTimeInc}} met de {{transportTypeInc}}, heeft {{costInc}} EUR gekost.
 ---
 
 De totale kosten bedragen {{totalCost}} EUR, waarbij de wandeltijd tussen Gouda Centraal en het kantoor buiten beschouwing is gelaten.

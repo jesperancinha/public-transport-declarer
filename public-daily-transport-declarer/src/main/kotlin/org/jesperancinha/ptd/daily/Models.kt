@@ -5,7 +5,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 enum class TransportType(val nlName: String) {
-    TRAM_BUS("tram/bus"), TRAM("tram"), BUS("bus"), TRAIN("train"), OTHER("other")
+    TRAM_BUS("tram/bus"), TRAM("tram"), BUS("bus"), TRAIN("trein"), OTHER("other")
 }
 
 data class Segment(

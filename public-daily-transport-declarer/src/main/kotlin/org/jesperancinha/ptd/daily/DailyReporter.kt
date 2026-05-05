@@ -34,7 +34,7 @@ class DailyReporter {
                 this
                     .replace("{{checkInStation}}", journey.checkIn.station)
                     .replace("{{checkOutStation}}", journey.checkOut?.station ?: "Unknown")
-                    .replace("{{transportType}}", journey.type.name)
+                    .replace("{{transportType}}", journey.type.nlName)
                     .replace("{{checkInTime}}", journey.checkIn.dateTime.format(dateTimeFormatter).split(" ").last())
                     .replace(
                         "{{checkOutTime}}",
@@ -48,7 +48,7 @@ class DailyReporter {
                     val journeyCost = segment.cost
                     this
                         .replace("{{checkInStationInc}}", segment.station)
-                        .replace("{{transportTypeInc}}", segment.type.name)
+                        .replace("{{transportTypeInc}}", segment.type.nlName)
                         .replace("{{checkInTimeInc}}", segment.dateTime.format(dateTimeFormatter).split(" ").last())
                         .replace("{{costInc}}", String.format("%.2f", journeyCost))
                 }
