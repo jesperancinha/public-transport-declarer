@@ -11,10 +11,10 @@ class DailyPdfParserMatchTest {
     fun `should match check-in and check-out segments in order`() {
         val now = LocalDateTime.now()
         val segments = listOf(
-            Segment(now, "Station A", TransportType.TRAM, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(10), "Station B", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("1.50")),
-            Segment(now.plusMinutes(20), "Station B", TransportType.TRAM, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(30), "Station C", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("2.00"))
+            Segment(now, "Station A", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
+            Segment(now.plusMinutes(10), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50")),
+            Segment(now.plusMinutes(20), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
+            Segment(now.plusMinutes(30), "Station C", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("2.00"))
         )
         
         val journeys = segments.toDailyJourneys()
@@ -31,7 +31,7 @@ class DailyPdfParserMatchTest {
     fun `should handle check-out without preceding check-in`() {
         val now = LocalDateTime.now()
         val segments = listOf(
-            Segment(now, "Station B", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("1.50"))
+            Segment(now, "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50"))
         )
 
         val journeys = segments.toDailyJourneys()
@@ -68,9 +68,9 @@ class DailyPdfParserMatchTest {
     fun `should match check-in and check-out segments in order across different transport types`() {
         val now = LocalDateTime.now()
         val segments = listOf(
-            Segment(now, "Station A", TransportType.TRAM, CheckInOut.CHECKIN, BigDecimal.ZERO),
+            Segment(now, "Station A", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
             Segment(now.plusMinutes(5), "Station X", TransportType.BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(10), "Station B", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("1.50")),
+            Segment(now.plusMinutes(10), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50")),
             Segment(now.plusMinutes(15), "Station Y", TransportType.BUS, CheckInOut.CHECKOUT, BigDecimal("2.00"))
         )
 
@@ -80,7 +80,7 @@ class DailyPdfParserMatchTest {
         completeJourneys shouldHaveSize 2
         // They are sorted by check-in time
         completeJourneys[0].checkIn.station shouldBe "Station A"
-        completeJourneys[0].type shouldBe TransportType.TRAM
+        completeJourneys[0].type shouldBe TransportType.TRAM_BUS
         completeJourneys[1].checkIn.station shouldBe "Station X"
         completeJourneys[1].type shouldBe TransportType.BUS
     }

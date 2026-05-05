@@ -19,9 +19,9 @@ class DailyReporterTest {
         val dailyJourney = DailyJourney(
             completeJourneys = listOf(
                 Journey(
-                    checkIn = Segment(now, "Station A", TransportType.TRAM, CheckInOut.CHECKIN, BigDecimal.ZERO),
-                    checkOut = Segment(now.plusMinutes(10), "Station B", TransportType.TRAM, CheckInOut.CHECKOUT, BigDecimal("1.50")),
-                    type = TransportType.TRAM
+                    checkIn = Segment(now, "Station A", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
+                    checkOut = Segment(now.plusMinutes(10), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50")),
+                    type = TransportType.TRAM_BUS
                 )
             ),
             missedCheckoutSegments = emptyList()
