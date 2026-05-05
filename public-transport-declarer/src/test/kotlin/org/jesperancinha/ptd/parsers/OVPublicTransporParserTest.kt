@@ -1,13 +1,10 @@
 package org.jesperancinha.ptd.parsers
 
-import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.bigdecimal.shouldBeGreaterThan
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldNotBeNull
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import org.jesperancinha.ptd.domain.CalculatorDao
 import org.jesperancinha.ptd.domain.CheckInOut.CHECKOUT
@@ -85,7 +82,7 @@ class OVPublicTransporParserTest {
     @Test
     fun `should parse without errors for file declaratieoverzicht_24122022170148`() {
         val resourceAsStream =
-            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_24122022170148.pdf")
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_test_2.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
             CalculatorDao().dailyCosts(it, true)
@@ -120,7 +117,7 @@ class OVPublicTransporParserTest {
     @Test
     fun `should parse without errors for file declaratieoverzicht_24122022170148 with default option`() {
         val resourceAsStream =
-            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_24122022170148.pdf")
+            OVPublicTransporParserTest::class.java.getResource("/declaratieoverzicht_test_2.pdf")
         resourceAsStream.shouldNotBeNull()
         resourceAsStream.let {
             CalculatorDao().dailyCosts(it, false)

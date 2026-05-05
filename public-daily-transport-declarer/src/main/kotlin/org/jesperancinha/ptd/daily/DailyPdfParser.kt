@@ -58,13 +58,13 @@ class DailyPdfParser {
         }
 
         val type = when {
-            line.contains("Tram", ignoreCase = true) || line.contains("Qbuzz", ignoreCase = true) || line.contains("Connexxion", ignoreCase = true) -> TransportType.TRAM
+            line.contains("Qbuzz", ignoreCase = true) || line.contains("Connexxion", ignoreCase = true) -> TransportType.TRAM_BUS
             line.contains("Bus", ignoreCase = true) -> TransportType.BUS
             line.contains("Trein", ignoreCase = true) || line.contains(
                 "NS",
                 ignoreCase = true
             ) || line.contains("Arriva", ignoreCase = true) -> TransportType.TRAIN
-
+            line.contains("Tram", ignoreCase = true) -> TransportType.TRAM
             else -> TransportType.OTHER
         }
 
