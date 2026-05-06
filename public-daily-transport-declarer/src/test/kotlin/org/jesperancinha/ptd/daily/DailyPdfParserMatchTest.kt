@@ -11,12 +11,36 @@ class DailyPdfParserMatchTest {
     fun `should match check-in and check-out segments in order`() {
         val now = LocalDateTime.now()
         val segments = listOf(
-            Segment(now, "Station A", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(10), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50")),
-            Segment(now.plusMinutes(20), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(30), "Station C", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("2.00"))
+            Segment(
+                now,
+                "Station A",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKIN,
+                cost = BigDecimal.ZERO
+            ),
+            Segment(
+                now.plusMinutes(10),
+                "Station B",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKOUT,
+                cost = BigDecimal("1.50")
+            ),
+            Segment(
+                now.plusMinutes(20),
+                "Station B",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKIN,
+                cost = BigDecimal.ZERO
+            ),
+            Segment(
+                now.plusMinutes(30),
+                "Station C",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKOUT,
+                cost = BigDecimal("2.00")
+            )
         )
-        
+
         val journeys = segments.toDailyJourneys()
 
         val completeJourneys = journeys.completeJourneys
@@ -31,14 +55,20 @@ class DailyPdfParserMatchTest {
     fun `should handle check-out without preceding check-in`() {
         val now = LocalDateTime.now()
         val segments = listOf(
-            Segment(now, "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50"))
+            Segment(
+                now,
+                "Station B",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKOUT,
+                cost = BigDecimal("1.50")
+            )
         )
 
         val journeys = segments.toDailyJourneys()
 
         val completeJourneys = journeys.completeJourneys
         completeJourneys shouldHaveSize 1
-        completeJourneys[0].checkIn.station shouldBe "Unknown"
+        completeJourneys[0].checkIn.station shouldBe UNKNOWN
         completeJourneys[0].checkOut?.station shouldBe "Station B"
     }
 
@@ -47,7 +77,7 @@ class DailyPdfParserMatchTest {
         val parser = DailyPdfParser()
         val line = "01-12-2022 Qbuzz Nieuwegein, Nieuwegein City 08:17 Check-in"
         val segments = parser.parseLine(line)
-        
+
         segments shouldHaveSize 1
         segments[0].check shouldBe CheckInOut.CHECKIN
         segments[0].station shouldBe "Nieuwegein, Nieuwegein City"
@@ -58,7 +88,7 @@ class DailyPdfParserMatchTest {
         val parser = DailyPdfParser()
         val line = "01-12-2022 Qbuzz Nieuwegein, Nieuwegein City 08:17 Utrecht, CS Jaarbeursplein € 2,64 Check-uit"
         val segments = parser.parseLine(line)
-        
+
         segments shouldHaveSize 1
         segments[0].check shouldBe CheckInOut.CHECKOUT
         segments[0].station shouldBe "Utrecht, CS Jaarbeursplein"
@@ -68,10 +98,34 @@ class DailyPdfParserMatchTest {
     fun `should match check-in and check-out segments in order across different transport types`() {
         val now = LocalDateTime.now()
         val segments = listOf(
-            Segment(now, "Station A", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(5), "Station X", TransportType.BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
-            Segment(now.plusMinutes(10), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50")),
-            Segment(now.plusMinutes(15), "Station Y", TransportType.BUS, CheckInOut.CHECKOUT, BigDecimal("2.00"))
+            Segment(
+                now,
+                "Station A",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKIN,
+                cost = BigDecimal.ZERO
+            ),
+            Segment(
+                now.plusMinutes(5),
+                "Station X",
+                type = TransportType.BUS,
+                check = CheckInOut.CHECKIN,
+                cost = BigDecimal.ZERO
+            ),
+            Segment(
+                now.plusMinutes(10),
+                "Station B",
+                type = TransportType.TRAM_BUS,
+                check = CheckInOut.CHECKOUT,
+                cost = BigDecimal("1.50")
+            ),
+            Segment(
+                now.plusMinutes(15),
+                "Station Y",
+                type = TransportType.BUS,
+                check = CheckInOut.CHECKOUT,
+                cost = BigDecimal("2.00")
+            )
         )
 
         val journeys = segments.toDailyJourneys()

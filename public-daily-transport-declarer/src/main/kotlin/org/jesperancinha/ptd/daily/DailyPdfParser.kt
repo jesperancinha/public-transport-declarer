@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 
 private val HOUR_MINUTE_REGEX = Regex("[0-9]{2}:[0-9]{2}")
+const val UNKNOWN = "Unknown"
 
 class DailyPdfParser {
     private val datePattern = DateTimeFormatter.ofPattern("dd-MM-yyyy")
@@ -58,12 +59,17 @@ class DailyPdfParser {
         }
 
         val type = when {
-            line.contains("Qbuzz", ignoreCase = true) || line.contains("Connexxion", ignoreCase = true) -> TransportType.TRAM_BUS
+            line.contains("Qbuzz", ignoreCase = true) || line.contains(
+                "Connexxion",
+                ignoreCase = true
+            ) -> TransportType.TRAM_BUS
+
             line.contains("Bus", ignoreCase = true) -> TransportType.BUS
             line.contains("Trein", ignoreCase = true) || line.contains(
                 "NS",
                 ignoreCase = true
             ) || line.contains("Arriva", ignoreCase = true) -> TransportType.TRAIN
+
             line.contains("Tram", ignoreCase = true) -> TransportType.TRAM
             else -> TransportType.OTHER
         }
@@ -84,14 +90,31 @@ class DailyPdfParser {
                 date.atStartOfDay()
             }
 
-            segments.add(Segment(dateTime, destination, type, CheckInOut.CHECKOUT, cost))
+            segments.add(
+                Segment(
+                    dateTime,
+                    station = destination,
+                    checkinStation = extractCheckInStation(line),
+                    type = type,
+                    check = CheckInOut.CHECKOUT,
+                    cost = cost
+                )
+            )
         } else if (line.contains("Check-in", ignoreCase = true)) {
             val dateTime = if (times.isNotEmpty()) {
                 LocalDateTime.parse("${parts[0]} ${times[0]}", DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
             } else {
                 date.atStartOfDay()
             }
-            segments.add(Segment(dateTime, extractCheckInStation(line), type, CheckInOut.CHECKIN, cost))
+            segments.add(
+                Segment(
+                    dateTime,
+                    extractCheckInStation(line),
+                    type = type,
+                    check = CheckInOut.CHECKIN,
+                    cost = cost
+                )
+            )
         }
 
         return segments
@@ -111,7 +134,7 @@ class DailyPdfParser {
                 .joinToString(" ")
             return afterTime.split("Reizen")[0].trim()
         }
-        return "Unknown"
+        return UNKNOWN
     }
 
     private fun extractStation(line: String): String {
@@ -147,7 +170,7 @@ class DailyPdfParser {
                     } else {
                         beforeFirstTime
                     }
-                } else "Unknown"
+                } else UNKNOWN
 
                 return departure to destination
             } else {
@@ -158,10 +181,10 @@ class DailyPdfParser {
                 } else {
                     beforeEuro
                 }
-                return "Unknown" to stationPart.replace(transportTypePattern.pattern().toRegex(), "").trim()
+                return UNKNOWN to stationPart.replace(transportTypePattern.pattern().toRegex(), "").trim()
             }
         }
-        return "Unknown" to "Unknown"
+        return UNKNOWN to UNKNOWN
     }
 }
 
@@ -185,11 +208,11 @@ fun List<Segment>.toDailyJourneys(): DailyJourney {
                 // Check-out without a corresponding Check-in line in the PDF.
                 // Create a dummy check-in
                 val dummyCheckIn = Segment(
-                    segment.dateTime.minusMinutes(30),
-                    "Unknown",
-                    segment.type,
-                    CheckInOut.CHECKIN,
-                    BigDecimal.ZERO
+                    dateTime = journeys.takeIf { it.isNotEmpty() }?.last()?.checkOut?.dateTime ?: segment.dateTime,
+                    station = segment.checkinStation ?: UNKNOWN,
+                    type = segment.type,
+                    check = CheckInOut.CHECKIN,
+                    cost = BigDecimal.ZERO,
                 )
                 journeys.add(Journey(dummyCheckIn, segment, segment.type))
             }

@@ -19,8 +19,20 @@ class DailyReporterTest {
         val dailyJourney = DailyJourney(
             completeJourneys = listOf(
                 Journey(
-                    checkIn = Segment(now, "Station A", TransportType.TRAM_BUS, CheckInOut.CHECKIN, BigDecimal.ZERO),
-                    checkOut = Segment(now.plusMinutes(10), "Station B", TransportType.TRAM_BUS, CheckInOut.CHECKOUT, BigDecimal("1.50")),
+                    checkIn = Segment(
+                        now,
+                        "Station A",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKIN,
+                        cost = BigDecimal.ZERO
+                    ),
+                    checkOut = Segment(
+                        now.plusMinutes(10),
+                        "Station B",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKOUT,
+                        cost = BigDecimal("1.50")
+                    ),
                     type = TransportType.TRAM_BUS
                 )
             ),
