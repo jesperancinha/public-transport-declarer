@@ -23,7 +23,7 @@ class DailyPublicTransporterLauncherTest {
         val result = command.call()
         
         result shouldBe 0
-        val subfolder = File(tempDir, "test")
+        val subfolder = File(tempDir, "2022-12-01-test")
         subfolder.exists() shouldBe true
         subfolder.isDirectory shouldBe true
         

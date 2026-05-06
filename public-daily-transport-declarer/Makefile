@@ -18,7 +18,6 @@ just-install-locally:
 remove-locally:
 	sudo rm /usr/local/bin/public-daily-transport-declarer
 jar: build-maven
-build-and-generate-last-via-csv: jar generate-last-via-csv
 check-jar:
 	if ! test -f target/public-daily-transport-declarer.jar; then make jar; fi
 build-and-generate-last-report: jar generate-last-report

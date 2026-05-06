@@ -4,6 +4,7 @@ import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
 
@@ -36,9 +37,7 @@ class DailyPublicTransporterCommand : Callable<Int> {
         folder.listFiles { _, name -> name.lowercase().endsWith(".pdf") }?.forEach { pdfFile ->
             println("Processing ${pdfFile.name}...")
             try {
-                val subfolderName = pdfFile.nameWithoutExtension
-                val subfolder = File(folder, subfolderName)
-                
+
                 val segments = parser.parse(pdfFile.toURI().toURL())
                 val dailyJourneys = segments.toDailyJourneys()
                 val completeJourneys = dailyJourneys.completeJourneys
@@ -48,7 +47,11 @@ class DailyPublicTransporterCommand : Callable<Int> {
                 println("- ${completeJourneys.count { it.isComplete }} complete.")
                 println("- ${incompleteSegments.count()} missing checkouts.")
                 val totalMatches = validator.validate(pdfFile.toURI().toURL(), completeJourneys)
-                
+
+                val subfolderName = "${segments[0].dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}-${pdfFile.nameWithoutExtension.replace("declaratieoverzicht_", "")}"
+                val subfolder = File(folder, subfolderName)
+                pdfFile.copyTo(File(subfolder, pdfFile.name), overwrite = true)
+
                 reporter.generateReport(subfolder, dailyJourneys, totalMatches)
                 println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
             } catch (e: Exception) {
