@@ -11,6 +11,7 @@ enum class TransportType(val nlName: String) {
 data class Segment(
     val dateTime: LocalDateTime,
     val station: String,
+    val checkinStation: String? = null,
     val type: TransportType,
     val check: CheckInOut,
     val cost: BigDecimal = BigDecimal.ZERO,
