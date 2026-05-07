@@ -43,12 +43,12 @@ class DailyReporter {
                     )
                     .replace("{{cost}}", String.format("%.2f", journeyCost))
                     .replace(
-                        "{{duration}}", journey.duration.toDurationString() + when {
-                            duration == 0L -> " **"
-                            duration < 5 -> " *"
-                            else -> ""
-                        }
-                    )
+                        "{{duration}}", journey.duration.toDurationString()
+                    ) + when {
+                    duration == 0L -> " **"
+                    duration < 5 -> " *"
+                    else -> ""
+                }
             }
         }.createContent("---incomplete([\\s\\S]*?)---") {
             incompleteSegments.joinToString("\n") { segment ->
