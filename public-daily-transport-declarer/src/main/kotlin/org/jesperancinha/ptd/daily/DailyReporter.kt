@@ -31,6 +31,7 @@ class DailyReporter {
         val reportContentWithJourneys = template.createContent(markupLabelRegex = "---journeys([\\s\\S]*?)---") {
             journeys.filter { it.isComplete }.joinToString("\n") { journey ->
                 val journeyCost = journey.checkIn.cost + (journey.checkOut?.cost ?: BigDecimal.ZERO)
+                val duration = journey.duration.toMinutes()
                 this
                     .replace("{{checkInStation}}", journey.checkIn.station)
                     .replace("{{checkOutStation}}", journey.checkOut?.station ?: "Unknown")
@@ -41,19 +42,25 @@ class DailyReporter {
                         journey.checkOut?.dateTime?.format(dateTimeFormatter)?.split(" ")?.last() ?: "N/A"
                     )
                     .replace("{{cost}}", String.format("%.2f", journeyCost))
-                    .replace("{{duration}}", journey.duration.toDurationString()) + if(journey.duration.toMinutes() < 5) " *" else ""
+                    .replace(
+                        "{{duration}}", journey.duration.toDurationString() + when {
+                            duration == 0L -> " **"
+                            duration < 5 -> " *"
+                            else -> ""
+                        }
+                    )
             }
-        }.createContent( "---incomplete([\\s\\S]*?)---") {
-                incompleteSegments.joinToString("\n") { segment ->
-                    val journeyCost = segment.cost
-                    this
-                        .replace("{{checkInStationInc}}", segment.station)
-                        .replace("{{transportTypeInc}}", segment.type.nlName)
-                        .replace("{{checkInTimeInc}}", segment.dateTime.format(dateTimeFormatter).split(" ").last())
-                        .replace("{{costInc}}", String.format("%.2f", journeyCost))
-                }
+        }.createContent("---incomplete([\\s\\S]*?)---") {
+            incompleteSegments.joinToString("\n") { segment ->
+                val journeyCost = segment.cost
+                this
+                    .replace("{{checkInStationInc}}", segment.station)
+                    .replace("{{transportTypeInc}}", segment.type.nlName)
+                    .replace("{{checkInTimeInc}}", segment.dateTime.format(dateTimeFormatter).split(" ").last())
+                    .replace("{{costInc}}", String.format("%.2f", journeyCost))
             }
-            .createContent("---incomplete-title([\\s\\S]*?)---"){
+        }
+            .createContent("---incomplete-title([\\s\\S]*?)---") {
                 if (incompleteSegments.isNotEmpty()) this else ""
             }
 
@@ -64,7 +71,11 @@ class DailyReporter {
 
         val fullReport = reportContentWithJourneys.replace("{{totalCost}}", String.format("%.2f", totalCost))
             .replace("{{totalDuration}}", totalDuration.toDurationString())
-            .replace("{{date}}", journeys.first().checkIn.dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("nl", "NL"))))
+            .replace(
+                "{{date}}",
+                journeys.first().checkIn.dateTime.toLocalDate()
+                    .format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("nl", "NL")))
+            )
             .replace("\n\n\n", "\n\n")
             .replace("\n\n\n", "\n\n")
             .replace("\n\n\n", "\n\n")
