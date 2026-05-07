@@ -15,6 +15,6 @@ Checkout gemist:
 ---
 
 De totale kosten bedragen {{totalCost}} EUR, waarbij de wandeltijd tussen Gouda Centraal en het kantoor buiten beschouwing is gelaten.
-De reistijd in het openbaar vervoer (exclusief overstappen) van {{totalDuration}} is eveneens als werktijd tijdens de reis aangemerkt.
+De reistijd in het openbaar vervoer (exclusief overstappen) van tenminste {{totalDuration}} is eveneens als werktijd tijdens de reis aangemerkt.
 (* reizen korter dan 5 minuten worden vaak opgenomen vanwege administratieve correcties, waaronder check-in/check-out-correcties, overstappen door dienstregelingwijzigingen en spitstijdcorrecties. Dit zijn de meest voorkomende redenen voor deze transacties.)
 (** reizen waarbij geen duur is vermeld, betreffen trajecten waarvoor het systeem de vertrektijd niet heeft kunnen vaststellen.)
