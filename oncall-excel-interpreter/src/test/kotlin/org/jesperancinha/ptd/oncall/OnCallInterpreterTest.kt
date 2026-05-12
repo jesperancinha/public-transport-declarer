@@ -33,4 +33,32 @@ class OnCallInterpreterTest {
         assert(outputFile.exists())
         println("Output generated at: ${outputFile.absolutePath}")
     }
+
+    @Test
+    fun `should interpret ics and fill excel correctly for October 2026`() {
+        val icsFile = File("../oncallschedule_test.ics")
+        val xltFile = File("../test_calendar.xlt")
+        val outputFile = File("target/oncall_october_2026.xls")
+        outputFile.parentFile.mkdirs()
+
+        val interpreter = OnCallInterpreter(icsFile, xltFile, 2026, Month.OCTOBER)
+        interpreter.interpret(outputFile)
+
+        assert(outputFile.exists())
+        println("Output generated at: ${outputFile.absolutePath}")
+    }
+
+    @Test
+    fun `should interpret ics and fill excel correctly for November 2026`() {
+        val icsFile = File("../oncallschedule_test.ics")
+        val xltFile = File("../test_calendar.xlt")
+        val outputFile = File("target/oncall_november_2026.xls")
+        outputFile.parentFile.mkdirs()
+
+        val interpreter = OnCallInterpreter(icsFile, xltFile, 2026, Month.NOVEMBER)
+        interpreter.interpret(outputFile)
+
+        assert(outputFile.exists())
+        println("Output generated at: ${outputFile.absolutePath}")
+    }
 }

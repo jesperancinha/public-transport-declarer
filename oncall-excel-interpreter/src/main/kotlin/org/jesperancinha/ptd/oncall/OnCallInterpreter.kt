@@ -3,13 +3,10 @@ package org.jesperancinha.ptd.oncall
 import biweekly.Biweekly
 import biweekly.component.VEvent
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
-import org.apache.poi.ss.usermodel.CellType
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.time.*
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 data class TimeInterval(
     val start: LocalTime,
