@@ -79,3 +79,4 @@ javaUpdatesOne.sh
 nodeUpdatesOne.sh
 dependabot.yml.bak
 .output.txt
+.~lock.**
