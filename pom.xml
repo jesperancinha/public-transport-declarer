@@ -14,6 +14,7 @@
         <module>public-transport-declarer</module>
         <module>pdf-native-test</module>
         <module>public-daily-transport-declarer</module>
+        <module>oncall-excel-interpreter</module>
     </modules>
 
     <properties>
