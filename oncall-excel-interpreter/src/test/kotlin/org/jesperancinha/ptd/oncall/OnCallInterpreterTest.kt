@@ -25,8 +25,8 @@ class OnCallInterpreterTest {
         )
         outputFile.parentFile.mkdirs()
 
-        val interpreter = OnCallInterpreter(icsFile, xltCalendarFile, 2026, Month.APRIL)
-        interpreter.interpret(outputFile)
+        val interpreter = OnCallInterpreter(icsFile)
+        interpreter.interpret(2026, Month.APRIL, outputFile)
 
         assertTrue(outputFile.exists())
         println("Output generated at: ${outputFile.absolutePath}")
@@ -95,8 +95,8 @@ class OnCallInterpreterTest {
         val outputFile = File("target/oncall_june_2026.xls")
         outputFile.parentFile.mkdirs()
 
-        val interpreter = OnCallInterpreter(icsFile, xltCalendarFile, 2026, Month.JUNE)
-        interpreter.interpret(outputFile)
+        val interpreter = OnCallInterpreter(icsFile)
+        interpreter.interpret(2026, Month.JUNE, outputFile)
 
         assert(outputFile.exists())
         println("Output generated at: ${outputFile.absolutePath}")
@@ -107,8 +107,8 @@ class OnCallInterpreterTest {
         val outputFile = File("target/oncall_october_2026.xls")
         outputFile.parentFile.mkdirs()
 
-        val interpreter = OnCallInterpreter(icsFile, xltCalendarFile, 2026, Month.OCTOBER)
-        interpreter.interpret(outputFile)
+        val interpreter = OnCallInterpreter(icsFile)
+        interpreter.interpret(2026, Month.OCTOBER, outputFile)
 
         assert(outputFile.exists())
         println("Output generated at: ${outputFile.absolutePath}")
@@ -119,8 +119,8 @@ class OnCallInterpreterTest {
         val outputFile = File("target/oncall_november_2026.xls")
         outputFile.parentFile.mkdirs()
 
-        val interpreter = OnCallInterpreter(icsFile, xltCalendarFile, 2026, Month.NOVEMBER)
-        interpreter.interpret(outputFile)
+        val interpreter = OnCallInterpreter(icsFile)
+        interpreter.interpret(2026, Month.NOVEMBER, outputFile)
 
         assert(outputFile.exists())
         println("Output generated at: ${outputFile.absolutePath}")

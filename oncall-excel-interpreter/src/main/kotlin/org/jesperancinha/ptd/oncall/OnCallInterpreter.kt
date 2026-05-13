@@ -25,18 +25,14 @@ data class OnCallHeader(
 )
 
 class OnCallInterpreter(
-    private val icsFile: File,
-    private val xltFile: File,
-    private val year: Int,
-    private val month: Month
+    private val icsFile: File
 ) {
-    private val dutchHolidays = getDutchHolidays(year)
-
     private val amsterdamZone = ZoneId.of("Europe/Amsterdam")
 
-    fun interpret(outputFile: File) {
+    fun interpret(year: Int, month: Month, outputFile: File) {
+        val dutchHolidays = getDutchHolidays(year)
         val events = parseIcs()
-        val workbook = HSSFWorkbook(FileInputStream(xltFile))
+        val workbook = HSSFWorkbook(this::class.java.getResourceAsStream("/calendar.xlt") ?: throw RuntimeException("Template calendar.xlt not found in resources!"))
         val sheet = workbook.getSheetAt(0)
 
         val headers = parseHeaders(sheet.getRow(0))
@@ -50,7 +46,7 @@ class OnCallInterpreter(
             dateCell.setCellValue(day.toDouble())
             
             headers.forEach { header ->
-                val hours = calculateHoursForHeader(date, header, events)
+                val hours = calculateHoursForHeader(date, header, events, dutchHolidays)
                 if (hours > 0) {
                     val cell = row.getCell(header.columnIndex) ?: row.createCell(header.columnIndex)
                     cell.setCellValue(hours)
@@ -109,7 +105,7 @@ class OnCallInterpreter(
         }.toList()
     }
 
-    private fun calculateHoursForHeader(date: LocalDate, header: OnCallHeader, events: List<VEvent>): Double {
+    private fun calculateHoursForHeader(date: LocalDate, header: OnCallHeader, events: List<VEvent>, dutchHolidays: Set<LocalDate>): Double {
         val isHoliday = dutchHolidays.contains(date)
         val isSunday = date.dayOfWeek == DayOfWeek.SUNDAY
         val isSaturday = date.dayOfWeek == DayOfWeek.SATURDAY

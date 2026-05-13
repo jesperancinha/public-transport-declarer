@@ -60,9 +60,12 @@ public-transport-declarer.build_artifacts.txt
 report.csv
 
 ## Reports to ignore
-public-daily-transport-declarer/reports/*.pdf
-public-daily-transport-declarer/reports/**/*.txt
-public-daily-transport-declarer/reports/**/*.pdf
+**/reports/*.pdf
+**/reports/**/*.txt
+**/reports/**/*.pdf
+**/reports/**/*.ics
+**/reports/**/*.xls
+
 # Must be in
 !public-transport-declarer/generateReport.sh
 
