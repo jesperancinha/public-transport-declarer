@@ -1,12 +1,12 @@
 package org.jesperancinha.ptd.oncall
 
 import biweekly.Biweekly
+import biweekly.ICalendar
 import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
 import java.text.Normalizer
-import java.time.Month
 import java.time.ZoneId
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
@@ -39,14 +39,17 @@ class OnCallInterpreterCommand : Callable<Int> {
             println("Processing ${icsFile.name}...")
             try {
                 val interpreter = OnCallInterpreter(icsFile)
-                val events = Biweekly.parse(icsFile).all().flatMap { it.getEvents() }
-
+                val events = Biweekly.parse(icsFile).all().flatMap(ICalendar::getEvents)
+                println("Found ${events.size} events:")
                 // Group events by year and month
                 val monthsToProcess = events.map { event ->
                     val start = event.dateStart.value.toInstant().atZone(ZoneId.of("UTC"))
                     start.year to start.month
                 }.distinct()
 
+                println("Processing ${monthsToProcess.size} months...")
+                println("Months to process:")
+                println(monthsToProcess.joinToString("; ") { "${it.first}-${it.second}" })
                 monthsToProcess.forEach { (year, month) ->
                     val monthValue = "%02d".format(month.value)
                     val subfolderName = "$year-$monthValue-${
@@ -61,6 +64,8 @@ class OnCallInterpreterCommand : Callable<Int> {
                         )
                             .replace("\\p{M}+".toRegex(), ""))
                     }"
+
+                    println("  Subfolder: $subfolderName")
                     val subfolder = File(folder, subfolderName)
                     if (!subfolder.exists()) subfolder.mkdirs()
 
