@@ -3,11 +3,15 @@ package org.jesperancinha.ptd.daily
 import org.openpdf.text.Document
 import org.openpdf.text.Font
 import org.openpdf.text.Paragraph
+import org.openpdf.text.pdf.PdfCopy
+import org.openpdf.text.pdf.PdfReader
 import org.openpdf.text.pdf.PdfWriter
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.time.Duration
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -17,7 +21,7 @@ class DailyReporter {
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
-    fun generateReport(folder: File, dailyJourney: DailyJourney, totalMatches: Boolean) {
+    fun generateReport(folder: File, dailyJourney: DailyJourney, totalMatches: Boolean, originalPdfFile: File? = null) {
         if (!folder.exists()) folder.mkdirs()
 
         val reportFile = File(folder, "report.txt")
@@ -101,6 +105,9 @@ class DailyReporter {
 
         reportFile.writeText(fullReport)
         generatePDFReport(folder, fullReport)
+        originalPdfFile?.let {
+            mergePDFReports(folder, it)
+        }
         errorFile.writeText(errorContent.toString())
 
         val logContent = if (totalMatches) {
@@ -121,6 +128,25 @@ class DailyReporter {
             document.add(Paragraph(line, font))
         }
         document.close()
+    }
+
+    private fun mergePDFReports(folder: File, originalPdfFile: File) {
+        val pdfFile = File(folder, "report.pdf")
+        val completeReportFile = File(folder, "${folder.nameWithoutExtension}-complete-report.pdf")
+        val document = Document()
+        val copy = PdfCopy(document, FileOutputStream(completeReportFile))
+        document.open()
+        val reader1 = PdfReader(FileInputStream(pdfFile))
+        for (i in 1..reader1.numberOfPages) {
+            copy.addPage(copy.getImportedPage(reader1, i))
+        }
+        val reader2 = PdfReader(FileInputStream(originalPdfFile))
+        for (i in 1..reader2.numberOfPages) {
+            copy.addPage(copy.getImportedPage(reader2, i))
+        }
+        document.close()
+        reader1.close()
+        reader2.close()
     }
 
     private fun String.createContent(

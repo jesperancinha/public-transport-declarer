@@ -50,9 +50,10 @@ class DailyPublicTransporterCommand : Callable<Int> {
 
                 val subfolderName = "${segments[0].dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}-${pdfFile.nameWithoutExtension.replace("declaratieoverzicht_", "")}"
                 val subfolder = File(folder, subfolderName)
-                pdfFile.copyTo(File(subfolder, pdfFile.name), overwrite = true)
+                val newPdfFile = File(subfolder, pdfFile.name)
+                pdfFile.copyTo(newPdfFile, overwrite = true)
 
-                reporter.generateReport(subfolder, dailyJourneys, totalMatches)
+                reporter.generateReport(subfolder, dailyJourneys, totalMatches, newPdfFile)
                 println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
             } catch (e: Exception) {
                 println("Error processing ${pdfFile.name}: ${e.message}")
