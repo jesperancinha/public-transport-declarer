@@ -50,6 +50,91 @@ class DailyReporterTest {
     }
 
     @Test
+    fun `should generate PDF report with template`() {
+        val reporter = DailyReporter()
+        val tempFolder = File("target/test-report-template")
+        if (tempFolder.exists()) tempFolder.deleteRecursively()
+        tempFolder.mkdirs()
+
+        val templatePdf = File(tempFolder, "template.pdf")
+        val doc = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(doc, java.io.FileOutputStream(templatePdf))
+        doc.open()
+        doc.add(org.openpdf.text.Paragraph("Template Content"))
+        doc.close()
+
+        val now = LocalDateTime.now()
+        val dailyJourney = DailyJourney(
+            completeJourneys = listOf(
+                Journey(
+                    checkIn = Segment(
+                        now,
+                        "Station A",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKIN,
+                        cost = BigDecimal.ZERO
+                    ),
+                    checkOut = Segment(
+                        now.plusMinutes(10),
+                        "Station B",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKOUT,
+                        cost = BigDecimal("1.50")
+                    ),
+                    type = TransportType.TRAM_BUS
+                )
+            ),
+            missedCheckoutSegments = emptyList()
+        )
+
+        reporter.generateReport(tempFolder, dailyJourney, true, templatePdf = templatePdf)
+
+        val reportPdf = File(tempFolder, "report.pdf")
+        reportPdf.exists() shouldBe true
+        (reportPdf.length() > 0) shouldBe true
+    }
+
+    @Test
+    fun `should generate PDF report with missing template`() {
+        val reporter = DailyReporter()
+        val tempFolder = File("target/test-report-missing-template")
+        if (tempFolder.exists()) tempFolder.deleteRecursively()
+        tempFolder.mkdirs()
+
+        val templatePdf = File(tempFolder, "non-existent.pdf")
+
+        val now = LocalDateTime.now()
+        val dailyJourney = DailyJourney(
+            completeJourneys = listOf(
+                Journey(
+                    checkIn = Segment(
+                        now,
+                        "Station A",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKIN,
+                        cost = BigDecimal.ZERO
+                    ),
+                    checkOut = Segment(
+                        now.plusMinutes(10),
+                        "Station B",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKOUT,
+                        cost = BigDecimal("1.50")
+                    ),
+                    type = TransportType.TRAM_BUS
+                )
+            ),
+            missedCheckoutSegments = emptyList()
+        )
+
+        reporter.generateReport(tempFolder, dailyJourney, true, templatePdf = templatePdf)
+
+        val reportPdf = File(tempFolder, "report.pdf")
+        reportPdf.exists() shouldBe true
+        (reportPdf.length() > 0) shouldBe true
+    }
+
+    @Test
     fun `should generate PDF report with merged original PDF`() {
         val reporter = DailyReporter()
         val tempFolder = File("target/test-report-merged")

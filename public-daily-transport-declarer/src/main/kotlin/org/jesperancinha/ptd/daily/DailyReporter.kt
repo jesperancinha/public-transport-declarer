@@ -1,11 +1,7 @@
 package org.jesperancinha.ptd.daily
 
-import org.openpdf.text.Document
-import org.openpdf.text.Font
-import org.openpdf.text.Paragraph
-import org.openpdf.text.pdf.PdfCopy
-import org.openpdf.text.pdf.PdfReader
-import org.openpdf.text.pdf.PdfWriter
+import org.openpdf.text.*
+import org.openpdf.text.pdf.*
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -21,7 +17,13 @@ class DailyReporter {
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
-    fun generateReport(folder: File, dailyJourney: DailyJourney, totalMatches: Boolean, originalPdfFile: File? = null) {
+    fun generateReport(
+        folder: File,
+        dailyJourney: DailyJourney,
+        totalMatches: Boolean,
+        originalPdfFile: File? = null,
+        templatePdf: File? = null
+    ) {
         if (!folder.exists()) folder.mkdirs()
 
         val reportFile = File(folder, "report.txt")
@@ -104,7 +106,7 @@ class DailyReporter {
         }
 
         reportFile.writeText(fullReport)
-        generatePDFReport(folder, fullReport)
+        generatePDFReport(folder, fullReport, templatePdf)
         originalPdfFile?.let {
             mergePDFReports(folder, it)
         }
@@ -118,16 +120,47 @@ class DailyReporter {
         logFile.writeText(logContent + "Processed ${journeys.size} journeys (${journeys.filter { it.isComplete }.size} complete, ${journeys.filter { !it.isComplete }.size} incomplete).\n")
     }
 
-    private fun generatePDFReport(folder: File, fullReport: String) {
+    private fun generatePDFReport(folder: File, fullReport: String, templatePdf: File?) {
         val pdfFile = File(folder, "report.pdf")
-        val document = Document()
-        PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+        val document = Document(PageSize.A4)
+        val writer = PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+        val reader = templatePdf?.let {
+            if (it.exists()) {
+                PdfReader(it.absolutePath)
+            } else {
+                println("WARNING: Template file ${it.absolutePath} not found. Using blank sheet.")
+                null
+            }
+        }
+        val pageTemplate = reader?.let { writer.getImportedPage(it, 1) }
+        
+        writer.setPageEvent(object : PdfPageEventHelper() {
+            override fun onEndPage(writer: PdfWriter, document: Document) {
+                pageTemplate?.let {
+                    writer.directContentUnder.addTemplate(it, 0f, 0f)
+                }
+            }
+        })
+        
         document.open()
         val font = Font(Font.HELVETICA, 12f)
+        val table = PdfPTable(1)
+        table.widthPercentage = 100f
+        val cell = PdfPCell()
+        cell.border = Rectangle.NO_BORDER
+        cell.verticalAlignment = Element.ALIGN_MIDDLE
+        cell.horizontalAlignment = Element.ALIGN_CENTER
+        cell.fixedHeight = document.pageSize.height - document.topMargin() - document.bottomMargin()
+
         fullReport.split("\n").forEach { line ->
-            document.add(Paragraph(line, font))
+            val p = Paragraph(line.ifEmpty { " " }, font)
+            p.alignment = Element.ALIGN_JUSTIFIED
+            cell.addElement(p)
         }
+        table.addCell(cell)
+        document.add(table)
         document.close()
+        reader?.close()
     }
 
     private fun mergePDFReports(folder: File, originalPdfFile: File) {

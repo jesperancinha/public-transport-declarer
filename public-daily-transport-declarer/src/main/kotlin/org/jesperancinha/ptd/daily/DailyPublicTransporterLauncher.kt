@@ -23,6 +23,14 @@ class DailyPublicTransporterCommand : Callable<Int> {
     )
     lateinit var inputFolder: String
 
+    @Option(
+        names = ["-t", "--template", "-template"],
+        description = ["The template PDF file to use for the report"],
+        required = false,
+        defaultValue = "reports/template.pdf"
+    )
+    var templatePdf: String? = null
+
     private val parser = DailyPdfParser()
     private val validator = DailyPdfValidator()
     private val reporter = DailyReporter()
@@ -48,13 +56,22 @@ class DailyPublicTransporterCommand : Callable<Int> {
                 println("- ${incompleteSegments.count()} missing checkouts.")
                 val totalMatches = validator.validate(pdfFile.toURI().toURL(), completeJourneys)
 
-                val subfolderName = "${segments[0].dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))}-${pdfFile.nameWithoutExtension.replace("declaratieoverzicht_", "")}"
-                val subfolder = File(folder, subfolderName)
-                val newPdfFile = File(subfolder, pdfFile.name)
-                pdfFile.copyTo(newPdfFile, overwrite = true)
+                if(segments.isNotEmpty()) {
+                    val subfolderName = "${
+                        segments[0].dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                    }-${pdfFile.nameWithoutExtension.replace("declaratieoverzicht_", "")}"
+                    val subfolder = File(folder, subfolderName)
+                    val newPdfFile = File(subfolder, pdfFile.name)
+                    pdfFile.copyTo(newPdfFile, overwrite = true)
 
-                reporter.generateReport(subfolder, dailyJourneys, totalMatches, newPdfFile)
-                println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
+                    reporter.generateReport(
+                        subfolder,
+                        dailyJourneys,
+                        totalMatches,
+                        newPdfFile,
+                        templatePdf?.let { File(it) })
+                    println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
+                }
             } catch (e: Exception) {
                 println("Error processing ${pdfFile.name}: ${e.message}")
                 e.printStackTrace()
