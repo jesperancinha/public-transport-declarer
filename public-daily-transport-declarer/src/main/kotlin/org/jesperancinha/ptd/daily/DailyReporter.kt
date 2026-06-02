@@ -66,6 +66,8 @@ class DailyReporter {
                     else -> ""
                 }
             }
+        }.createContent("---incomplete-title([\\s\\S]*?)---") {
+            if (incompleteSegments.isNotEmpty()) this else ""
         }.createContent("---incomplete([\\s\\S]*?)---") {
             incompleteSegments.joinToString("\n") { segment ->
                 val journeyCost = segment.cost
@@ -76,9 +78,7 @@ class DailyReporter {
                     .replace("{{costInc}}", String.format("%.2f", journeyCost))
             }
         }
-            .createContent("---incomplete-title([\\s\\S]*?)---") {
-                if (incompleteSegments.isNotEmpty()) this else ""
-            }
+
 
         val totalCost =
             journeys.filter { it.isComplete }.sumOf { it.checkIn.cost + (it.checkOut?.cost ?: BigDecimal.ZERO) }
@@ -149,7 +149,7 @@ class DailyReporter {
             }
         }
         val pageTemplate = reader?.let { writer.getImportedPage(it, 1) }
-        
+
         writer.setPageEvent(object : PdfPageEventHelper() {
             override fun onEndPage(writer: PdfWriter, document: Document) {
                 pageTemplate?.let {
@@ -157,7 +157,7 @@ class DailyReporter {
                 }
             }
         })
-        
+
         document.open()
         val font = Font(Font.HELVETICA, 12f)
         val table = PdfPTable(1)
@@ -203,12 +203,12 @@ class DailyReporter {
         contentCreator: String.() -> String
     ): String {
         val journeysSectionRegex = Regex(markupLabelRegex)
-        val matchResult = journeysSectionRegex.find(template)
+        val matchResult = journeysSectionRegex.find(this)
         val reportContent = if (matchResult != null) {
             val journeyTemplate = matchResult.groupValues[1].trim()
             journeyTemplate.contentCreator()
         } else {
-            "Template Error: $this section not found"
+            "Template Error: $markupLabelRegex section not found"
         }
         return this.replace(journeysSectionRegex, reportContent)
     }

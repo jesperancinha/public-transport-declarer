@@ -226,4 +226,58 @@ class DailyReporterTest {
         reportPdf.exists() shouldBe true
         (reportPdf.length() > 0) shouldBe true
     }
+
+    @Test
+    fun `should reproduce Checkout-title bug when incomplete segments are present`() {
+        val reporter = DailyReporter()
+        val tempFolder = File("target/test-report-bug-repro")
+        if (tempFolder.exists()) tempFolder.deleteRecursively()
+        tempFolder.mkdirs()
+
+        val now = LocalDateTime.now()
+        val dailyJourney = DailyJourney(
+            completeJourneys = listOf(
+                Journey(
+                    checkIn = Segment(
+                        now,
+                        "Station A",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKIN,
+                        cost = BigDecimal.ZERO
+                    ),
+                    checkOut = Segment(
+                        now.plusMinutes(10),
+                        "Station B",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKOUT,
+                        cost = BigDecimal("1.50")
+                    ),
+                    type = TransportType.TRAM_BUS
+                )
+            ),
+            missedCheckoutSegments = listOf(
+                Segment(
+                    now,
+                    "Station C",
+                    type = TransportType.TRAM_BUS,
+                    check = CheckInOut.CHECKIN,
+                    cost = BigDecimal("4.00")
+                )
+            )
+        )
+
+        reporter.generateReport(tempFolder, dailyJourney, true)
+
+        val reportTxt = File(tempFolder, "report.txt")
+        val content = reportTxt.readText()
+        println("[DEBUG_LOG] Report content:\n$content")
+        
+        // If the bug exists, we might see something like "---incomplete-title Checkout-title Checkoutgemist:"
+        // or just weird concatenation.
+        content.contains("Checkout-title") shouldBe false
+        content.contains("Checkoutgemist:") shouldBe false
+        // We expect "Checkout gemist:" from the template, so "gemist:" will be present.
+        // We only want to ensure it's not the corrupted version.
+        content.contains("Checkout gemist:") shouldBe true
+    }
 }
