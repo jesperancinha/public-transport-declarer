@@ -22,9 +22,19 @@ class DailyReporter {
         dailyJourney: DailyJourney,
         totalMatches: Boolean,
         originalPdfFile: File? = null,
-        templatePdf: File? = null
+        templatePdf: File? = null,
+        headerFile: File? = null
     ) {
         if (!folder.exists()) folder.mkdirs()
+
+        val headerContent = headerFile?.let {
+            if (it.exists()) {
+                it.readText()
+            } else {
+                println("WARNING: Header file ${it.absolutePath} not found. Using empty string.")
+                ""
+            }
+        } ?: ""
 
         val reportFile = File(folder, "report.txt")
         val errorFile = File(folder, "error.txt")
@@ -86,6 +96,12 @@ class DailyReporter {
             .replace("\n\n\n", "\n\n")
             .replace("\n\n\n", "\n\n")
 
+        val fullReportWithHeader = if (headerContent.isNotEmpty()) {
+            "$headerContent\n\n$fullReport"
+        } else {
+            fullReport
+        }
+
         journeys.filter { !it.isComplete }.forEach { journey ->
             errorContent.append(
                 "Incomplete journey: Check-in at ${journey.checkIn.station} on ${
@@ -105,8 +121,8 @@ class DailyReporter {
             )
         }
 
-        reportFile.writeText(fullReport)
-        generatePDFReport(folder, fullReport, templatePdf)
+        reportFile.writeText(fullReportWithHeader)
+        generatePDFReport(folder, fullReportWithHeader, templatePdf)
         originalPdfFile?.let {
             mergePDFReports(folder, it)
         }

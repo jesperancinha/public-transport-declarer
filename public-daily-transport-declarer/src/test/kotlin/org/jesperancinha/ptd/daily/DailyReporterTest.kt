@@ -181,4 +181,49 @@ class DailyReporterTest {
         completeReportPdf.exists() shouldBe true
         (completeReportPdf.length() > reportPdf.length()) shouldBe true
     }
+
+    @Test
+    fun `should generate PDF report with header`() {
+        val reporter = DailyReporter()
+        val tempFolder = File("target/test-report-header")
+        if (tempFolder.exists()) tempFolder.deleteRecursively()
+        tempFolder.mkdirs()
+
+        val headerFile = File(tempFolder, "header.txt")
+        headerFile.writeText("Test Header Content")
+
+        val now = LocalDateTime.now()
+        val dailyJourney = DailyJourney(
+            completeJourneys = listOf(
+                Journey(
+                    checkIn = Segment(
+                        now,
+                        "Station A",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKIN,
+                        cost = BigDecimal.ZERO
+                    ),
+                    checkOut = Segment(
+                        now.plusMinutes(10),
+                        "Station B",
+                        type = TransportType.TRAM_BUS,
+                        check = CheckInOut.CHECKOUT,
+                        cost = BigDecimal("1.50")
+                    ),
+                    type = TransportType.TRAM_BUS
+                )
+            ),
+            missedCheckoutSegments = emptyList()
+        )
+
+        reporter.generateReport(tempFolder, dailyJourney, true, headerFile = headerFile)
+
+        val reportTxt = File(tempFolder, "report.txt")
+        reportTxt.exists() shouldBe true
+        reportTxt.readText().contains("Test Header Content") shouldBe true
+        
+        val reportPdf = File(tempFolder, "report.pdf")
+        reportPdf.exists() shouldBe true
+        (reportPdf.length() > 0) shouldBe true
+    }
 }

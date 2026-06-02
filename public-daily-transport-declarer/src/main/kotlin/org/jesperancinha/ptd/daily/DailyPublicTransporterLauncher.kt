@@ -24,6 +24,14 @@ class DailyPublicTransporterCommand : Callable<Int> {
     lateinit var inputFolder: String
 
     @Option(
+        names = ["-h", "--header"],
+        description = ["The header text file to use for the report"],
+        required = false,
+        defaultValue = "reports/header.txt"
+    )
+    var headerFile: String? = null
+
+    @Option(
         names = ["-t", "--template", "-template"],
         description = ["The template PDF file to use for the report"],
         required = false,
@@ -69,7 +77,8 @@ class DailyPublicTransporterCommand : Callable<Int> {
                         dailyJourneys,
                         totalMatches,
                         newPdfFile,
-                        templatePdf?.let { File(it) })
+                        templatePdf?.let { File(it) },
+                        headerFile?.let { File(it) })
                     println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
                 }
             } catch (e: Exception) {
