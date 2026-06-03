@@ -2,6 +2,10 @@ package org.jesperancinha.ptd.daily
 
 import org.openpdf.text.*
 import org.openpdf.text.pdf.*
+import org.apache.poi.ss.util.CellRangeAddress
+import org.apache.poi.xddf.usermodel.chart.*
+import org.apache.poi.xssf.usermodel.XSSFChart
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -211,5 +215,59 @@ class DailyReporter {
             "Template Error: $markupLabelRegex section not found"
         }
         return this.replace(journeysSectionRegex, reportContent)
+    }
+
+    fun generateExcelReport(folder: File, allJourneys: List<DailyJourney>, workChartTitle: String) {
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("Work Time")
+        val data = allJourneys.flatMap { it.completeJourneys }
+            .filter { it.isComplete }
+            .groupBy { it.checkIn.dateTime.toLocalDate() }
+            .mapValues { (_, journeys) ->
+                journeys.fold(Duration.ZERO) { acc, journey -> acc.plus(journey.duration) }.toMinutes() / 60.0
+            }
+            .toSortedMap()
+
+        val headerRow = sheet.createRow(0)
+        headerRow.createCell(0).setCellValue("Date")
+        headerRow.createCell(1).setCellValue("Work Time (Hours)")
+
+        data.entries.forEachIndexed { index, entry ->
+            val row = sheet.createRow(index + 1)
+            row.createCell(0).setCellValue(entry.key.toString())
+            row.createCell(1).setCellValue(entry.value)
+        }
+
+        val drawing = sheet.createDrawingPatriarch()
+        val anchor = drawing.createAnchor(0, 0, 0, 0, 3, 1, 15, 20)
+        val chart = drawing.createChart(anchor) as XSSFChart
+        chart.setTitleText(workChartTitle)
+        chart.setTitleOverlay(false)
+
+        val xAxis = chart.createCategoryAxis(AxisPosition.BOTTOM)
+        xAxis.setTitle("Day")
+        val yAxis = chart.createValueAxis(AxisPosition.LEFT)
+        yAxis.setTitle("Total Work Time (Hours)")
+
+        val workTimeRange = CellRangeAddress(1, data.size, 1, 1)
+
+        val categories = XDDFDataSourcesFactory.fromArray(data.keys.map { it.toString() }.toTypedArray())
+        val values = XDDFDataSourcesFactory.fromNumericCellRange(sheet, workTimeRange)
+
+        val chartData = chart.createData(ChartTypes.BAR, xAxis, yAxis) as XDDFBarChartData
+        chartData.barDirection = BarDirection.COL
+        val series = chartData.addSeries(categories, values)
+        series.setTitle("Work Time", null)
+        chart.plot(chartData)
+
+        val minDate = data.firstKey().format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val maxDate = data.lastKey().format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val fileName = "$minDate-to-$maxDate-work-in-the-ov.xlsx"
+        val file = File(folder, fileName)
+        FileOutputStream(file).use {
+            workbook.write(it)
+        }
+        workbook.close()
+        println("Excel report generated: ${file.absolutePath}")
     }
 }

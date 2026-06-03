@@ -39,6 +39,14 @@ class DailyPublicTransporterCommand : Callable<Int> {
     )
     var templatePdf: String? = null
 
+    @Option(
+        names = ["-wct", "--work-chart-title"],
+        description = ["The title of the work chart"],
+        required = false,
+        defaultValue = "Werktijd in de OV"
+    )
+    var workChartTitle: String = "Werktijd in de OV"
+
     private val parser = DailyPdfParser()
     private val validator = DailyPdfValidator()
     private val reporter = DailyReporter()
@@ -50,12 +58,15 @@ class DailyPublicTransporterCommand : Callable<Int> {
             return 1
         }
 
+        val allJourneys = mutableListOf<DailyJourney>()
+
         folder.listFiles { _, name -> name.lowercase().endsWith(".pdf") }?.forEach { pdfFile ->
             println("Processing ${pdfFile.name}...")
             try {
 
                 val segments = parser.parse(pdfFile.toURI().toURL())
                 val dailyJourneys = segments.toDailyJourneys()
+                allJourneys.add(dailyJourneys)
                 val completeJourneys = dailyJourneys.completeJourneys
                 val incompleteSegments = dailyJourneys.missedCheckoutSegments
                 println("Found ${segments.size} segments:")
@@ -86,6 +97,10 @@ class DailyPublicTransporterCommand : Callable<Int> {
                 e.printStackTrace()
             }
         } ?: println("No PDF files found in $inputFolder")
+
+        if (allJourneys.isNotEmpty()) {
+            reporter.generateExcelReport(folder, allJourneys, workChartTitle)
+        }
 
         return 0
     }

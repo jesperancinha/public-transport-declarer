@@ -65,6 +65,7 @@ report.csv
 **/reports/**/*.pdf
 **/reports/**/*.ics
 **/reports/**/*.xls
+**/reports/**/*.xlsx
 
 # Must be in
 !public-transport-declarer/generateReport.sh
@@ -83,3 +84,6 @@ nodeUpdatesOne.sh
 dependabot.yml.bak
 .output.txt
 .~lock.**
+
+# Generated files
+compile_output*.txt

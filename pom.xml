@@ -44,6 +44,7 @@
         <kotest.version>4.0.7</kotest.version>
         <kotest-assertions.version>6.0.7</kotest-assertions.version>
         <picocli.version>4.7.7</picocli.version>
+        <poi.version>5.4.0</poi.version>
     </properties>
 
     <dependencyManagement>
@@ -89,7 +90,16 @@
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit-jupiter-api.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
