@@ -247,18 +247,63 @@ class DailyReporter {
 
         val xAxis = chart.createCategoryAxis(AxisPosition.BOTTOM)
         xAxis.setTitle("Day")
+        try {
+            xAxis.getOrAddTextProperties()
+            val ctCatAxField = xAxis::class.java.getDeclaredField("ctCatAx")
+            ctCatAxField.isAccessible = true
+            val ctCatAx = ctCatAxField.get(xAxis)
+            val txPr = ctCatAx::class.java.getDeclaredMethod("getTxPr").invoke(ctCatAx) ?: ctCatAx::class.java.getDeclaredMethod("addNewTxPr").invoke(ctCatAx)
+            val bodyPr = txPr::class.java.getDeclaredMethod("getBodyPr").invoke(txPr) ?: txPr::class.java.getDeclaredMethod("addNewBodyPr").invoke(txPr)
+            
+            bodyPr::class.java.getDeclaredMethod("setRot", Int::class.javaPrimitiveType).invoke(bodyPr, -2700000)
+            
+            val setVertMethod = try {
+                bodyPr::class.java.getDeclaredMethod("setVert", Class.forName("org.openxmlformats.schemas.drawingml.x2006.main.STTextVerticalType\$Enum"))
+            } catch (e: Exception) {
+                bodyPr::class.java.getDeclaredMethod("setVert", Class.forName("org.openxmlformats.schemas.drawingml.x2006.main.STTextVerticalType"))
+            }
+            
+            val horzEnum = Class.forName("org.openxmlformats.schemas.drawingml.x2006.main.STTextVerticalType").getField("HORZ").get(null)
+            setVertMethod.invoke(bodyPr, horzEnum)
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         val yAxis = chart.createValueAxis(AxisPosition.LEFT)
         yAxis.setTitle("Total Work Time (Hours)")
 
         val workTimeRange = CellRangeAddress(1, data.size, 1, 1)
+        val dateRange = CellRangeAddress(1, data.size, 0, 0)
 
-        val categories = XDDFDataSourcesFactory.fromArray(data.keys.map { it.toString() }.toTypedArray())
+        val categories = XDDFDataSourcesFactory.fromStringCellRange(sheet, dateRange)
         val values = XDDFDataSourcesFactory.fromNumericCellRange(sheet, workTimeRange)
 
         val chartData = chart.createData(ChartTypes.BAR, xAxis, yAxis) as XDDFBarChartData
         chartData.barDirection = BarDirection.COL
         val series = chartData.addSeries(categories, values)
         series.setTitle("Work Time", null)
+
+        val whiteFill = XDDFSolidFillProperties(XDDFColor.from(PresetColor.WHITE))
+        val blackLine = XDDFLineProperties()
+        blackLine.setFillProperties(XDDFSolidFillProperties(XDDFColor.from(PresetColor.BLACK)))
+
+        try {
+            val getOrAddShapePropertiesMethod = chart.javaClass.getMethod("getOrAddShapeProperties")
+            val chartShapeProperties = getOrAddShapePropertiesMethod.invoke(chart)
+            val setFillMethod = chartShapeProperties.javaClass.getMethod("setFillProperties", XDDFFillProperties::class.java)
+            setFillMethod.invoke(chartShapeProperties, whiteFill)
+            val setLineMethod = chartShapeProperties.javaClass.getMethod("setLineProperties", XDDFLineProperties::class.java)
+            setLineMethod.invoke(chartShapeProperties, blackLine)
+        } catch (e: Exception) {
+        }
+
+        try {
+            val getPlotAreaMethod = chart.javaClass.getMethod("getOrAddPlotArea")
+            val plotArea = getPlotAreaMethod.invoke(chart)
+            val setFillMethod = plotArea.javaClass.getMethod("setFillProperties", XDDFFillProperties::class.java)
+            setFillMethod.invoke(plotArea, whiteFill)
+        } catch (e: Exception) {
+        }
 
         val fill = XDDFSolidFillProperties(XDDFColor.from(PresetColor.CHARTREUSE))
         series.setFillProperties(fill)
