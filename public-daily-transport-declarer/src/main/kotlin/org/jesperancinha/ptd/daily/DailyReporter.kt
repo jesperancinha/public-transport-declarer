@@ -3,6 +3,7 @@ package org.jesperancinha.ptd.daily
 import org.openpdf.text.*
 import org.openpdf.text.pdf.*
 import org.apache.poi.ss.util.CellRangeAddress
+import org.apache.poi.xddf.usermodel.*
 import org.apache.poi.xddf.usermodel.chart.*
 import org.apache.poi.xssf.usermodel.XSSFChart
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
@@ -258,6 +259,10 @@ class DailyReporter {
         chartData.barDirection = BarDirection.COL
         val series = chartData.addSeries(categories, values)
         series.setTitle("Work Time", null)
+
+        val fill = XDDFSolidFillProperties(XDDFColor.from(PresetColor.CHARTREUSE))
+        series.setFillProperties(fill)
+
         chart.plot(chartData)
 
         val minDate = data.firstKey().format(DateTimeFormatter.ISO_LOCAL_DATE)
