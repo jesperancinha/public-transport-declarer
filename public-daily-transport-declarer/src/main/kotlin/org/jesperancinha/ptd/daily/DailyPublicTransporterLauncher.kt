@@ -51,6 +51,13 @@ class DailyPublicTransporterCommand : Callable<Int> {
     private val validator = DailyPdfValidator()
     private val reporter = DailyReporter()
 
+    private data class ReportRequest(
+        val subfolder: File,
+        val dailyJourneys: DailyJourney,
+        val totalMatches: Boolean,
+        val newPdfFile: File
+    )
+
     override fun call(): Int {
         val folder = File(inputFolder)
         if (!folder.isDirectory) {
@@ -59,6 +66,7 @@ class DailyPublicTransporterCommand : Callable<Int> {
         }
 
         val allJourneys = mutableListOf<DailyJourney>()
+        val reportRequests = mutableListOf<ReportRequest>()
 
         folder.listFiles { _, name -> name.lowercase().endsWith(".pdf") }?.forEach { pdfFile ->
             println("Processing ${pdfFile.name}...")
@@ -75,7 +83,7 @@ class DailyPublicTransporterCommand : Callable<Int> {
                 println("- ${incompleteSegments.count()} missing checkouts.")
                 val totalMatches = validator.validate(pdfFile.toURI().toURL(), completeJourneys)
 
-                if(segments.isNotEmpty()) {
+                if (segments.isNotEmpty()) {
                     val subfolderName = "${
                         segments[0].dateTime.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                     }-${pdfFile.nameWithoutExtension.replace("declaratieoverzicht_", "")}"
@@ -83,14 +91,7 @@ class DailyPublicTransporterCommand : Callable<Int> {
                     val newPdfFile = File(subfolder, pdfFile.name)
                     pdfFile.copyTo(newPdfFile, overwrite = true)
 
-                    reporter.generateReport(
-                        subfolder,
-                        dailyJourneys,
-                        totalMatches,
-                        newPdfFile,
-                        templatePdf?.let { File(it) },
-                        headerFile?.let { File(it) })
-                    println("Finished processing ${pdfFile.name}. Report generated in ${subfolder.absolutePath}")
+                    reportRequests.add(ReportRequest(subfolder, dailyJourneys, totalMatches, newPdfFile))
                 }
             } catch (e: Exception) {
                 println("Error processing ${pdfFile.name}: ${e.message}")
@@ -99,6 +100,30 @@ class DailyPublicTransporterCommand : Callable<Int> {
         } ?: println("No PDF files found in $inputFolder")
 
         if (allJourneys.isNotEmpty()) {
+            val workTimeData = allJourneys.flatMap { it.completeJourneys }
+                .filter { it.isComplete }
+                .groupBy { it.checkIn.dateTime.toLocalDate() }
+                .mapValues { (_, journeys) ->
+                    java.time.Duration.ofMinutes(
+                        journeys.fold(java.time.Duration.ZERO) { acc, journey -> acc.plus(journey.duration) }.toMinutes()
+                    ).toMinutes() / 60.0
+                }
+                .toSortedMap()
+
+            reportRequests.forEach { request ->
+                reporter.generateReport(
+                    request.subfolder,
+                    request.dailyJourneys,
+                    request.totalMatches,
+                    request.newPdfFile,
+                    templatePdf?.let { File(it) },
+                    headerFile?.let { File(it) },
+                    workTimeData,
+                    workChartTitle
+                )
+                println("Finished processing ${request.newPdfFile.name}. Report generated in ${request.subfolder.absolutePath}")
+            }
+
             reporter.generateExcelReport(folder, allJourneys, workChartTitle)
         }
 

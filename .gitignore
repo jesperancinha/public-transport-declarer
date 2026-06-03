@@ -87,3 +87,4 @@ dependabot.yml.bak
 
 # Generated files
 compile_output*.txt
+run_output*.txt

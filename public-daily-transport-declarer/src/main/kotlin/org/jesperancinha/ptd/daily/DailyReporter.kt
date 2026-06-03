@@ -28,7 +28,9 @@ class DailyReporter {
         totalMatches: Boolean,
         originalPdfFile: File? = null,
         templatePdf: File? = null,
-        headerFile: File? = null
+        headerFile: File? = null,
+        workTimeData: Map<LocalDate, Double> = emptyMap(),
+        workChartTitle: String = "Werktijd in de OV"
     ) {
         if (!folder.exists()) folder.mkdirs()
 
@@ -127,7 +129,8 @@ class DailyReporter {
         }
 
         reportFile.writeText(fullReportWithHeader)
-        generatePDFReport(folder, fullReportWithHeader, templatePdf)
+        generatePDFReport(folder, fullReportWithHeader, templatePdf, workTimeData, workChartTitle)
+        generateOVReport(folder, templatePdf, workTimeData, workChartTitle)
         originalPdfFile?.let {
             mergePDFReports(folder, it)
         }
@@ -141,7 +144,13 @@ class DailyReporter {
         logFile.writeText(logContent + "Processed ${journeys.size} journeys (${journeys.filter { it.isComplete }.size} complete, ${journeys.filter { !it.isComplete }.size} incomplete).\n")
     }
 
-    private fun generatePDFReport(folder: File, fullReport: String, templatePdf: File?) {
+    private fun generatePDFReport(
+        folder: File,
+        fullReport: String,
+        templatePdf: File?,
+        workTimeData: Map<LocalDate, Double>,
+        workChartTitle: String
+    ) {
         val pdfFile = File(folder, "report.pdf")
         val document = Document(PageSize.A4)
         val writer = PdfWriter.getInstance(document, FileOutputStream(pdfFile))
@@ -164,14 +173,16 @@ class DailyReporter {
         })
 
         document.open()
-        val font = Font(Font.HELVETICA, 12f)
+        val font = Font(Font.HELVETICA, 10f)
+
+        // Page 1: Text report
         val table = PdfPTable(1)
         table.widthPercentage = 100f
+        table.setTotalWidth(document.pageSize.width - document.leftMargin() - document.rightMargin())
         val cell = PdfPCell()
         cell.border = Rectangle.NO_BORDER
-        cell.verticalAlignment = Element.ALIGN_MIDDLE
+        cell.verticalAlignment = Element.ALIGN_TOP
         cell.horizontalAlignment = Element.ALIGN_CENTER
-        cell.fixedHeight = document.pageSize.height - document.topMargin() - document.bottomMargin()
 
         fullReport.split("\n").forEach { line ->
             val p = Paragraph(line.ifEmpty { " " }, font)
@@ -179,9 +190,142 @@ class DailyReporter {
             cell.addElement(p)
         }
         table.addCell(cell)
-        document.add(table)
+
+        val textHeight = table.getTotalHeight()
+        val startY = (document.pageSize.height + textHeight) / 2
+        table.writeSelectedRows(0, -1, document.leftMargin(), startY, writer.directContent)
+
+        // Page 2: Chart report
+        if (workTimeData.isNotEmpty()) {
+            document.newPage()
+            drawChart(writer, document, workTimeData, workChartTitle, (document.pageSize.height + 180f) / 2)
+        }
+
         document.close()
         reader?.close()
+    }
+
+    private fun generateOVReport(
+        folder: File,
+        templatePdf: File?,
+        workTimeData: Map<LocalDate, Double>,
+        workChartTitle: String
+    ) {
+        if (workTimeData.isEmpty()) return
+
+        val pdfFile = File(folder, "report-ov.pdf")
+        val document = Document(PageSize.A4)
+        val writer = PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+        val reader = templatePdf?.let {
+            if (it.exists()) {
+                PdfReader(it.absolutePath)
+            } else {
+                null
+            }
+        }
+        val pageTemplate = reader?.let { writer.getImportedPage(it, 1) }
+
+        writer.setPageEvent(object : PdfPageEventHelper() {
+            override fun onEndPage(writer: PdfWriter, document: Document) {
+                pageTemplate?.let {
+                    writer.directContentUnder.addTemplate(it, 0f, 0f)
+                }
+            }
+        })
+
+        document.open()
+        drawChart(writer, document, workTimeData, workChartTitle, (document.pageSize.height + 180f) / 2)
+        document.close()
+        reader?.close()
+    }
+
+    private fun drawChart(
+        writer: PdfWriter,
+        document: Document,
+        data: Map<LocalDate, Double>,
+        title: String,
+        startY: Float
+    ) {
+        val cb = writer.directContent
+        val width = 500f
+        val height = 180f
+        val x = (document.pageSize.width - width) / 2
+        val y = if (startY - height < document.bottomMargin()) document.bottomMargin() else startY - height
+
+        // Draw background
+        cb.setColorFill(java.awt.Color.WHITE)
+        cb.rectangle(x, y, width, height)
+        cb.fill()
+
+        // Draw border
+        cb.setColorStroke(java.awt.Color.BLACK)
+        cb.setLineWidth(1f)
+        cb.rectangle(x, y, width, height)
+        cb.stroke()
+
+        val margin = 30f
+        val chartWidth = width - 2 * margin
+        val chartHeight = height - 2 * margin
+        val chartX = x + margin
+        val chartY = y + margin
+
+        // Draw Title
+        val font = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.WINANSI, BaseFont.EMBEDDED)
+        cb.beginText()
+        cb.setFontAndSize(font, 10f)
+        cb.showTextAligned(Element.ALIGN_CENTER, title, x + width / 2, y + height - 15f, 0f)
+        cb.endText()
+
+        if (data.isEmpty()) return
+
+        val maxVal = data.values.maxOrNull() ?: 1.0
+        val yAxisMax = Math.ceil(maxVal).let { if (it == 0.0) 1.0 else it }
+        val barCount = data.size
+        val barWidth = (chartWidth / barCount) * 0.8f
+        val barGap = (chartWidth / barCount) * 0.2f
+
+        // Draw Axes
+        cb.setLineWidth(1f)
+        cb.setColorStroke(java.awt.Color.BLACK)
+        cb.moveTo(chartX, chartY)
+        cb.lineTo(chartX + chartWidth, chartY)
+        cb.moveTo(chartX, chartY)
+        cb.lineTo(chartX, chartY + chartHeight)
+        cb.stroke()
+
+        // Y Axis Labels
+        val labelFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.EMBEDDED)
+        cb.setFontAndSize(labelFont, 8f)
+        for (i in 0..yAxisMax.toInt()) {
+            val labelY = chartY + (i / yAxisMax.toFloat()) * chartHeight
+            cb.moveTo(chartX - 3f, labelY)
+            cb.lineTo(chartX, labelY)
+            cb.stroke()
+            cb.beginText()
+            cb.showTextAligned(Element.ALIGN_RIGHT, i.toString(), chartX - 5f, labelY - 3f, 0f)
+            cb.endText()
+        }
+
+        // Bars and X Axis Labels
+        data.entries.forEachIndexed { index, entry ->
+            val barX = chartX + index * (barWidth + barGap) + barGap / 2
+            val barH = (entry.value / yAxisMax.toFloat()) * chartHeight
+
+            // Bar
+            cb.setColorFill(java.awt.Color(127, 255, 0)) // CHARTREUSE
+            cb.rectangle(barX, chartY, barWidth, barH.toFloat())
+            cb.fill()
+            cb.setColorStroke(java.awt.Color.BLACK)
+            cb.rectangle(barX, chartY, barWidth, barH.toFloat())
+            cb.stroke()
+
+            // X Label (Date)
+            cb.beginText()
+            cb.setColorFill(java.awt.Color.BLACK)
+            val dateStr = entry.key.toString()
+            cb.showTextAligned(Element.ALIGN_RIGHT, dateStr, barX + barWidth / 2, chartY - 5f, 45f)
+            cb.endText()
+        }
     }
 
     private fun mergePDFReports(folder: File, originalPdfFile: File) {
