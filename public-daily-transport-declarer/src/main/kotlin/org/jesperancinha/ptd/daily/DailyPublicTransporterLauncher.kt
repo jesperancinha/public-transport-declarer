@@ -4,6 +4,8 @@ import picocli.CommandLine
 import picocli.CommandLine.Command
 import picocli.CommandLine.Option
 import java.io.File
+import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.Callable
 import kotlin.system.exitProcess
@@ -83,6 +85,7 @@ class DailyPublicTransporterCommand : Callable<Int> {
 
         val allJourneys = mutableListOf<DailyJourney>()
         val reportRequests = mutableListOf<ReportRequest>()
+        val seenReports = mutableSetOf<Pair<LocalDate, BigDecimal>>()
 
         folder.listFiles { _, name -> name.lowercase().endsWith(".pdf") }?.forEach { pdfFile ->
             println("Processing ${pdfFile.name}...")
@@ -95,6 +98,19 @@ class DailyPublicTransporterCommand : Callable<Int> {
                     println("WARNING: PDF ${pdfFile.name} contains data for multiple days: ${uniqueDays.joinToString(", ")}. Deleting original PDF and skipping report generation.")
                     pdfFile.delete()
                     return@forEach
+                }
+                if (uniqueDays.size == 1) {
+                    val date = uniqueDays.first()
+                    val totalCost = dailyJourneys.completeJourneys
+                        .filter { it.isComplete }
+                        .sumOf { it.checkIn.cost + (it.checkOut?.cost ?: BigDecimal.ZERO) }
+                    val reportKey = date to totalCost
+                    if (seenReports.contains(reportKey)) {
+                        println("WARNING: PDF ${pdfFile.name} has the same date ($date) and total cost ($totalCost) as a previously processed report. Deleting original PDF and skipping report generation.")
+                        pdfFile.delete()
+                        return@forEach
+                    }
+                    seenReports.add(reportKey)
                 }
                 allJourneys.add(dailyJourneys)
                 val completeJourneys = dailyJourneys.completeJourneys

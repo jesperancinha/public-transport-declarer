@@ -74,4 +74,39 @@ class DailyPublicTransporterLauncherTest {
         
         tempDir.deleteRecursively()
     }
+
+    @Test
+    fun `should delete duplicate pdf if date and total cost are the same`() {
+        val tempDir = Files.createTempDirectory("ptd-test-dup").toFile()
+        val pdfFile1 = File(tempDir, "test1.pdf")
+        val pdfFile2 = File(tempDir, "test2.pdf")
+
+        val document1 = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(document1, java.io.FileOutputStream(pdfFile1))
+        document1.open()
+        document1.add(org.openpdf.text.Paragraph("01-12-2022 Qbuzz Station A 08:17 Utrecht, CS Jaarbeursplein € 2,64 Check-uit"))
+        document1.close()
+
+        val document2 = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(document2, java.io.FileOutputStream(pdfFile2))
+        document2.open()
+        document2.add(org.openpdf.text.Paragraph("01-12-2022 Qbuzz Station A 08:17 Utrecht, CS Jaarbeursplein € 2,64 Check-uit"))
+        document2.close()
+
+        val command = DailyPublicTransporterCommand()
+        command.inputFolder = tempDir.absolutePath
+
+        val result = command.call()
+
+        result shouldBe 0
+        
+        val remainingPdfs = tempDir.listFiles { _, name -> name.endsWith(".pdf") }
+        remainingPdfs?.size shouldBe 1
+        
+        // Check that only one subfolder was created
+        val subfolders = tempDir.listFiles { f -> f.isDirectory }
+        subfolders?.size shouldBe 1
+        
+        tempDir.deleteRecursively()
+    }
 }
