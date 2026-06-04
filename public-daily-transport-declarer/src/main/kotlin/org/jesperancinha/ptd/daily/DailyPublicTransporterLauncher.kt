@@ -47,6 +47,14 @@ class DailyPublicTransporterCommand : Callable<Int> {
     )
     var workChartTitle: String = "Werktijd in de OV"
 
+    @Option(
+        names = ["-rt", "--report-template"],
+        description = ["The report template text file to use"],
+        required = false,
+        defaultValue = "report-template.txt"
+    )
+    var reportTemplateFile: String = "report-template.txt"
+
     private val parser = DailyPdfParser()
     private val validator = DailyPdfValidator()
     private val reporter = DailyReporter()
@@ -119,7 +127,8 @@ class DailyPublicTransporterCommand : Callable<Int> {
                     templatePdf?.let { File(it) },
                     headerFile?.let { File(it) },
                     workTimeData,
-                    workChartTitle
+                    workChartTitle,
+                    File("reports", reportTemplateFile)
                 )
                 println("Finished processing ${request.newPdfFile.name}. Report generated in ${request.subfolder.absolutePath}")
             }

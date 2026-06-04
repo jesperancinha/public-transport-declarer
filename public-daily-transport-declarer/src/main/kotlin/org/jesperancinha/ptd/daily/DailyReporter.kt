@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class DailyReporter {
-    private val template = this::class.java.getResource("/report-template.txt")?.readText()
+    private val defaultTemplate = this::class.java.getResource("/report-template.txt")?.readText()
         ?: "Journey from {{checkInStation}} to {{checkOutStation}} by {{transportType}}.\nCheck-in: {{checkInTime}}\nCheck-out: {{checkOutTime}}\nCost: {{cost}}\n"
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
@@ -30,9 +30,17 @@ class DailyReporter {
         templatePdf: File? = null,
         headerFile: File? = null,
         workTimeData: Map<LocalDate, Double> = emptyMap(),
-        workChartTitle: String = "Werktijd in de OV"
+        workChartTitle: String = "Werktijd in de OV",
+        reportTemplateFile: File? = null
     ) {
         if (!folder.exists()) folder.mkdirs()
+
+        val template = reportTemplateFile?.let {
+            if (it.exists()) it.readText() else {
+                println("WARNING: Report template file ${it.absolutePath} not found. Using default template.")
+                defaultTemplate
+            }
+        } ?: defaultTemplate
 
         val headerContent = headerFile?.let {
             if (it.exists()) {
