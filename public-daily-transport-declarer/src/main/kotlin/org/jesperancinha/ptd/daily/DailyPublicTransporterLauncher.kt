@@ -90,6 +90,12 @@ class DailyPublicTransporterCommand : Callable<Int> {
 
                 val segments = parser.parse(pdfFile.toURI().toURL())
                 val dailyJourneys = segments.toDailyJourneys()
+                val uniqueDays = segments.map { it.dateTime.toLocalDate() }.distinct()
+                if (uniqueDays.size > 1) {
+                    println("WARNING: PDF ${pdfFile.name} contains data for multiple days: ${uniqueDays.joinToString(", ")}. Deleting original PDF and skipping report generation.")
+                    pdfFile.delete()
+                    return@forEach
+                }
                 allJourneys.add(dailyJourneys)
                 val completeJourneys = dailyJourneys.completeJourneys
                 val incompleteSegments = dailyJourneys.missedCheckoutSegments
