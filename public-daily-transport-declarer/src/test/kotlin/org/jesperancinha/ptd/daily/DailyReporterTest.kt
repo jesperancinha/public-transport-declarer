@@ -4,6 +4,7 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class DailyReporterTest {
@@ -223,6 +224,46 @@ class DailyReporterTest {
         reportTxt.readText().contains("Test Header Content") shouldBe true
         
         val reportPdf = File(tempFolder, "report.pdf")
+        reportPdf.exists() shouldBe true
+        (reportPdf.length() > 0) shouldBe true
+    }
+
+    @Test
+    fun `should generate PDF report with OV template and average work hours`() {
+        val reporter = DailyReporter()
+        val tempFolder = File("target/test-report-ov-template")
+        if (tempFolder.exists()) tempFolder.deleteRecursively()
+        tempFolder.mkdirs()
+
+        val ovTemplate = File(tempFolder, "ov-template.txt")
+        ovTemplate.writeText("Average hours: {{workHours}}")
+
+        val now = LocalDateTime.now()
+        val dailyJourney = DailyJourney(
+            completeJourneys = listOf(
+                Journey(
+                    checkIn = Segment(now, "A", type = TransportType.TRAIN, check = CheckInOut.CHECKIN, cost = BigDecimal.ZERO),
+                    checkOut = Segment(now.plusHours(1), "B", type = TransportType.TRAIN, check = CheckInOut.CHECKOUT, cost = BigDecimal("2.50")),
+                    type = TransportType.TRAIN
+                )
+            ),
+            missedCheckoutSegments = emptyList()
+        )
+
+        val workTimeData = mapOf(
+            LocalDate.now() to 8.0,
+            LocalDate.now().minusDays(1) to 6.0
+        )
+
+        reporter.generateReport(
+            tempFolder,
+            dailyJourney,
+            true,
+            workTimeData = workTimeData,
+            reportTemplateOvFile = ovTemplate
+        )
+
+        val reportPdf = File(tempFolder, "report-ov.pdf")
         reportPdf.exists() shouldBe true
         (reportPdf.length() > 0) shouldBe true
     }

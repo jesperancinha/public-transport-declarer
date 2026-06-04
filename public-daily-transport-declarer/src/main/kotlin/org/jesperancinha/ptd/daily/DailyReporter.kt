@@ -20,6 +20,9 @@ class DailyReporter {
     private val defaultTemplate = this::class.java.getResource("/report-template.txt")?.readText()
         ?: "Journey from {{checkInStation}} to {{checkOutStation}} by {{transportType}}.\nCheck-in: {{checkInTime}}\nCheck-out: {{checkOutTime}}\nCost: {{cost}}\n"
 
+    private val defaultOvTemplate = this::class.java.getResource("/report-work-ov-template.txt")?.readText()
+        ?: "Average work hours per day: {{workHours}}."
+
     private val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
 
     fun generateReport(
@@ -31,7 +34,8 @@ class DailyReporter {
         headerFile: File? = null,
         workTimeData: Map<LocalDate, Double> = emptyMap(),
         workChartTitle: String = "Werktijd in de OV",
-        reportTemplateFile: File? = null
+        reportTemplateFile: File? = null,
+        reportTemplateOvFile: File? = null
     ) {
         if (!folder.exists()) folder.mkdirs()
 
@@ -41,6 +45,13 @@ class DailyReporter {
                 defaultTemplate
             }
         } ?: defaultTemplate
+
+        val ovTemplate = reportTemplateOvFile?.let {
+            if (it.exists()) it.readText() else {
+                println("WARNING: OV Report template file ${it.absolutePath} not found. Using default OV template.")
+                defaultOvTemplate
+            }
+        } ?: defaultOvTemplate
 
         val headerContent = headerFile?.let {
             if (it.exists()) {
@@ -136,9 +147,26 @@ class DailyReporter {
             )
         }
 
+        val averageWorkHours = workTimeData.entries
+            .sortedByDescending { it.key }
+            .take(10)
+            .map { it.value }
+            .average()
+            .let { if (it.isNaN()) 0.0 else it }
+
+        val ovReportContent = ovTemplate.replace("{{workHours}}", String.format("%.2f", averageWorkHours))
+
         reportFile.writeText(fullReportWithHeader)
-        generatePDFReport(folder, fullReportWithHeader, templatePdf, workTimeData, workChartTitle)
-        generateOVReport(folder, templatePdf, workTimeData, workChartTitle)
+        generatePDFReport(
+            folder,
+            fullReportWithHeader,
+            templatePdf,
+            workTimeData,
+            workChartTitle,
+            headerContent,
+            ovReportContent
+        )
+        generateOVReport(folder, templatePdf, workTimeData, workChartTitle, headerContent, ovReportContent)
         originalPdfFile?.let {
             mergePDFReports(folder, it)
         }
@@ -157,7 +185,9 @@ class DailyReporter {
         fullReport: String,
         templatePdf: File?,
         workTimeData: Map<LocalDate, Double>,
-        workChartTitle: String
+        workChartTitle: String,
+        headerContent: String = "",
+        ovReportContent: String = ""
     ) {
         val pdfFile = File(folder, "report.pdf")
         val document = Document(PageSize.A4)
@@ -206,6 +236,18 @@ class DailyReporter {
         // Page 2: Chart report
         if (workTimeData.isNotEmpty()) {
             document.newPage()
+            if (headerContent.isNotEmpty()) {
+                val pHeader = Paragraph(headerContent, font)
+                pHeader.alignment = Element.ALIGN_CENTER
+                document.add(pHeader)
+                document.add(Paragraph(" "))
+            }
+            if (ovReportContent.isNotEmpty()) {
+                val pOv = Paragraph(ovReportContent, font)
+                pOv.alignment = Element.ALIGN_JUSTIFIED
+                document.add(pOv)
+                document.add(Paragraph(" "))
+            }
             drawChart(writer, document, workTimeData, workChartTitle, (document.pageSize.height + 180f) / 2)
         }
 
@@ -217,7 +259,9 @@ class DailyReporter {
         folder: File,
         templatePdf: File?,
         workTimeData: Map<LocalDate, Double>,
-        workChartTitle: String
+        workChartTitle: String,
+        headerContent: String = "",
+        ovReportContent: String = ""
     ) {
         if (workTimeData.isEmpty()) return
 
@@ -242,6 +286,19 @@ class DailyReporter {
         })
 
         document.open()
+        val font = Font(Font.HELVETICA, 10f)
+        if (headerContent.isNotEmpty()) {
+            val pHeader = Paragraph(headerContent, font)
+            pHeader.alignment = Element.ALIGN_CENTER
+            document.add(pHeader)
+            document.add(Paragraph(" "))
+        }
+        if (ovReportContent.isNotEmpty()) {
+            val pOv = Paragraph(ovReportContent, font)
+            pOv.alignment = Element.ALIGN_JUSTIFIED
+            document.add(pOv)
+            document.add(Paragraph(" "))
+        }
         drawChart(writer, document, workTimeData, workChartTitle, (document.pageSize.height + 180f) / 2)
         document.close()
         reader?.close()

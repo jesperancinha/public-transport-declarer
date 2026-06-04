@@ -55,6 +55,14 @@ class DailyPublicTransporterCommand : Callable<Int> {
     )
     var reportTemplateFile: String = "report-template.txt"
 
+    @Option(
+        names = ["-rtov", "--report-template-ov"],
+        description = ["The report template text file to use for the OV chart"],
+        required = false,
+        defaultValue = "report-work-ov-template.txt"
+    )
+    var reportTemplateOvFile: String = "report-work-ov-template.txt"
+
     private val parser = DailyPdfParser()
     private val validator = DailyPdfValidator()
     private val reporter = DailyReporter()
@@ -128,7 +136,8 @@ class DailyPublicTransporterCommand : Callable<Int> {
                     headerFile?.let { File(it) },
                     workTimeData,
                     workChartTitle,
-                    File("reports", reportTemplateFile)
+                    File("reports", reportTemplateFile),
+                    File("reports", reportTemplateOvFile)
                 )
                 println("Finished processing ${request.newPdfFile.name}. Report generated in ${request.subfolder.absolutePath}")
             }
