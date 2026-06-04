@@ -147,10 +147,13 @@ class DailyReporter {
             )
         }
 
-        val averageWorkHours = workTimeData.entries
+        val last10DaysWorkTimeData = workTimeData.entries
             .sortedByDescending { it.key }
             .take(10)
-            .map { it.value }
+            .associate { it.key to it.value }
+            .toSortedMap()
+
+        val averageWorkHours = last10DaysWorkTimeData.values
             .average()
             .let { if (it.isNaN()) 0.0 else it }
 
@@ -161,12 +164,12 @@ class DailyReporter {
             folder,
             fullReportWithHeader,
             templatePdf,
-            workTimeData,
+            last10DaysWorkTimeData,
             workChartTitle,
             headerContent,
             ovReportContent
         )
-        generateOVReport(folder, templatePdf, workTimeData, workChartTitle, headerContent, ovReportContent)
+        generateOVReport(folder, templatePdf, last10DaysWorkTimeData, workChartTitle, headerContent, ovReportContent)
         originalPdfFile?.let {
             mergePDFReports(folder, it)
         }

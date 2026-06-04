@@ -229,6 +229,54 @@ class DailyReporterTest {
     }
 
     @Test
+    fun `should only use last 10 days for average and report`() {
+        val reporter = DailyReporter()
+        val tempFolder = File("target/test-report-last-10-days")
+        if (tempFolder.exists()) tempFolder.deleteRecursively()
+        tempFolder.mkdirs()
+
+        val ovTemplate = File(tempFolder, "ov-template.txt")
+        ovTemplate.writeText("Average hours: {{workHours}}")
+
+        val now = LocalDateTime.now()
+        val dailyJourney = DailyJourney(
+            completeJourneys = listOf(
+                Journey(
+                    checkIn = Segment(now, "A", type = TransportType.TRAIN, check = CheckInOut.CHECKIN, cost = BigDecimal.ZERO),
+                    checkOut = Segment(now.plusHours(1), "B", type = TransportType.TRAIN, check = CheckInOut.CHECKOUT, cost = BigDecimal("2.50")),
+                    type = TransportType.TRAIN
+                )
+            ),
+            missedCheckoutSegments = emptyList()
+        )
+
+        // 12 days of data: today (0) to 11 days ago
+        // Values: 1.0, 2.0, ..., 12.0
+        val workTimeData = (0..11).associate {
+            LocalDate.now().minusDays(it.toLong()) to (it.toDouble() + 1.0)
+        }
+        // Last 10 days (relative to now) are days 0, 1, ..., 9.
+        // Values are 1.0, 2.0, ..., 10.0.
+        // Average = (1+2+3+4+5+6+7+8+9+10) / 10 = 55 / 10 = 5.50
+
+        reporter.generateReport(
+            tempFolder,
+            dailyJourney,
+            true,
+            workTimeData = workTimeData,
+            reportTemplateOvFile = ovTemplate
+        )
+
+        val reportOvPdf = File(tempFolder, "report-ov.pdf")
+        reportOvPdf.exists() shouldBe true
+
+        val reader = org.openpdf.text.pdf.PdfReader(reportOvPdf.absolutePath)
+        val text = org.openpdf.text.pdf.parser.PdfTextExtractor(reader).getTextFromPage(1)
+        text.contains("Average hours: 5.50") shouldBe true
+        reader.close()
+    }
+
+    @Test
     fun `should generate PDF report with OV template and average work hours`() {
         val reporter = DailyReporter()
         val tempFolder = File("target/test-report-ov-template")
