@@ -230,25 +230,44 @@ class DailyReporter {
         table.addCell(cell)
 
         val textHeight = table.getTotalHeight()
-        val startY = (document.pageSize.height + textHeight) / 2 - 20f
+        val startY = (document.pageSize.height + textHeight) / 2
         table.writeSelectedRows(0, -1, document.leftMargin(), startY, writer.directContent)
 
         // Page 2: Chart report
         if (workTimeData.isNotEmpty()) {
             document.newPage()
+            val chartTable = PdfPTable(1)
+            chartTable.widthPercentage = 100f
+            chartTable.setTotalWidth(document.pageSize.width - document.leftMargin() - document.rightMargin())
+
+            val contentPhrase = Phrase()
             if (headerContent.isNotEmpty()) {
-                val pHeader = Paragraph(headerContent, font)
-                pHeader.alignment = Element.ALIGN_JUSTIFIED
-                document.add(pHeader)
-                document.add(Paragraph(" "))
+                contentPhrase.add(Phrase(headerContent, font))
+                contentPhrase.add(Phrase("\n\n", font))
             }
             if (ovReportContent.isNotEmpty()) {
-                val pOv = Paragraph(ovReportContent, font)
-                pOv.alignment = Element.ALIGN_JUSTIFIED
-                document.add(pOv)
-                document.add(Paragraph(" "))
+                contentPhrase.add(Phrase(ovReportContent, font))
+                contentPhrase.add(Phrase("\n\n", font))
             }
-            drawChart(writer, document, workTimeData, workChartTitle, (document.pageSize.height + 180f) / 2)
+
+            val chartCell = PdfPCell(contentPhrase)
+            chartCell.border = Rectangle.NO_BORDER
+            chartCell.setPadding(0f)
+            chartCell.horizontalAlignment = Element.ALIGN_JUSTIFIED
+
+            val chartImageCell = PdfPCell()
+            chartImageCell.border = Rectangle.NO_BORDER
+            chartImageCell.minimumHeight = 200f // height + some margin
+            chartImageCell.setPadding(0f)
+
+            chartTable.addCell(chartCell)
+            chartTable.addCell(chartImageCell)
+
+            val chartTableHeight = chartTable.getTotalHeight()
+            val chartStartY = (document.pageSize.height + chartTableHeight) / 2
+            chartTable.writeSelectedRows(0, -1, document.leftMargin(), chartStartY, writer.directContent)
+
+            drawChart(writer, document, workTimeData, workChartTitle, chartStartY - (chartTableHeight - 200f))
         }
 
         document.close()
@@ -287,19 +306,38 @@ class DailyReporter {
 
         document.open()
         val font = Font(Font.HELVETICA, 10f)
+        val chartTable = PdfPTable(1)
+        chartTable.widthPercentage = 100f
+        chartTable.setTotalWidth(document.pageSize.width - document.leftMargin() - document.rightMargin())
+
+        val contentPhrase = Phrase()
         if (headerContent.isNotEmpty()) {
-            val pHeader = Paragraph(headerContent, font)
-            pHeader.alignment = Element.ALIGN_JUSTIFIED
-            document.add(pHeader)
-            document.add(Paragraph(" "))
+            contentPhrase.add(Phrase(headerContent, font))
+            contentPhrase.add(Phrase("\n\n", font))
         }
         if (ovReportContent.isNotEmpty()) {
-            val pOv = Paragraph(ovReportContent, font)
-            pOv.alignment = Element.ALIGN_JUSTIFIED
-            document.add(pOv)
-            document.add(Paragraph(" "))
+            contentPhrase.add(Phrase(ovReportContent, font))
+            contentPhrase.add(Phrase("\n\n", font))
         }
-        drawChart(writer, document, workTimeData, workChartTitle, (document.pageSize.height + 180f) / 2)
+
+        val chartCell = PdfPCell(contentPhrase)
+        chartCell.border = Rectangle.NO_BORDER
+        chartCell.setPadding(0f)
+        chartCell.horizontalAlignment = Element.ALIGN_JUSTIFIED
+
+        val chartImageCell = PdfPCell()
+        chartImageCell.border = Rectangle.NO_BORDER
+        chartImageCell.minimumHeight = 200f
+        chartImageCell.setPadding(0f)
+
+        chartTable.addCell(chartCell)
+        chartTable.addCell(chartImageCell)
+
+        val chartTableHeight = chartTable.getTotalHeight()
+        val chartStartY = (document.pageSize.height + chartTableHeight) / 2
+        chartTable.writeSelectedRows(0, -1, document.leftMargin(), chartStartY, writer.directContent)
+
+        drawChart(writer, document, workTimeData, workChartTitle, chartStartY - (chartTableHeight - 200f))
         document.close()
         reader?.close()
     }
