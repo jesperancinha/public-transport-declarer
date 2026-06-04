@@ -230,7 +230,7 @@ class DailyReporter {
         table.addCell(cell)
 
         val textHeight = table.getTotalHeight()
-        val startY = (document.pageSize.height + textHeight) / 2
+        val startY = (document.pageSize.height + textHeight) / 2 - 20f
         table.writeSelectedRows(0, -1, document.leftMargin(), startY, writer.directContent)
 
         // Page 2: Chart report
@@ -238,7 +238,7 @@ class DailyReporter {
             document.newPage()
             if (headerContent.isNotEmpty()) {
                 val pHeader = Paragraph(headerContent, font)
-                pHeader.alignment = Element.ALIGN_CENTER
+                pHeader.alignment = Element.ALIGN_JUSTIFIED
                 document.add(pHeader)
                 document.add(Paragraph(" "))
             }
@@ -289,7 +289,7 @@ class DailyReporter {
         val font = Font(Font.HELVETICA, 10f)
         if (headerContent.isNotEmpty()) {
             val pHeader = Paragraph(headerContent, font)
-            pHeader.alignment = Element.ALIGN_CENTER
+            pHeader.alignment = Element.ALIGN_JUSTIFIED
             document.add(pHeader)
             document.add(Paragraph(" "))
         }
