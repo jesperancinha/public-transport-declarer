@@ -263,14 +263,27 @@ class DailyReporter {
             chartImageCell.minimumHeight = 200f // height + some margin
             chartImageCell.setPadding(0f)
 
+            val dataTable = PdfPTable(2)
+            dataTable.widthPercentage = 100f
+            dataTable.addCell(PdfPCell(Phrase("Date", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+            dataTable.addCell(PdfPCell(Phrase("Worktime", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+            workTimeData.forEach { (date, time) ->
+                dataTable.addCell(PdfPCell(Phrase(date.toString(), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+                dataTable.addCell(PdfPCell(Phrase(String.format("%.2f", time), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+            }
+            val dataTableCell = PdfPCell(dataTable)
+            dataTableCell.border = Rectangle.NO_BORDER
+            dataTableCell.setPaddingTop(20f)
+
             chartTable.addCell(chartCell)
             chartTable.addCell(chartImageCell)
+            chartTable.addCell(dataTableCell)
 
             val chartTableHeight = chartTable.getTotalHeight()
             val chartStartY = (document.pageSize.height + chartTableHeight) / 2
             chartTable.writeSelectedRows(0, -1, document.leftMargin(), chartStartY, writer.directContent)
 
-            drawChart(writer, document, workTimeData, workChartTitle, chartStartY - (chartTableHeight - 200f))
+            drawChart(writer, document, workTimeData, workChartTitle, chartStartY - chartTable.getRowHeight(0))
         }
 
         document.close()
@@ -333,14 +346,27 @@ class DailyReporter {
         chartImageCell.minimumHeight = 200f
         chartImageCell.setPadding(0f)
 
+        val dataTable = PdfPTable(2)
+        dataTable.widthPercentage = 100f
+        dataTable.addCell(PdfPCell(Phrase("Date", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+        dataTable.addCell(PdfPCell(Phrase("Worktime", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+        workTimeData.forEach { (date, time) ->
+            dataTable.addCell(PdfPCell(Phrase(date.toString(), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+            dataTable.addCell(PdfPCell(Phrase(String.format("%.2f", time), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+        }
+        val dataTableCell = PdfPCell(dataTable)
+        dataTableCell.border = Rectangle.NO_BORDER
+        dataTableCell.setPaddingTop(20f)
+
         chartTable.addCell(chartCell)
         chartTable.addCell(chartImageCell)
+        chartTable.addCell(dataTableCell)
 
         val chartTableHeight = chartTable.getTotalHeight()
         val chartStartY = (document.pageSize.height + chartTableHeight) / 2
         chartTable.writeSelectedRows(0, -1, document.leftMargin(), chartStartY, writer.directContent)
 
-        drawChart(writer, document, workTimeData, workChartTitle, chartStartY - (chartTableHeight - 200f))
+        drawChart(writer, document, workTimeData, workChartTitle, chartStartY - chartTable.getRowHeight(0))
         document.close()
         reader?.close()
     }

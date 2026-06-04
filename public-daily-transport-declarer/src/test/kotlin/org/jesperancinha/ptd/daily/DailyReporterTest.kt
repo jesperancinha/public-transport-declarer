@@ -314,6 +314,12 @@ class DailyReporterTest {
         val reportPdf = File(tempFolder, "report-ov.pdf")
         reportPdf.exists() shouldBe true
         (reportPdf.length() > 0) shouldBe true
+
+        val reader = org.openpdf.text.pdf.PdfReader(reportPdf.absolutePath)
+        val text = org.openpdf.text.pdf.parser.PdfTextExtractor(reader).getTextFromPage(1)
+        text.contains("Date") shouldBe true
+        text.contains("Worktime") shouldBe true
+        reader.close()
     }
 
     @Test
