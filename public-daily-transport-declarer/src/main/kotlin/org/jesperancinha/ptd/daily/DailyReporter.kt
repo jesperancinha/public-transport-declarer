@@ -601,7 +601,7 @@ class DailyReporter {
     }
 
     companion object {
-        const val WORK_TIME_OV = "Werk tijd in de OV(in uren)"
+        const val WORK_TIME_OV = "Werkuren tijdens OV-reizen(in uren)"
         const val DATE = "Datum"
         const val HOUR_UNIT = "h"
     }
