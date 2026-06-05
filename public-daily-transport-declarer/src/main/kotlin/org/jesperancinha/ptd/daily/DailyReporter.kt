@@ -395,7 +395,7 @@ class DailyReporter {
         cb.rectangle(x, y, width, height)
         cb.stroke()
 
-        val margin = 30f
+        val margin = 45f
         val chartWidth = width - 2 * margin
         val chartHeight = height - 2 * margin
         val chartX = x + margin
@@ -405,7 +405,7 @@ class DailyReporter {
         val font = BaseFont.createFont(BaseFont.HELVETICA_BOLD, BaseFont.WINANSI, BaseFont.EMBEDDED)
         cb.beginText()
         cb.setFontAndSize(font, 10f)
-        cb.showTextAligned(Element.ALIGN_CENTER, title, x + width / 2, y + height - 15f, 0f)
+        cb.showTextAligned(Element.ALIGN_CENTER, title, x + width / 2, y + height - 10f, 0f)
         cb.endText()
 
         if (data.isEmpty()) return
@@ -600,7 +600,7 @@ class DailyReporter {
 
     companion object {
         const val WORK_TIME_OV = "Werk tijd in de OV(in uren)"
-        const val DATE = "Date"
+        const val DATE = "Datum"
         const val HOUR_UNIT = "h"
     }
 }
