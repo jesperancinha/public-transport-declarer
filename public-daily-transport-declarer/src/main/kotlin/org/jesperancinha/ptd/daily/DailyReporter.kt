@@ -35,7 +35,8 @@ class DailyReporter {
         workTimeData: Map<LocalDate, Double> = emptyMap(),
         workChartTitle: String = "Werktijd in de OV",
         reportTemplateFile: File? = null,
-        reportTemplateOvFile: File? = null
+        reportTemplateOvFile: File? = null,
+        days: Int = 10
     ) {
         if (!folder.exists()) folder.mkdirs()
 
@@ -147,29 +148,30 @@ class DailyReporter {
             )
         }
 
-        val last10DaysWorkTimeData = workTimeData.entries
+        val lastDaysWorkTimeData = workTimeData.entries
             .sortedByDescending { it.key }
-            .take(10)
+            .take(days)
             .associate { it.key to it.value }
             .toSortedMap()
 
-        val averageWorkHours = last10DaysWorkTimeData.values
+        val averageWorkHours = lastDaysWorkTimeData.values
             .average()
             .let { if (it.isNaN()) 0.0 else it }
 
         val ovReportContent = ovTemplate.replace("{{workHours}}", String.format("%.2f", averageWorkHours))
+            .replace("{{days}}", days.toString())
 
         reportFile.writeText(fullReportWithHeader)
         generatePDFReport(
             folder,
             fullReportWithHeader,
             templatePdf,
-            last10DaysWorkTimeData,
+            lastDaysWorkTimeData,
             workChartTitle,
             headerContent,
             ovReportContent
         )
-        generateOVReport(folder, templatePdf, last10DaysWorkTimeData, workChartTitle, headerContent, ovReportContent)
+        generateOVReport(folder, templatePdf, lastDaysWorkTimeData, workChartTitle, headerContent, ovReportContent)
         originalPdfFile?.let {
             mergePDFReports(folder, it)
         }

@@ -20,6 +20,8 @@ remove-locally:
 jar: build-maven
 check-jar:
 	if ! test -f target/public-daily-transport-declarer.jar; then make jar; fi
-build-and-generate-last-report: jar generate-last-report
+build-and-generate-last-report: jar update-templates generate-last-report
 generate-last-report: check-jar
 	java -jar target/public-daily-transport-declarer.jar -i reports
+update-templates:
+	cp ./src/main/resources/report*.* reports

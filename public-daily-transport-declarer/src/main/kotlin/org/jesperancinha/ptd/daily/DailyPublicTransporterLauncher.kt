@@ -65,6 +65,14 @@ class DailyPublicTransporterCommand : Callable<Int> {
     )
     var reportTemplateOvFile: String = "report-work-ov-template.txt"
 
+    @Option(
+        names = ["-d", "--days"],
+        description = ["The number of days to use for the chart and the average work hours calculation"],
+        required = false,
+        defaultValue = "10"
+    )
+    var days: Int = 10
+
     private val parser = DailyPdfParser()
     private val validator = DailyPdfValidator()
     private val reporter = DailyReporter()
@@ -159,7 +167,8 @@ class DailyPublicTransporterCommand : Callable<Int> {
                     workTimeData,
                     workChartTitle,
                     File("reports", reportTemplateFile),
-                    File("reports", reportTemplateOvFile)
+                    File("reports", reportTemplateOvFile),
+                    days
                 )
                 println("Finished processing ${request.newPdfFile.name}. Report generated in ${request.subfolder.absolutePath}")
             }
