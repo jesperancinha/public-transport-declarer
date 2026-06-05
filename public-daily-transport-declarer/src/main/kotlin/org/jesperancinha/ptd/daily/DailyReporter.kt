@@ -265,8 +265,8 @@ class DailyReporter {
 
             val dataTable = PdfPTable(2)
             dataTable.widthPercentage = 100f
-            dataTable.addCell(PdfPCell(Phrase("Date", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
-            dataTable.addCell(PdfPCell(Phrase("Worktime", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+            dataTable.addCell(PdfPCell(Phrase(DATE, font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+            dataTable.addCell(PdfPCell(Phrase(WORK_TIME_OV, font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
             workTimeData.forEach { (date, time) ->
                 dataTable.addCell(PdfPCell(Phrase(date.toString(), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
                 dataTable.addCell(PdfPCell(Phrase(String.format("%.2f", time), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
@@ -348,8 +348,8 @@ class DailyReporter {
 
         val dataTable = PdfPTable(2)
         dataTable.widthPercentage = 100f
-        dataTable.addCell(PdfPCell(Phrase("Date", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
-        dataTable.addCell(PdfPCell(Phrase("Worktime", font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+        dataTable.addCell(PdfPCell(Phrase(DATE, font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
+        dataTable.addCell(PdfPCell(Phrase(WORK_TIME_OV, font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
         workTimeData.forEach { (date, time) ->
             dataTable.addCell(PdfPCell(Phrase(date.toString(), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
             dataTable.addCell(PdfPCell(Phrase(String.format("%.2f", time), font)).apply { horizontalAlignment = Element.ALIGN_CENTER })
@@ -434,7 +434,8 @@ class DailyReporter {
             cb.lineTo(chartX, labelY)
             cb.stroke()
             cb.beginText()
-            cb.showTextAligned(Element.ALIGN_RIGHT, i.toString(), chartX - 5f, labelY - 3f, 0f)
+            cb.setColorFill(java.awt.Color.BLACK)
+            cb.showTextAligned(Element.ALIGN_RIGHT, "${i}$HOUR_UNIT", chartX - 5f, labelY - 3f, 0f)
             cb.endText()
         }
 
@@ -506,7 +507,7 @@ class DailyReporter {
             .toSortedMap()
 
         val headerRow = sheet.createRow(0)
-        headerRow.createCell(0).setCellValue("Date")
+        headerRow.createCell(0).setCellValue(DATE)
         headerRow.createCell(1).setCellValue("Work Time (Hours)")
 
         data.entries.forEachIndexed { index, entry ->
@@ -595,5 +596,11 @@ class DailyReporter {
         }
         workbook.close()
         println("Excel report generated: ${file.absolutePath}")
+    }
+
+    companion object {
+        const val WORK_TIME_OV = "Werk tijd in de OV(in uren)"
+        const val DATE = "Date"
+        const val HOUR_UNIT = "h"
     }
 }

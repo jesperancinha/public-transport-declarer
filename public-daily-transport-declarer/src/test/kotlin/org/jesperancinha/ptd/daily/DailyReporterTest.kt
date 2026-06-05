@@ -1,11 +1,14 @@
 package org.jesperancinha.ptd.daily
 
 import io.kotest.matchers.shouldBe
+import org.jesperancinha.ptd.daily.DailyReporter.Companion.DATE
+import org.jesperancinha.ptd.daily.DailyReporter.Companion.WORK_TIME_OV
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
+
 
 class DailyReporterTest {
 
@@ -317,8 +320,8 @@ class DailyReporterTest {
 
         val reader = org.openpdf.text.pdf.PdfReader(reportPdf.absolutePath)
         val text = org.openpdf.text.pdf.parser.PdfTextExtractor(reader).getTextFromPage(1)
-        text.contains("Date") shouldBe true
-        text.contains("Worktime") shouldBe true
+        text.contains(DATE) shouldBe true
+        text.contains(WORK_TIME_OV) shouldBe true
         reader.close()
     }
 
