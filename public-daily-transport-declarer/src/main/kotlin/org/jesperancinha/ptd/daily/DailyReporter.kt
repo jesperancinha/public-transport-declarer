@@ -76,17 +76,17 @@ class DailyReporter {
                 val journeyCost = journey.checkIn.cost + (journey.checkOut?.cost ?: BigDecimal.ZERO)
                 val duration = journey.duration.toMinutes()
                 this
-                    .replace("{{checkInStation}}", journey.checkIn.station)
-                    .replace("{{checkOutStation}}", journey.checkOut?.station ?: "Unknown")
-                    .replace("{{transportType}}", journey.type.nlName)
-                    .replace("{{checkInTime}}", journey.checkIn.dateTime.format(dateTimeFormatter).split(" ").last())
+                    .replace("{{checkInStation}}", "**${journey.checkIn.station}**")
+                    .replace("{{checkOutStation}}", "**${journey.checkOut?.station ?: "Unknown"}**")
+                    .replace("{{transportType}}", "**${journey.type.nlName}**")
+                    .replace("{{checkInTime}}", "**${journey.checkIn.dateTime.format(dateTimeFormatter).split(" ").last()}**")
                     .replace(
                         "{{checkOutTime}}",
-                        journey.checkOut?.dateTime?.format(dateTimeFormatter)?.split(" ")?.last() ?: "N/A"
+                        "**${journey.checkOut?.dateTime?.format(dateTimeFormatter)?.split(" ")?.last() ?: "N/A"}**"
                     )
-                    .replace("{{cost}}", String.format("%.2f", journeyCost))
+                    .replace("{{cost}}", "**${String.format("%.2f", journeyCost)}**")
                     .replace(
-                        "{{duration}}", journey.duration.toDurationString()
+                        "{{duration}}", "**${journey.duration.toDurationString()}**"
                     ) + when {
                     duration == 0L -> " **"
                     duration < 5 -> " *"
@@ -99,10 +99,10 @@ class DailyReporter {
             incompleteSegments.joinToString("\n") { segment ->
                 val journeyCost = segment.cost
                 this
-                    .replace("{{checkInStationInc}}", segment.station)
-                    .replace("{{transportTypeInc}}", segment.type.nlName)
-                    .replace("{{checkInTimeInc}}", segment.dateTime.format(dateTimeFormatter).split(" ").last())
-                    .replace("{{costInc}}", String.format("%.2f", journeyCost))
+                    .replace("{{checkInStationInc}}", "**${segment.station}**")
+                    .replace("{{transportTypeInc}}", "**${segment.type.nlName}**")
+                    .replace("{{checkInTimeInc}}", "**${segment.dateTime.format(dateTimeFormatter).split(" ").last()}**")
+                    .replace("{{costInc}}", "**${String.format("%.2f", journeyCost)}**")
             }
         }
 
@@ -112,12 +112,12 @@ class DailyReporter {
         val totalDuration = journeys.filter { it.isComplete }
             .fold(Duration.ZERO) { acc, journey -> acc.plus(journey.duration) }
 
-        val fullReport = reportContentWithJourneys.replace("{{totalCost}}", String.format("%.2f", totalCost))
-            .replace("{{totalDuration}}", totalDuration.toDurationString())
+        val fullReport = reportContentWithJourneys.replace("{{totalCost}}", "**${String.format("%.2f", totalCost)}**")
+            .replace("{{totalDuration}}", "**${totalDuration.toDurationString()}**")
             .replace(
                 "{{date}}",
-                journeys.first().checkIn.dateTime.toLocalDate()
-                    .format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("nl", "NL")))
+                "**${journeys.first().checkIn.dateTime.toLocalDate()
+                    .format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale("nl", "NL")))}**"
             )
             .replace("\n\n\n", "\n\n")
             .replace("\n\n\n", "\n\n")
@@ -158,8 +158,8 @@ class DailyReporter {
             .average()
             .let { if (it.isNaN()) 0.0 else it }
 
-        val ovReportContent = ovTemplate.replace("{{workHours}}", String.format("%.2f", averageWorkHours))
-            .replace("{{days}}", days.toString())
+        val ovReportContent = ovTemplate.replace("{{workHours}}", "**${String.format("%.2f", averageWorkHours)}**")
+            .replace("{{days}}", "**${days}**")
 
         reportFile.writeText(fullReportWithHeader)
         generatePDFReport(
@@ -217,6 +217,7 @@ class DailyReporter {
 
         document.open()
         val font = Font(Font.HELVETICA, 10f)
+        val boldFont = Font(Font.HELVETICA, 10f, Font.BOLD)
 
         // Page 1: Text report
         val table = PdfPTable(1)
@@ -228,7 +229,7 @@ class DailyReporter {
         cell.horizontalAlignment = Element.ALIGN_CENTER
 
         fullReport.split("\n").forEach { line ->
-            val p = Paragraph(line.ifEmpty { " " }, font)
+            val p = line.ifEmpty { " " }.toParagraph(font, boldFont)
             p.alignment = Element.ALIGN_JUSTIFIED
             cell.addElement(p)
         }
@@ -247,11 +248,11 @@ class DailyReporter {
 
             val contentPhrase = Phrase()
             if (headerContent.isNotEmpty()) {
-                contentPhrase.add(Phrase(headerContent, font))
+                contentPhrase.addAll(headerContent.toParagraph(font, boldFont))
                 contentPhrase.add(Phrase("\n\n", font))
             }
             if (ovReportContent.isNotEmpty()) {
-                contentPhrase.add(Phrase(ovReportContent, font))
+                contentPhrase.addAll(ovReportContent.toParagraph(font, boldFont))
                 contentPhrase.add(Phrase("\n\n", font))
             }
 
@@ -324,17 +325,18 @@ class DailyReporter {
 
         document.open()
         val font = Font(Font.HELVETICA, 10f)
+        val boldFont = Font(Font.HELVETICA, 10f, Font.BOLD)
         val chartTable = PdfPTable(1)
         chartTable.widthPercentage = 100f
         chartTable.setTotalWidth(document.pageSize.width - document.leftMargin() - document.rightMargin())
 
         val contentPhrase = Phrase()
         if (headerContent.isNotEmpty()) {
-            contentPhrase.add(Phrase(headerContent, font))
+            contentPhrase.addAll(headerContent.toParagraph(font, boldFont))
             contentPhrase.add(Phrase("\n\n", font))
         }
         if (ovReportContent.isNotEmpty()) {
-            contentPhrase.add(Phrase(ovReportContent, font))
+            contentPhrase.addAll(ovReportContent.toParagraph(font, boldFont))
             contentPhrase.add(Phrase("\n\n", font))
         }
 
@@ -480,6 +482,19 @@ class DailyReporter {
         document.close()
         reader1.close()
         reader2.close()
+    }
+
+    private fun String.toParagraph(font: Font, boldFont: Font): Paragraph {
+        val paragraph = Paragraph()
+        val parts = this.split("**")
+        parts.forEachIndexed { index, s ->
+            if (index % 2 == 0) {
+                paragraph.add(Chunk(s, font))
+            } else {
+                paragraph.add(Chunk(s, boldFont))
+            }
+        }
+        return paragraph
     }
 
     private fun String.createContent(

@@ -320,7 +320,9 @@ class DailyReporterTest {
         val reportOvPdf = File(tempFolder, "report-ov.pdf")
         val reader = org.openpdf.text.pdf.PdfReader(reportOvPdf.absolutePath)
         val text = org.openpdf.text.pdf.parser.PdfTextExtractor(reader).getTextFromPage(1)
+        // In the extracted text, the ** markers will be gone if they were rendered as bold chunks
         text.contains("Average hours: 2.00 over 3 days") shouldBe true
+        text.contains("**") shouldBe false
         reader.close()
     }
 
