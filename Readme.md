@@ -14,6 +14,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/public-transport-declarer/dashboard?utm_source=github.com&utm_medium=referral&utm_content=jesperancinha/public-transport-declarer&utm_campaign=Badge_Coverage)
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/public-transport-declarer/badge.svg?branch=master)](https://coveralls.io/github/jesperancinha/public-transport-declarer?branch=master)
 [![codecov](https://codecov.io/gh/jesperancinha/public-transport-declarer/branch/master/graph/badge.svg?token=MMaiVbOzl1)](https://codecov.io/gh/jesperancinha/public-transport-declarer)
+[![Project Skills](https://github.com/jesperancinha/project-skills/raw/master/badges/skills-badge.svg)](https://github.com/jesperancinha/project-skills)
 
 [![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/public-transport-declarer.svg)](#)
 [![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/public-transport-declarer.svg)](#)
