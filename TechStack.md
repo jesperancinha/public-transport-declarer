@@ -20,4 +20,6 @@
 - [GitHub Copilot](https://github.com/features/copilot)
 - [Cursor](https://cursor.com/)
 - [Junie](https://github.com/marketplace/ai-agents/junie)
+- [AI Assistant](https://www.jetbrains.com/ai/)
+- [Claude](https://claude.ai/)
 - [LLMs (Claude, GPT-4, Gemini)](https://www.google.com/search?q=LLMs)

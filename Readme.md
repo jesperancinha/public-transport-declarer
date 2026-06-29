@@ -17,6 +17,8 @@
 [![Project Skills](https://github.com/jesperancinha/project-skills/raw/master/badges/skills-badge.svg)](https://github.com/jesperancinha/project-skills)
 [![AI Skills](https://img.shields.io/badge/AI-Skills-brightgreen)](.github/copilot-instructions.md)
 [![Junie Skills](https://img.shields.io/badge/Junie-Skills-blue)](.junie/instructions.md)
+[![AI Assistant Skills](https://img.shields.io/badge/AI_Assistant-Skills-orange)](.jetbrains/ai-assistant.md)
+[![Claude Skills](https://img.shields.io/badge/Claude-Skills-lightgrey)](CLAUDE.md)
 
 [![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/public-transport-declarer.svg)](#)
 [![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/public-transport-declarer.svg)](#)

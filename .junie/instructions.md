@@ -20,3 +20,4 @@ This project is a Kotlin-based tool for processing Dutch public transport (OV-Ch
 - Maintain the strict functional approach where Arrow is already used.
 - Ensure Picocli annotations are correctly used for CLI arguments.
 - Keep `TechStack.md` and `Readme.md` updated with any new AI-related "skills".
+- When updating AI instructions, maintain consistency across `.github/copilot-instructions.md`, `.cursorrules`, `.junie/instructions.md`, `.jetbrains/ai-assistant.md`, and `CLAUDE.md`.
