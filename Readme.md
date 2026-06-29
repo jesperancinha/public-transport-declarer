@@ -15,6 +15,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/jesperancinha/public-transport-declarer/badge.svg?branch=master)](https://coveralls.io/github/jesperancinha/public-transport-declarer?branch=master)
 [![codecov](https://codecov.io/gh/jesperancinha/public-transport-declarer/branch/master/graph/badge.svg?token=MMaiVbOzl1)](https://codecov.io/gh/jesperancinha/public-transport-declarer)
 [![Project Skills](https://github.com/jesperancinha/project-skills/raw/master/badges/skills-badge.svg)](https://github.com/jesperancinha/project-skills)
+[![AI Skills](https://img.shields.io/badge/AI-Skills-brightgreen)](.github/copilot-instructions.md)
 
 [![GitHub language count](https://img.shields.io/github/languages/count/jesperancinha/public-transport-declarer.svg)](#)
 [![GitHub top language](https://img.shields.io/github/languages/top/jesperancinha/public-transport-declarer.svg)](#)

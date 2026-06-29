@@ -17,3 +17,6 @@
 - [Codebeat](https://codebeat.co/)
 - [Codecov](https://about.codecov.io/)
 - [Coveralls](https://coveralls.io/)
+- [GitHub Copilot](https://github.com/features/copilot)
+- [Cursor](https://cursor.com/)
+- [LLMs (Claude, GPT-4, Gemini)](https://www.google.com/search?q=LLMs)
