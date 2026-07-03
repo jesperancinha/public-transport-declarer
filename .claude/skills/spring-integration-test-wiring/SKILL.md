@@ -32,11 +32,11 @@ class JeorgActionAOPLauncherExtAOPTest @Autowired constructor(
 @SpringBootTest
 class JeorgActionAOPLauncherExtAOPTest() {
 
-  @Autowired
-  lateinit var bonitoCatcher: BonitoCatcher
+    @Autowired
+    lateinit var bonitoCatcher: BonitoCatcher
 
-  @Autowired
-  lateinit var codCatcher: CodCatcher;
+    @Autowired
+    lateinit var codCatcher: CodCatcher;
 }
 ```
 
@@ -68,16 +68,16 @@ For java this means that we should migrate as en example from something like thi
 
 ```java
 public class Flash16ConfigurationAdapter {
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http.authenticationProvider(new Flash16AuthenticationProvider())
-            .authorizeRequests()
-            .requestMatchers(new AntPathRequestMatcher("/**")).hasRole("ADMIN")
-            .anyRequest()
-            .authenticated()
-            .and()
-            .formLogin().and().build();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.authenticationProvider(new Flash16AuthenticationProvider())
+                .authorizeRequests()
+                .requestMatchers(new AntPathRequestMatcher("/**")).hasRole("ADMIN")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin().and().build();
+    }
 }
 ```
 
@@ -85,16 +85,16 @@ to this
 
 ```java
 public class Flash16ConfigurationAdapter {
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http
-            .authenticationProvider(new Flash16AuthenticationProvider())
-            .authorizeHttpRequests(auth -> auth
-                    .anyRequest().hasRole("ADMIN")
-            )
-            .formLogin(Customizer.withDefaults())
-            .build();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authenticationProvider(new Flash16AuthenticationProvider())
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().hasRole("ADMIN")
+                )
+                .formLogin(Customizer.withDefaults())
+                .build();
+    }
 }
 ```
 
@@ -104,20 +104,20 @@ Migrate from this:
 
 ```java
 public class Flash17ConfigurationAdapter {
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http
-            .userDetailsService(jdbcUserDetailsManager)
-            .authorizeRequests()
-            .requestMatchers(new AntPathRequestMatcher("/open/**"))
-            .permitAll()
-            .requestMatchers(new AntPathRequestMatcher("/**")).hasRole("ADMIN")
-            .anyRequest()
-            .authenticated()
-            .and()
-            .formLogin()
-            .and().csrf().disable().build();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .userDetailsService(jdbcUserDetailsManager)
+                .authorizeRequests()
+                .requestMatchers(new AntPathRequestMatcher("/open/**"))
+                .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/**")).hasRole("ADMIN")
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .and().csrf().disable().build();
+    }
 }
 ```
 
@@ -168,11 +168,11 @@ Also replace imports from `import org.mockito.MockitoAnnotations.initMocks` to `
 When finding this:
 
 ```kotlin
-    .getForEntity<String>("/tulips")
+    .getForEntity("/tulips", String::class.java)
 ```
 replace with:
 ```kotlin
-    .getForEntity("/tulips", String::class.java)
+    .getForEntity<String>("/tulips")
 ```
 ## 6. Migrate `@MockBean` annotations
 
