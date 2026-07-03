@@ -186,7 +186,6 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot-maven-plugin.version}</version>
                         <configuration>
-                            <executable>true</executable>
                             <mainClass>org.jesperancinha.ptd.PublicTransporterLauncherKt</mainClass>
                         </configuration>
                         <executions>
