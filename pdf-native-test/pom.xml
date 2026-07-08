@@ -132,7 +132,6 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot-maven-plugin.version}</version>
                         <configuration>
-                            <executable>true</executable>
                             <mainClass>org.jesperancinha.ptd.PdfNativeTestLauncherKt</mainClass>
                         </configuration>
                         <executions>

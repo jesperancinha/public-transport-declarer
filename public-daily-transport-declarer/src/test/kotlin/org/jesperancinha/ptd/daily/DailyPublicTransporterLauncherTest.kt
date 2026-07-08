@@ -10,12 +10,14 @@ class DailyPublicTransporterLauncherTest {
 
     @Test
     fun `should process pdf files and create subfolders with reports`() {
-        val resourcePdf = javaClass.getResource("/declaratieoverzicht_test.pdf")
         val tempDir = Files.createTempDirectory("ptd-test").toFile()
         val pdfFile = File(tempDir, "test.pdf")
-        if (resourcePdf != null) {
-            Files.copy(resourcePdf.openStream(), pdfFile.toPath())
-        }
+        
+        val document = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(document, java.io.FileOutputStream(pdfFile))
+        document.open()
+        document.add(org.openpdf.text.Paragraph("01-12-2022 Qbuzz Station A 08:17 Utrecht, CS Jaarbeursplein € 2,64 Check-uit"))
+        document.close()
 
         val command = DailyPublicTransporterCommand()
         command.inputFolder = tempDir.absolutePath
@@ -30,6 +32,80 @@ class DailyPublicTransporterLauncherTest {
         File(subfolder, "report.txt").exists() shouldBe true
         File(subfolder, "error.txt").exists() shouldBe true
         File(subfolder, "log.txt").exists() shouldBe true
+        
+        tempDir.deleteRecursively()
+    }
+
+    @Test
+    fun `should delete original pdf and skip processing if multiple days are detected`() {
+        // We need a real PDF that has multiple days if we want to test end-to-end,
+        // but since parser is mocked by the actual file content, 
+        // maybe we can create a PDF that parser will read as multiple days.
+        // However, DailyPdfParser reads real PDFs.
+        
+        // Let's try to create a simple PDF with two lines that the parser might recognize as different days.
+        // Actually, it's easier to use a mock or just rely on the logic if we could.
+        // But this is an integration test.
+        
+        val tempDir = Files.createTempDirectory("ptd-test-multi").toFile()
+        val pdfFile = File(tempDir, "multi-day.pdf")
+        
+        // Create a PDF that will be parsed as multiple days.
+        // The parser looks for dates like dd-mm-yyyy.
+        val document = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(document, java.io.FileOutputStream(pdfFile))
+        document.open()
+        // We need to match what DailyPdfParser expects.
+        // 01-12-2022 Qbuzz Nieuwegein, Nieuwegein City 08:17 Check-in
+        document.add(org.openpdf.text.Paragraph("01-12-2022 Qbuzz Station A 08:17 Check-in"))
+        document.add(org.openpdf.text.Paragraph("02-12-2022 Qbuzz Station B 08:17 Check-in"))
+        document.close()
+        
+        val command = DailyPublicTransporterCommand()
+        command.inputFolder = tempDir.absolutePath
+        
+        val result = command.call()
+        
+        result shouldBe 0
+        pdfFile.exists() shouldBe false // Should be deleted
+        
+        // Check that no subfolders were created (other than the input folder itself)
+        tempDir.listFiles { f -> f.isDirectory }?.size shouldBe 0
+        
+        tempDir.deleteRecursively()
+    }
+
+    @Test
+    fun `should delete duplicate pdf if date and total cost are the same`() {
+        val tempDir = Files.createTempDirectory("ptd-test-dup").toFile()
+        val pdfFile1 = File(tempDir, "test1.pdf")
+        val pdfFile2 = File(tempDir, "test2.pdf")
+
+        val document1 = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(document1, java.io.FileOutputStream(pdfFile1))
+        document1.open()
+        document1.add(org.openpdf.text.Paragraph("01-12-2022 Qbuzz Station A 08:17 Utrecht, CS Jaarbeursplein € 2,64 Check-uit"))
+        document1.close()
+
+        val document2 = org.openpdf.text.Document()
+        org.openpdf.text.pdf.PdfWriter.getInstance(document2, java.io.FileOutputStream(pdfFile2))
+        document2.open()
+        document2.add(org.openpdf.text.Paragraph("01-12-2022 Qbuzz Station A 08:17 Utrecht, CS Jaarbeursplein € 2,64 Check-uit"))
+        document2.close()
+
+        val command = DailyPublicTransporterCommand()
+        command.inputFolder = tempDir.absolutePath
+
+        val result = command.call()
+
+        result shouldBe 0
+        
+        val remainingPdfs = tempDir.listFiles { _, name -> name.endsWith(".pdf") }
+        remainingPdfs?.size shouldBe 1
+        
+        // Check that only one subfolder was created
+        val subfolders = tempDir.listFiles { f -> f.isDirectory }
+        subfolders?.size shouldBe 1
         
         tempDir.deleteRecursively()
     }

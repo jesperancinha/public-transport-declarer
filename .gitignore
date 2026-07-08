@@ -60,9 +60,13 @@ public-transport-declarer.build_artifacts.txt
 report.csv
 
 ## Reports to ignore
-public-daily-transport-declarer/reports/*.pdf
-public-daily-transport-declarer/reports/**/*.txt
-public-daily-transport-declarer/reports/**/*.pdf
+**/reports/*.pdf
+**/reports/**/*.txt
+**/reports/**/*.pdf
+**/reports/**/*.ics
+**/reports/**/*.xls
+**/reports/**/*.xlsx
+
 # Must be in
 !public-transport-declarer/generateReport.sh
 
@@ -79,3 +83,8 @@ javaUpdatesOne.sh
 nodeUpdatesOne.sh
 dependabot.yml.bak
 .output.txt
+.~lock.**
+
+# Generated files
+compile_output*.txt
+run_output*.txt

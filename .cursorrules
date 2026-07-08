@@ -1,0 +1,19 @@
+# Cursor AI Rules for Public Transport Declarer
+
+## Project Context
+- **Project**: Public Transport Declarer
+- **Stack**: Kotlin, Maven, GraalVM, OpenPDF, Picocli, Arrow.
+- **Goal**: Generate work declaration reports from Dutch public transport records.
+
+## AI Behavior
+- **Refactoring**: When refactoring, maintain the current functional style using Arrow and Kotlin idioms.
+- **Commands**: Always consider the CLI interface defined by Picocli when adding new features that require user input.
+- **Native-Image**: Be cautious with libraries that use heavy reflection as they might break GraalVM native-image builds.
+- **Testing**: Prioritize Kotest for new test files.
+- **Documentation**: Keep `Docs.md` and `TechStack.md` updated with any significant changes to behavior or dependencies.
+
+## Key Files
+- `pom.xml`: Root dependency management.
+- `public-daily-transport-declarer/src/main/kotlin/org/jesperancinha/ptd/daily/DailyPdfParser.kt`: Main PDF parsing logic.
+- `public-daily-transport-declarer/src/main/kotlin/org/jesperancinha/ptd/daily/DailyPublicTransporterLauncher.kt`: Entry point for the daily reporter.
+- `Docs.md`: User documentation.
