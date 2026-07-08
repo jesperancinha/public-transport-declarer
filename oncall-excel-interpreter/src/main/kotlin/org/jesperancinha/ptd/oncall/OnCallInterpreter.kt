@@ -125,12 +125,9 @@ class OnCallInterpreter(
         if (header.days != null && !header.days.contains(date.dayOfWeek)) return 0.0
         if (isHoliday || isSunday) return 0.0 // Ma-Za headers don't apply on holidays or Sundays
 
-        var totalHours = 0.0
-        header.intervals.forEach { interval ->
-            totalHours += getOnCallHoursForDay(date, events, interval.start, if (interval.isNextDay) LocalTime.MAX else interval.end)
+        return header.intervals.sumOf { interval ->
+            getOnCallHoursForDay(date, events, interval.start, if (interval.isNextDay) LocalTime.MAX else interval.end)
         }
-        
-        return totalHours
     }
 
     private fun getOnCallHoursForDay(date: LocalDate, events: List<VEvent>, headerStart: LocalTime, headerEnd: LocalTime): Double {
@@ -140,8 +137,7 @@ class OnCallInterpreter(
         else 
             ZonedDateTime.of(date, headerEnd, amsterdamZone)
 
-        var totalDuration = Duration.ZERO
-        events.forEach { event ->
+        val totalDuration = events.fold(Duration.ZERO) { acc, event ->
             val eventStart = ZonedDateTime.ofInstant(event.dateStart.value.toInstant(), ZoneId.of("UTC"))
             val eventEnd = ZonedDateTime.ofInstant(event.dateEnd.value.toInstant(), ZoneId.of("UTC"))
 
@@ -149,7 +145,9 @@ class OnCallInterpreter(
             val intersectEnd = if (eventEnd.isBefore(dayEnd)) eventEnd else dayEnd
 
             if (intersectStart.isBefore(intersectEnd)) {
-                totalDuration = totalDuration.plus(Duration.between(intersectStart, intersectEnd))
+                acc.plus(Duration.between(intersectStart, intersectEnd))
+            } else {
+                acc
             }
         }
         return totalDuration.toMinutes() / 60.0
@@ -193,13 +191,8 @@ class OnCallInterpreter(
     }
 }
 
-operator fun DayOfWeek.rangeTo(other: DayOfWeek): List<DayOfWeek> {
-    val list = mutableListOf<DayOfWeek>()
-    var curr = this
-    while (curr != other) {
-        list.add(curr)
-        curr = DayOfWeek.of(curr.value % 7 + 1)
-    }
-    list.add(other)
-    return list
-}
+operator fun DayOfWeek.rangeTo(other: DayOfWeek): List<DayOfWeek> =
+    generateSequence(this) { DayOfWeek.of(it.value % 7 + 1) }
+        .takeWhile { it != other }
+        .plus(other)
+        .toList()
