@@ -46,7 +46,7 @@
         <picocli.version>4.7.7</picocli.version>
         <poi.version>5.4.0</poi.version>
         <bcprov-jdk18on.version>1.78.1</bcprov-jdk18on.version>
-        <cyclonedx-core-java.version>9.0.5</cyclonedx-core-java.version>
+        <cyclonedx-core-java.version>11.0.1</cyclonedx-core-java.version>
     </properties>
 
     <dependencyManagement>
