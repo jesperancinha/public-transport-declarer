@@ -228,6 +228,7 @@
                         </executions>
                         <configuration>
                             <mainClass>org.jesperancinha.ptd.PublicTransporterLauncherKt</mainClass>
+                            <skipBaseSBOM>true</skipBaseSBOM>
                         </configuration>
                     </plugin>
                 </plugins>
