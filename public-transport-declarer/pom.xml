@@ -155,12 +155,14 @@
         <dependency>
             <groupId>com.jsoizo</groupId>
             <artifactId>kotlin-csv-jvm</artifactId>
-            <version>${com.jsoizo.version}</version>
         </dependency>
         <dependency>
             <groupId>com.jsoizo</groupId>
             <artifactId>kotlin-csv-js</artifactId>
-            <version>${com.jsoizo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cyclonedx</groupId>
+            <artifactId>cyclonedx-core-java</artifactId>
         </dependency>
 
 
@@ -226,6 +228,7 @@
                         </executions>
                         <configuration>
                             <mainClass>org.jesperancinha.ptd.PublicTransporterLauncherKt</mainClass>
+                            <skipBaseSBOM>true</skipBaseSBOM>
                         </configuration>
                     </plugin>
                 </plugins>
