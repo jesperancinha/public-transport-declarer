@@ -46,6 +46,7 @@
         <picocli.version>4.7.7</picocli.version>
         <poi.version>5.4.0</poi.version>
         <bcprov-jdk18on.version>1.84</bcprov-jdk18on.version>
+        <cyclonedx-core-java.version>11.0.1</cyclonedx-core-java.version>
     </properties>
 
     <dependencyManagement>
@@ -115,6 +116,21 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk18on</artifactId>
                 <version>${bcprov-jdk18on.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jsoizo</groupId>
+                <artifactId>kotlin-csv-jvm</artifactId>
+                <version>${com.jsoizo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jsoizo</groupId>
+                <artifactId>kotlin-csv-js</artifactId>
+                <version>${com.jsoizo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-core-java</artifactId>
+                <version>${cyclonedx-core-java.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
