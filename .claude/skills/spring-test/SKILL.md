@@ -116,7 +116,42 @@ should be replaced to something like:
 private BankCompanyBankRepository bankCompanyBankRepository;
 ```
 
-## 4. Test class checklist
+## 4. MockMvc test upgrade for Sprin Boot 4.0.0
+
+Please add:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webmvc-test</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+as a dependency for projects that use `WebMvcTest`
+
+Replace the import: `import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest` to `org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest`
+
+
+## 5. MockKBean uses different syntax in recent MockK versions
+
+The syntax is slightly changed in the latest Spring MocK versions.
+
+### Example 1
+
+Changes in `MockKBean`
+
+Replace `@MockkBean(classes = [DataSource::class])` with `@MockkBean(types = [DataSource::class])`
+
+## 6. There should be no integration/unit/other tests creating entities with an assigned id
+
+Creating entities via JPA should assume the usage of an ID autogeneration engine.
+It could be a sequence, or something else, like a counter, entity, or any other strategy
+If creating an entity like this, somehow works and is used in the test, the test should be updated so that it does not use a fixed ID on the entity creation and persistence to the database.
+
+Updates and other CRUD methods should be left as is. Only on creation should the above be considered.
+
+## 7. Test class checklist
 
 Before submitting/reviewing an integration test class, confirm:
 
@@ -126,3 +161,5 @@ Before submitting/reviewing an integration test class, confirm:
 - [ ] Use the new Spring configuration for security
 - [ ] New Spring versions don't use `AntPathRequestMatcher` anymore. Make sure none is used
 - [ ] No `@MockBean` or `@SpyBean` annotations are used. Use `@MockitoBean` or `@MockitoSpyBean` instead.
+- [ ] No `@MockkBean(classes = ` type of declarations left
+- [ ] No more usages of `import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest`
