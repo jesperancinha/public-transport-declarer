@@ -41,6 +41,19 @@ Please check the [TechStack.md](TechStack.md) file for details.
 
 You can find the detailed information in the [Docs.md](Docs.md).
 
+---
+
+## Claude
+
+Prompt claude with the following:
+
+### Run all skills
+```text
+please run skills annotations, docker, java, jee, jvm, kotlin, maven, parallel, readme, scripts, spring, spring-test on this project
+```
+
+---
+
 ## About me
 
 [![GitHub followers](https://img.shields.io/github/followers/jesperancinha.svg?label=Jesperancinha&style=for-the-badge&logo=github&color=grey "GitHub")](https://github.com/jesperancinha)
