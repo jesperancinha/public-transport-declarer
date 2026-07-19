@@ -14,7 +14,6 @@
 - [CircleCI](https://circleci.com/)
 - [GitHub Actions](https://github.com/features/actions)
 - [Codacy](https://www.codacy.com/)
-- [Codebeat](https://codebeat.co/)
 - [Codecov](https://about.codecov.io/)
 - [Coveralls](https://coveralls.io/)
 - [GitHub Copilot](https://github.com/features/copilot)
