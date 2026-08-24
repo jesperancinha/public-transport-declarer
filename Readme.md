@@ -3,7 +3,7 @@
 ---
 
 
-[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Public%20Transport%20Declarer%20🚂&color=informational)](https://github.com/jesperancinha/public-transport-declarer)
+[![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Public%20Transport%20Declarer&color=informational)](https://github.com/jesperancinha/public-transport-declarer)
 
 [![CircleCI](https://circleci.com/gh/jesperancinha/public-transport-declarer.svg?style=svg)](https://circleci.com/gh/jesperancinha/public-transport-declarer)
 [![public-transport-declarer](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/public-transport-declarer.yml/badge.svg)](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/public-transport-declarer.yml)
