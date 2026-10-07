@@ -6,7 +6,7 @@
 [![Generic badge](https://img.shields.io/static/v1.svg?label=GitHub&message=Public%20Transport%20Declarer&color=informational)](https://github.com/jesperancinha/public-transport-declarer)
 
 [![CircleCI](https://circleci.com/gh/jesperancinha/public-transport-declarer.svg?style=svg)](https://circleci.com/gh/jesperancinha/public-transport-declarer)
-[![public-transport-declarer](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/public-transport-declarer.yml/badge.svg)](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/public-transport-declarer.yml)
+[![public-transport-declarer](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/build.yml/badge.svg)](https://github.com/jesperancinha/public-transport-declarer/actions/workflows/build.yml)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/9665344009e8435fa51b57c56e23616c)](https://www.codacy.com/gh/jesperancinha/public-transport-declarer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jesperancinha/public-transport-declarer&amp;utm_campaign=Badge_Grade)
 
